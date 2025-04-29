@@ -992,7 +992,7 @@ input, button, textarea, select {
 }
 
 .feature-item:hover {
-    transform: translateY(-5px);
+    /* transform: translateY(-5px); */
 }
 
 .feature-icon {
@@ -1098,7 +1098,7 @@ input, button, textarea, select {
 }
 
 .step-card:hover {
-    transform: translateY(-5px);
+    /* transform: translateY(-5px); */
     background: var(--background-light);
 }
 
@@ -1156,7 +1156,7 @@ input, button, textarea, select {
 }
 
 .why-netaak .feature-card:hover {
-    transform: translateY(-5px);
+    /* transform: translateY(-5px); */
     background: var(--background-light);
 }
 
