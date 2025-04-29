@@ -720,10 +720,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .about-us .section-title {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     color: var(--primary-color);
-    font-size: 1.6rem;
-    font-weight: 600;
+    font-size: 2rem;
+    font-weight: 700;
 }
 
 .about-content {
