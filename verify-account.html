@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تأكيد الحساب - نطاق</title>
+    <link rel="stylesheet" href="css/libs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/icon.png">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 1rem;
+        }
+        .verification-container {
+            width: 100%;
+            max-width: 450px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        .verification-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+        .verification-header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 4px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 2px;
+        }
+        .verification-body {
+            padding: 2rem;
+        }
+        .verification-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+        .section-title i {
+            color: var(--primary-color);
+            margin-left: 0.8rem;
+            font-size: 1.2rem;
+        }
+        .otp-container {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .otp-input {
+            width: 45px;
+            height: 45px;
+            text-align: center;
+            font-size: 1.3rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+        .otp-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.1);
+            outline: none;
+        }
+        .resend-section {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .resend-btn {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        .resend-btn:hover:not(:disabled) {
+            background: rgba(var(--primary-color-rgb), 0.1);
+        }
+        .resend-btn:disabled {
+            color: #999;
+            cursor: not-allowed;
+        }
+        .timer {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(var(--primary-color-rgb), 0.3);
+        }
+        .submit-btn i {
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="verification-container">
+        <div class="verification-header">
+            <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 600;">تأكيد الحساب</h2>
+            <p style="opacity: 0.9; font-size: 0.95rem;">يرجى إدخال رمز التحقق المرسل إلى بريدك الإلكتروني ورقم هاتفك</p>
+        </div>
+        <div class="verification-body">
+            <!-- Email Verification -->
+            <div class="verification-section">
+                <div class="section-title">
+                    <i class="fas fa-envelope"></i>
+                    تأكيد البريد الإلكتروني
+                </div>
+                <div class="otp-container">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                </div>
+                <div class="resend-section">
+                    <button class="resend-btn" id="resendEmailBtn">إعادة إرسال الرمز</button>
+                    <div class="timer" id="emailTimer"></div>
+                </div>
+            </div>
+
+            <!-- Phone Verification -->
+            <div class="verification-section">
+                <div class="section-title">
+                    <i class="fas fa-phone"></i>
+                    تأكيد رقم الهاتف
+                </div>
+                <div class="otp-container">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                </div>
+                <div class="resend-section">
+                    <button class="resend-btn" id="resendPhoneBtn">إعادة إرسال الرمز</button>
+                    <div class="timer" id="phoneTimer"></div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <!-- <button type="submit" class="submit-btn">
+                <i class="fas fa-check"></i>
+                تأكيد الحساب
+            </button> -->
+            <a href="home.html" class="submit-btn">
+                <i class="fas fa-check"></i>
+                تأكيد الحساب
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // OTP Input Handling
+        const otpInputs = document.querySelectorAll('.otp-input');
+        
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length === 1) {
+                    if (index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    }
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    otpInputs[index - 1].focus();
+                }
+            });
+        });
+
+        // Timer Function
+        function startTimer(buttonId, timerId, duration = 60) {
+            const button = document.getElementById(buttonId);
+            const timer = document.getElementById(timerId);
+            let timeLeft = duration;
+
+            button.disabled = true;
+            
+            const countdown = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                
+                timer.textContent = `يمكنك إعادة الإرسال بعد ${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    button.disabled = false;
+                    timer.textContent = '';
+                }
+                
+                timeLeft--;
+            }, 1000);
+        }
+
+        // Initialize timers
+        document.getElementById('resendEmailBtn').addEventListener('click', () => {
+            startTimer('resendEmailBtn', 'emailTimer');
+        });
+
+        document.getElementById('resendPhoneBtn').addEventListener('click', () => {
+            startTimer('resendPhoneBtn', 'phoneTimer');
+        });
+
+        // Start initial timers
+        startTimer('resendEmailBtn', 'emailTimer');
+        startTimer('resendPhoneBtn', 'phoneTimer');
+    </script>
+</body>
+</html> 

@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مكتبة المكونات - نطاق</title>
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.1/css/all.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/libs.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="home.html" class="logo">
+                    <img src="images/logo.png" alt="نطاق" class="logo-img">
+                </a>
+                
+                <div class="nav-buttons">
+                    <div class="user-menu">
+                        <a href="profile.html" class="btn btn-outline">
+                            <i class="fas fa-user"></i>
+                            الملف الشخصي
+                        </a>
+                        <a href="orders.html" class="btn btn-outline">
+                            <i class="fas fa-list"></i>
+                            طلباتي
+                        </a>
+                        <a href="notifications.html" class="btn btn-outline">
+                            <i class="fas fa-bell"></i>
+                            الإشعارات
+                        </a>
+                        <a href="index.html" class="btn btn-primary">
+                            <i class="fas fa-sign-out-alt"></i>
+                            تسجيل خروج
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container mt-lg">
+        <!-- Hero Section -->
+        <section class="card p-lg mb-lg text-center">
+            <h2 class="text-4xl text-primary mb-md">مرحباً بك في مكتبة المكونات</h2>
+            <p class="text-lg text-light mb-lg">مجموعة شاملة من المكونات والأنماط الجاهزة للاستخدام</p>
+            <div class="flex justify-center gap-md">
+                <button class="btn btn-primary btn-lg">ابدأ الآن</button>
+                <button class="btn btn-outline btn-lg">تعرف أكثر</button>
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <section class="mb-lg">
+            <div class="flex gap-md mb-md">
+                <button class="btn btn-primary">الكل</button>
+                <button class="btn btn-outline">التخطيط</button>
+                <button class="btn btn-outline">المكونات</button>
+                <button class="btn btn-outline">النماذج</button>
+                <button class="btn btn-outline">التفاعلات</button>
+            </div>
+        </section>
+
+        <!-- Layout Examples -->
+        <section class="mb-lg">
+            <h2 class="text-2xl text-primary mb-md">أمثلة التخطيط</h2>
+            
+            <!-- Grid Layout -->
+            <div class="card mb-md">
+                <div class="card-header">
+                    <h3 class="card-title">تخطيط الشبكة</h3>
+                </div>
+                <div class="card-body">
+                    <div class="grid grid-cols-3 gap-md">
+                        <div class="card p-md text-center">
+                            <div class="icon icon-lg mb-md">📱</div>
+                            <h4 class="text-lg mb-sm">عنوان</h4>
+                            <p class="text-light">وصف قصير للمحتوى</p>
+                        </div>
+                        <div class="card p-md text-center">
+                            <div class="icon icon-lg mb-md">💻</div>
+                            <h4 class="text-lg mb-sm">عنوان</h4>
+                            <p class="text-light">وصف قصير للمحتوى</p>
+                        </div>
+                        <div class="card p-md text-center">
+                            <div class="icon icon-lg mb-md">📱</div>
+                            <h4 class="text-lg mb-sm">عنوان</h4>
+                            <p class="text-light">وصف قصير للمحتوى</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flex Layout -->
+            <div class="card mb-md">
+                <div class="card-header">
+                    <h3 class="card-title">تخطيط المرن</h3>
+                </div>
+                <div class="card-body">
+                    <div class="flex gap-md">
+                        <div class="card p-md flex-1">
+                            <h4 class="text-lg mb-sm">عنوان</h4>
+                            <p class="text-light">وصف قصير للمحتوى</p>
+                        </div>
+                        <div class="card p-md flex-1">
+                            <h4 class="text-lg mb-sm">عنوان</h4>
+                            <p class="text-light">وصف قصير للمحتوى</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Component Examples -->
+        <section class="mb-lg">
+            <h2 class="text-2xl text-primary mb-md">أمثلة المكونات</h2>
+            
+            <!-- Cards -->
+            <div class="card mb-md">
+                <div class="card-header">
+                    <h3 class="card-title">البطاقات</h3>
+                </div>
+                <div class="card-body">
+                    <div class="grid grid-cols-3 gap-md">
+                        <!-- Basic Card -->
+                        <div class="card">
+                            <img src="https://via.placeholder.com/300x200" alt="صورة" class="card-img">
+                            <div class="card-body">
+                                <h4 class="card-title">بطاقة بسيطة</h4>
+                                <p class="card-subtitle">وصف قصير</p>
+                                <p class="text-light">محتوى البطاقة</p>
+                            </div>
+                        </div>
+
+                        <!-- Card with Footer -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">بطاقة مع تذييل</h4>
+                                <p class="text-light">محتوى البطاقة</p>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-primary btn-sm">اقرأ المزيد</button>
+                            </div>
+                        </div>
+
+                        <!-- Card with Overlay -->
+                        <div class="card" style="position: relative;">
+                            <img src="https://via.placeholder.com/300x200" alt="صورة" class="card-img">
+                            <div class="card-img-overlay">
+                                <h4 class="text-white">بطاقة مع تراكب</h4>
+                                <p class="text-white">وصف قصير</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alerts -->
+            <div class="card mb-md">
+                <div class="card-header">
+                    <h3 class="card-title">التنبيهات</h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-success mb-md">
+                        تم حفظ البيانات بنجاح
+                    </div>
+                    <div class="alert alert-error mb-md">
+                        حدث خطأ أثناء حفظ البيانات
+                    </div>
+                    <div class="alert alert-warning mb-md">
+                        تنبيه: يجب إكمال جميع الحقول
+                    </div>
+                    <div class="alert alert-info alert-dismissible">
+                        معلومة: يمكنك تحديث البيانات لاحقاً
+                        <button class="alert-dismiss">×</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Badges -->
+            <div class="card mb-md">
+                <div class="card-header">
+                    <h3 class="card-title">الشارات</h3>
+                </div>
+                <div class="card-body">
+                    <div class="flex gap-md flex-wrap">
+                        <span class="badge badge-primary">الشارة الرئيسية</span>
+                        <span class="badge badge-secondary">الشارة الثانوية</span>
+                        <span class="badge badge-success">الشارة الخضراء</span>
+                        <span class="badge badge-error">الشارة الحمراء</span>
+                        <span class="badge badge-warning">الشارة الصفراء</span>
+                        <span class="badge badge-info">الشارة الزرقاء</span>
+                        <span class="badge badge-outline">الشارة المحيطية</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form Examples -->
+        <section class="mb-lg">
+            <h2 class="text-2xl text-primary mb-md">أمثلة النماذج</h2>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">نموذج تسجيل</h3>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <label class="form-label">الاسم الكامل</label>
+                            <input type="text" class="form-input" placeholder="أدخل اسمك الكامل">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">البريد الإلكتروني</label>
+                            <input type="email" class="form-input" placeholder="أدخل بريدك الإلكتروني">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">كلمة المرور</label>
+                            <input type="password" class="form-input" placeholder="أدخل كلمة المرور">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">تأكيد كلمة المرور</label>
+                            <input type="password" class="form-input error" placeholder="أعد إدخال كلمة المرور">
+                            <span class="error-message">كلمة المرور غير متطابقة</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">الدولة</label>
+                            <select class="form-select">
+                                <option value="">اختر الدولة</option>
+                                <option value="sa">المملكة العربية السعودية</option>
+                                <option value="ae">الإمارات العربية المتحدة</option>
+                                <option value="kw">الكويت</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">الملاحظات</label>
+                            <textarea class="form-textarea" placeholder="أدخل ملاحظاتك هنا"></textarea>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="terms">
+                            <label class="form-check-label" for="terms">أوافق على الشروط والأحكام</label>
+                        </div>
+                        <div class="form-group mt-md">
+                            <button type="submit" class="btn btn-primary btn-block">تسجيل</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Examples -->
+        <section class="mb-lg">
+            <h2 class="text-2xl text-primary mb-md">أمثلة التفاعلات</h2>
+            
+            <!-- السلايدر -->
+            <section class="slider-section">
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <div class="slider-slide">
+                            <div class="card">
+                                <div class="icon">🌱</div>
+                                <h3 class="text-xl text-primary mb-sm">نيتاك للزراعة</h3>
+                                <p class="text-light mb-md">نقدم أفضل الحلول الزراعية المبتكرة</p>
+                                <button class="btn btn-primary">تعرف أكثر</button>
+                            </div>
+                        </div>
+                        <div class="slider-slide">
+                            <div class="card">
+                                <div class="icon">🌿</div>
+                                <h3 class="text-xl text-primary mb-sm">خدماتنا</h3>
+                                <p class="text-light mb-md">نقدم مجموعة متكاملة من الخدمات الزراعية</p>
+                                <button class="btn btn-primary">خدماتنا</button>
+                            </div>
+                        </div>
+                        <div class="slider-slide">
+                            <div class="card">
+                                <div class="icon">🌳</div>
+                                <h3 class="text-xl text-primary mb-sm">تواصل معنا</h3>
+                                <p class="text-light mb-md">نحن هنا لمساعدتك في كل ما تحتاجه</p>
+                                <button class="btn btn-primary">اتصل بنا</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="slider-controls">
+                        <button class="slider-nav slider-prev" aria-label="الشريحة السابقة">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M15 18l-6-6 6-6"/>
+                            </svg>
+                        </button>
+                        <button class="slider-nav slider-next" aria-label="الشريحة التالية">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 18l6-6-6-6"/>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="slider-indicators"></div>
+                </div>
+            </section>
+
+            <!-- Loading States -->
+            <div class="card mb-md">
+                <div class="card-header">
+                    <h3 class="card-title">حالات التحميل</h3>
+                </div>
+                <div class="card-body">
+                    <div class="flex gap-md">
+                        <button class="btn btn-primary loading">جاري التحميل</button>
+                        <button class="btn btn-outline loading">جاري التحميل</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Animations -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">الحركات</h3>
+                </div>
+                <div class="card-body">
+                    <div class="grid grid-cols-3 gap-md">
+                        <div class="card p-md text-center animate-fade-in">
+                            <h4>حركة الظهور</h4>
+                        </div>
+                        <div class="card p-md text-center animate-fade-down">
+                            <h4>حركة من أعلى</h4>
+                        </div>
+                        <div class="card p-md text-center animate-fade-up">
+                            <h4>حركة من أسفل</h4>
+                        </div>
+                        <div class="card p-md text-center animate-fade-left">
+                            <h4>حركة من اليسار</h4>
+                        </div>
+                        <div class="card p-md text-center animate-fade-right">
+                            <h4>حركة من اليمين</h4>
+                        </div>
+                        <div class="card p-md text-center animate-zoom-in">
+                            <h4>حركة تكبير</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- نموذج الاتصال -->
+        <section class="form-section">
+            <div class="container">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">تواصل معنا</h3>
+                        <p class="card-subtitle">نحن هنا لمساعدتك في كل ما تحتاجه</p>
+                    </div>
+                    <div class="card-body">
+                        <form class="contact-form">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-user"></i>
+                                    الاسم الكامل
+                                </label>
+                                <div class="input-group">
+                                    <input type="text" class="form-input" placeholder="أدخل اسمك الكامل">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-envelope"></i>
+                                    البريد الإلكتروني
+                                </label>
+                                <div class="input-group">
+                                    <input type="email" class="form-input" placeholder="أدخل بريدك الإلكتروني">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-phone"></i>
+                                    رقم الهاتف
+                                </label>
+                                <div class="input-group">
+                                    <input type="tel" class="form-input" placeholder="أدخل رقم هاتفك">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-comment"></i>
+                                    الرسالة
+                                </label>
+                                <div class="input-group">
+                                    <textarea class="form-textarea" placeholder="اكتب رسالتك هنا..."></textarea>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    <i class="fas fa-paper-plane"></i>
+                                    إرسال الرسالة
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-logo">
+                        <img src="images/footer-logo.png" alt="نطاق" class="logo-img">
+                        <p class="footer-desc">نطاق هي منصة رقمية تربط بين المستخدمين ومقدمي الخدمات في مختلف المجالات. نسعى لتسهيل عملية البحث عن الخدمات وتوفير تجربة سلسة وآمنة للجميع.</p>
+                        <div class="footer-contact">
+                            <p><i class="fas fa-phone"></i> تواصل معنا: 0123456789</p>
+                            <p><i class="fas fa-envelope"></i> البريد الإلكتروني: info@netaak.com</p>
+                            <p><i class="fas fa-map-marker-alt"></i> العنوان: القاهرة، مصر</p>
+                        </div>
+                    </div>
+                    <div class="footer-links">
+                        <h4>روابط سريعة</h4>
+                        <ul>
+                            <li><a href="about.html"><i class="fas fa-info-circle"></i> عن نطاق</a></li>
+                            <li><a href="contact.html"><i class="fas fa-envelope"></i> اتصل بنا</a></li>
+                            <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> سياسة الخصوصية</a></li>
+                            <li><a href="terms.html"><i class="fas fa-file-contract"></i> الشروط والأحكام</a></li>
+                            <li><a href="faq.html"><i class="fas fa-question-circle"></i> الأسئلة الشائعة</a></li>
+                            <li><a href="blog.html"><i class="fas fa-blog"></i> المدونة</a></li>
+                            <li><a href="careers.html"><i class="fas fa-briefcase"></i> الوظائف</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-social">
+                        <h4>تابعنا على</h4>
+                        <div class="social-links">
+                            <a href="#" class="social-link">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                        <div class="newsletter">
+                            <h4>النشرة البريدية</h4>
+                            <p>اشترك في نشرتنا البريدية واحصل على آخر العروض المميزة والأخبار الحصرية</p>
+                            <form class="newsletter-form">
+                                <input type="email" placeholder="أدخل بريدك الإلكتروني" required>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-paper-plane"></i>
+                                    اشترك الآن
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>جميع الحقوق محفوظة © 2025 نطاق</p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- أمثلة التصنيفات -->
+        <section class="mb-lg">
+            <h2 class="text-2xl text-primary mb-md">أمثلة التصنيفات</h2>
+            
+            <div class="grid grid-cols-3 gap-md">
+                <div class="category-card">
+                    <div class="category-icon">🍽️</div>
+                    <h3 class="text-xl mb-sm">طعام</h3>
+                    <p class="text-light">مطاعم، بقالة، خضراوات</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">👔</div>
+                    <h3 class="text-xl mb-sm">ملابس</h3>
+                    <p class="text-light">رجالي، حريمي، أطفال</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🏥</div>
+                    <h3 class="text-xl mb-sm">طب</h3>
+                    <p class="text-light">أطباء، صيدليات، معامل</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- أمثلة البحث والفلترة -->
+        <section class="mb-lg">
+            <h2 class="text-2xl text-primary mb-md">البحث والفلترة</h2>
+            
+            <div class="card p-lg">
+                <div class="search-bar mb-md">
+                    <input type="text" class="search-input" placeholder="ابحث عن خدمة...">
+                    <i class="search-icon">🔍</i>
+                </div>
+
+                <div class="filter-section">
+                    <div class="filter-group">
+                        <label class="filter-label">الموقع</label>
+                        <div class="filter-options">
+                            <label class="form-check">
+                                <input type="checkbox" class="filter-option" value="nearby">
+                                <span>القريب مني</span>
+                            </label>
+                            <label class="form-check">
+                                <input type="checkbox" class="filter-option" value="verified">
+                                <span>موثق فقط</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- أمثلة التقييمات -->
+        <section class="mb-lg">
+            <h2 class="text-2xl text-primary mb-md">التقييمات والشارات</h2>
+            
+            <div class="card p-lg">
+                <div class="flex items-center gap-md mb-md">
+                    <div class="rating">
+                        <span class="rating-star">⭐</span>
+                        <span class="rating-star">⭐</span>
+                        <span class="rating-star">⭐</span>
+                        <span class="rating-star">⭐</span>
+                        <span class="rating-star">⭐</span>
+                        <span class="rating-count">(120 تقييم)</span>
+                    </div>
+                    <div class="badge-group">
+                        <span class="badge badge-verified">موثق</span>
+                        <span class="badge badge-featured">مميز</span>
+                        <span class="badge badge-new">جديد</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- أمثلة الخريطة -->
+        <section class="mb-lg">
+            <h2 class="text-2xl text-primary mb-md">الخريطة والموقع</h2>
+            
+            <div class="card p-lg">
+                <div class="location-picker mb-md">
+                    <input type="text" class="location-input" placeholder="اختر موقعك...">
+                    <i class="location-icon">📍</i>
+                </div>
+                <div class="map-container">
+                    <!-- هنا سيتم إضافة الخريطة -->
+                </div>
+            </div>
+        </section>
+
+        <!-- أمثلة لوحة التحكم -->
+        <section class="mb-lg">
+            <h2 class="text-2xl text-primary mb-md">لوحة التحكم</h2>
+            
+            <div class="dashboard">
+                <div class="sidebar">
+                    <nav class="flex flex-col gap-sm">
+                        <a href="#" class="btn btn-outline">الرئيسية</a>
+                        <a href="#" class="btn btn-outline">الطلبات</a>
+                        <a href="#" class="btn btn-outline">الإحصائيات</a>
+                        <a href="#" class="btn btn-outline">الإعدادات</a>
+                    </nav>
+
+                    <!-- شريط الفلاتر الجانبي -->
+                    <div class="filter-sidebar mt-lg">
+                        <h3 class="text-lg mb-md">الفلاتر</h3>
+                        
+                        <!-- فلتر التصنيفات -->
+                        <div class="filter-group mb-md">
+                            <h4 class="text-sm font-semibold mb-sm">التصنيفات</h4>
+                            <div class="filter-options">
+                                <label class="form-check">
+                                    <input type="checkbox" class="filter-option" value="food">
+                                    <span>طعام</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="checkbox" class="filter-option" value="clothes">
+                                    <span>ملابس</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="checkbox" class="filter-option" value="health">
+                                    <span>صحة</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- فلتر التقييم -->
+                        <div class="filter-group mb-md">
+                            <h4 class="text-sm font-semibold mb-sm">التقييم</h4>
+                            <div class="filter-options">
+                                <label class="form-check">
+                                    <input type="radio" name="rating" class="filter-option" value="5">
+                                    <span>5 نجوم</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="radio" name="rating" class="filter-option" value="4">
+                                    <span>4 نجوم وأعلى</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="radio" name="rating" class="filter-option" value="3">
+                                    <span>3 نجوم وأعلى</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- فلتر المسافة -->
+                        <div class="filter-group mb-md">
+                            <h4 class="text-sm font-semibold mb-sm">المسافة</h4>
+                            <div class="filter-options">
+                                <label class="form-check">
+                                    <input type="radio" name="distance" class="filter-option" value="1">
+                                    <span>أقل من 1 كم</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="radio" name="distance" class="filter-option" value="3">
+                                    <span>أقل من 3 كم</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="radio" name="distance" class="filter-option" value="5">
+                                    <span>أقل من 5 كم</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- فلتر الحالة -->
+                        <div class="filter-group mb-md">
+                            <h4 class="text-sm font-semibold mb-sm">الحالة</h4>
+                            <div class="filter-options">
+                                <label class="form-check">
+                                    <input type="checkbox" class="filter-option" value="verified">
+                                    <span>موثق</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="checkbox" class="filter-option" value="featured">
+                                    <span>مميز</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="checkbox" class="filter-option" value="new">
+                                    <span>جديد</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- فلتر السعر -->
+                        <div class="filter-group mb-md">
+                            <h4 class="text-sm font-semibold mb-sm">السعر</h4>
+                            <div class="filter-options">
+                                <label class="form-check">
+                                    <input type="radio" name="price" class="filter-option" value="low">
+                                    <span>منخفض</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="radio" name="price" class="filter-option" value="medium">
+                                    <span>متوسط</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="radio" name="price" class="filter-option" value="high">
+                                    <span>مرتفع</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- فلتر الوقت والتوفر -->
+                        <div class="filter-group mb-md">
+                            <h4 class="text-sm font-semibold mb-sm">التوفر</h4>
+                            <div class="filter-options">
+                                <label class="form-check">
+                                    <input type="radio" name="availability" class="filter-option" value="now">
+                                    <span>متاح الآن</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="radio" name="availability" class="filter-option" value="24h">
+                                    <span>متاح خلال 24 ساعة</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="radio" name="availability" class="filter-option" value="week">
+                                    <span>متاح خلال الأسبوع</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- فلتر الترتيب -->
+                        <div class="filter-group mb-md">
+                            <h4 class="text-sm font-semibold mb-sm">الترتيب حسب</h4>
+                            <div class="filter-options">
+                                <label class="form-check">
+                                    <input type="radio" name="sort" class="filter-option" value="nearest">
+                                    <span>الأقرب</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="radio" name="sort" class="filter-option" value="rating">
+                                    <span>الأعلى تقييماً</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="radio" name="sort" class="filter-option" value="price_low">
+                                    <span>الأقل سعراً</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="radio" name="sort" class="filter-option" value="newest">
+                                    <span>الأحدث</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- فلتر الخدمات الإضافية -->
+                        <div class="filter-group mb-md">
+                            <h4 class="text-sm font-semibold mb-sm">خدمات إضافية</h4>
+                            <div class="filter-options">
+                                <label class="form-check">
+                                    <input type="checkbox" class="filter-option" value="free_delivery">
+                                    <span>توصيل مجاني</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="checkbox" class="filter-option" value="24_7">
+                                    <span>خدمة 24/7</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="checkbox" class="filter-option" value="online_payment">
+                                    <span>دفع إلكتروني</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="checkbox" class="filter-option" value="appointment">
+                                    <span>حجز مواعيد</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- فلتر اللغات -->
+                        <div class="filter-group mb-md">
+                            <h4 class="text-sm font-semibold mb-sm">اللغات المتاحة</h4>
+                            <div class="filter-options">
+                                <label class="form-check">
+                                    <input type="checkbox" class="filter-option" value="ar">
+                                    <span>عربي</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="checkbox" class="filter-option" value="en">
+                                    <span>إنجليزي</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="checkbox" class="filter-option" value="fr">
+                                    <span>فرنسي</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- فلتر العروض -->
+                        <div class="filter-group mb-md">
+                            <h4 class="text-sm font-semibold mb-sm">العروض</h4>
+                            <div class="filter-options">
+                                <label class="form-check">
+                                    <input type="checkbox" class="filter-option" value="discount">
+                                    <span>خصومات</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="checkbox" class="filter-option" value="exclusive">
+                                    <span>عروض حصرية</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="checkbox" class="filter-option" value="packages">
+                                    <span>باقات خاصة</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- أزرار الفلترة -->
+                        <div class="flex gap-sm mt-md">
+                            <button class="btn btn-primary btn-block">تطبيق الفلاتر</button>
+                            <button class="btn btn-outline btn-block">إعادة تعيين</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-content">
+                    <div class="grid grid-cols-3 gap-md">
+                        <div class="stats-card">
+                            <h3 class="text-lg mb-sm">إجمالي الطلبات</h3>
+                            <div class="stats-number">1,234</div>
+                        </div>
+                        <div class="stats-card">
+                            <h3 class="text-lg mb-sm">التقييمات</h3>
+                            <div class="stats-number">4.8</div>
+                        </div>
+                        <div class="stats-card">
+                            <h3 class="text-lg mb-sm">العملاء</h3>
+                            <div class="stats-number">567</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- أمثلة المحادثة -->
+        <section class="mb-lg">
+            <h2 class="text-2xl text-primary mb-md">نظام المحادثة</h2>
+            
+            <div class="chat-container">
+                <div class="chat-list p-md">
+                    <div class="flex items-center gap-sm p-sm hover:bg-gray-100 cursor-pointer">
+                        <img src="https://via.placeholder.com/40" alt="صورة" class="rounded-full">
+                        <div>
+                            <h4 class="text-sm font-semibold">أحمد محمد</h4>
+                            <p class="text-xs text-light">آخر رسالة...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-md">
+                    <div class="chat-messages mb-md" style="height: 400px; overflow-y: auto;">
+                        <div class="chat-message message-received">
+                            مرحباً، كيف يمكنني مساعدتك؟
+                        </div>
+                        <div class="chat-message message-sent">
+                            أريد حجز موعد مع الطبيب
+                        </div>
+                    </div>
+                    <div class="flex gap-sm">
+                        <input type="text" class="form-input chat-input" placeholder="اكتب رسالتك...">
+                        <button class="btn btn-primary chat-send">إرسال</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sliderWrapper = document.querySelector('.slider-wrapper');
+        const slides = document.querySelectorAll('.slider-slide');
+        const prevBtn = document.querySelector('.slider-prev');
+        const nextBtn = document.querySelector('.slider-next');
+        const dots = document.querySelectorAll('.slider-dot');
+        
+        let currentSlide = 0;
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+        let autoPlayInterval;
+
+        // تحديث موقع السلايدر
+        function updateSlider(animate = true) {
+            if (animate) {
+                sliderWrapper.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            } else {
+                sliderWrapper.style.transition = 'none';
+            }
+            sliderWrapper.style.transform = `translateX(${currentSlide * 100}%)`;
+            
+            // تحديث النقاط
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.style.background = 'var(--white)';
+                    dot.style.transform = 'scale(1.2)';
+                } else {
+                    dot.style.background = 'transparent';
+                    dot.style.transform = 'scale(1)';
+                }
+            });
+        }
+
+        // الانتقال للشريحة التالية
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            updateSlider();
+        }
+
+        // الانتقال للشريحة السابقة
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            updateSlider();
+        }
+
+        // إعادة تشغيل التشغيل التلقائي
+        function resetAutoPlay() {
+            clearInterval(autoPlayInterval);
+            autoPlayInterval = setInterval(nextSlide, 5000);
+        }
+
+        // إضافة مستمعي الأحداث للأزرار
+        nextBtn.addEventListener('click', () => {
+            prevSlide(); // عكس الاتجاه بسبب RTL
+            resetAutoPlay();
+        });
+        prevBtn.addEventListener('click', () => {
+            nextSlide(); // عكس الاتجاه بسبب RTL
+            resetAutoPlay();
+        });
+
+        // إضافة مستمعي الأحداث للنقاط
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                updateSlider();
+                resetAutoPlay();
+            });
+        });
+
+        // دعم اللمس
+        sliderWrapper.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+            sliderWrapper.style.transition = 'none';
+        });
+
+        sliderWrapper.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            currentX = e.touches[0].clientX;
+            const diff = startX - currentX;
+            sliderWrapper.style.transform = `translateX(calc(${currentSlide * 100}% + ${diff}px))`;
+        });
+
+        sliderWrapper.addEventListener('touchend', () => {
+            isDragging = false;
+            const diff = startX - currentX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    prevSlide(); // عكس الاتجاه بسبب RTL
+                } else {
+                    nextSlide(); // عكس الاتجاه بسبب RTL
+                }
+            } else {
+                updateSlider();
+            }
+            resetAutoPlay();
+        });
+
+        // دعم السحب بالماوس
+        sliderWrapper.addEventListener('mousedown', (e) => {
+            startX = e.clientX;
+            isDragging = true;
+            sliderWrapper.style.cursor = 'grabbing';
+            sliderWrapper.style.transition = 'none';
+        });
+
+        sliderWrapper.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            currentX = e.clientX;
+            const diff = startX - currentX;
+            sliderWrapper.style.transform = `translateX(calc(${currentSlide * 100}% + ${diff}px))`;
+        });
+
+        sliderWrapper.addEventListener('mouseup', () => {
+            isDragging = false;
+            sliderWrapper.style.cursor = 'grab';
+            const diff = startX - currentX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    prevSlide(); // عكس الاتجاه بسبب RTL
+                } else {
+                    nextSlide(); // عكس الاتجاه بسبب RTL
+                }
+            } else {
+                updateSlider();
+            }
+            resetAutoPlay();
+        });
+
+        sliderWrapper.addEventListener('mouseleave', () => {
+            if (isDragging) {
+                isDragging = false;
+                sliderWrapper.style.cursor = 'grab';
+                updateSlider();
+                resetAutoPlay();
+            }
+        });
+
+        // إضافة تأثيرات hover للأزرار
+        const navButtons = document.querySelectorAll('.slider-nav');
+        navButtons.forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                button.style.background = 'rgba(255,255,255,1)';
+                button.style.transform = 'translateY(-50%) scale(1.1)';
+            });
+            button.addEventListener('mouseleave', () => {
+                button.style.background = 'rgba(255,255,255,0.9)';
+                button.style.transform = 'translateY(-50%) scale(1)';
+            });
+        });
+
+        // تشغيل السلايدر تلقائياً
+        resetAutoPlay();
+
+        // تحديث حجم السلايدر عند تغيير حجم النافذة
+        window.addEventListener('resize', () => {
+            updateSlider(false);
+        });
+    });
+    </script>
+</body>
+</html> 
