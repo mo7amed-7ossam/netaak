@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأقسام الفرعية - طعام - نطاق</title>
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="images/icon.png">
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <link rel="apple-touch-icon" href="images/icon.png">
+    <meta name="theme-color" content="#6f8051">
+    <style>
+        :root {
+            --primary-color: #6f8051;
+            --primary-color-dark: #5a6a42;
+            --primary-color-rgb: 111, 128, 81;
+            --secondary-color: #919663;
+            --accent-color: #c9ad7a;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --background-light: #f8f9fa;
+            --white: #ffffff;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+            --border-radius: 8px;
+            --transition: all 0.2s ease;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: var(--background-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .category-header {
+            background: var(--white);
+            padding: 2rem 0;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid rgba(111, 128, 81, 0.1);
+        }
+
+        .category-header-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .category-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--primary-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+
+        .category-info {
+            flex: 1;
+        }
+
+        .category-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .category-description {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+        }
+
+        .category-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .stat-item i {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .subcategories-container {
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            padding: 0 2rem;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .back-button:hover {
+            color: var(--primary-color);
+        }
+
+        .subcategories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .subcategory-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .subcategory-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .subcategory-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .subcategory-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .subcategory-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .subcategory-name i {
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+
+        .subcategory-description {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .subcategory-stats {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(111, 128, 81, 0.1);
+            margin-top: auto;
+        }
+
+        .subcategory-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .subcategory-stat i {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+        }
+
+        .pagination-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: var(--white);
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 1px solid rgba(111, 128, 81, 0.1);
+        }
+
+        .pagination-item:hover {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        .pagination-item.active {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        .pagination-item.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .container,
+            .category-header-content,
+            .subcategories-container {
+                padding: 0 1.5rem;
+            }
+
+            .category-header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .category-stats {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 1.5rem;
+            }
+
+            .subcategories-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container,
+            .category-header-content,
+            .subcategories-container {
+                padding: 0 1rem;
+            }
+
+            .category-title {
+                font-size: 1.6rem;
+            }
+
+            .subcategories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .subcategory-image {
+                height: 160px;
+            }
+
+            .subcategory-content {
+                padding: 1rem;
+            }
+
+            .pagination {
+                gap: 0.25rem;
+            }
+
+            .pagination-item {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="home.html" class="logo">
+                    <img src="images/logo.png" alt="نطاق" class="logo-img">
+                </a>
+                
+                <div class="nav-buttons">
+                    <div class="user-menu">
+                        <a href="profile.html" class="btn btn-outline">
+                            <i class="fas fa-user"></i>
+                            الملف الشخصي
+                        </a>
+                        <a href="orders.html" class="btn btn-outline">
+                            <i class="fas fa-list"></i>
+                            طلباتي
+                        </a>
+                        <a href="notifications.html" class="btn btn-outline">
+                            <i class="fas fa-bell"></i>
+                            الإشعارات
+                        </a>
+                        <a href="index.html" class="btn btn-primary">
+                            <i class="fas fa-sign-out-alt"></i>
+                            تسجيل خروج
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Category Header -->
+    <section class="category-header">
+        <div class="category-header-content">
+            <div class="category-icon">
+                <i class="fas fa-utensils"></i>
+            </div>
+            <div class="category-info">
+                <h1 class="category-title">طعام</h1>
+                <p class="category-description">اكتشف أفضل مزودي الخدمات الغذائية في منطقتك</p>
+                <div class="category-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-store"></i>
+                        <span>500+ مزود خدمة</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-star"></i>
+                        <span>4.8 تقييم</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>متوفر في 20 منطقة</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="subcategories-container">
+        <a href="categories.html" class="back-button">
+            <i class="fas fa-arrow-right"></i>
+            العودة للأقسام الرئيسية
+        </a>
+
+        <div class="subcategories-grid">
+            <!-- مطاعم -->
+            <a href="providers.html" class="subcategory-card">
+                <img src="images/subcategories/restaurants.jpg" alt="مطاعم" class="subcategory-image">
+                <div class="subcategory-content">
+                    <div class="subcategory-name">
+                        <i class="fas fa-store"></i>
+                        مطاعم
+                    </div>
+                    <p class="subcategory-description">اكتشف أفضل المطاعم في منطقتك</p>
+                    <div class="subcategory-stats">
+                        <div class="subcategory-stat">
+                            <i class="fas fa-store"></i>
+                            <span>150+ مطعم</span>
+                        </div>
+                        <div class="subcategory-stat">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- سوبر ماركت -->
+            <a href="providers.html" class="subcategory-card">
+                <img src="images/subcategories/supermarket.jpg" alt="سوبر ماركت" class="subcategory-image">
+                <div class="subcategory-content">
+                    <div class="subcategory-name">
+                        <i class="fas fa-shopping-cart"></i>
+                        سوبر ماركت
+                    </div>
+                    <p class="subcategory-description">تسوق من أفضل المتاجر الكبرى</p>
+                    <div class="subcategory-stats">
+                        <div class="subcategory-stat">
+                            <i class="fas fa-store"></i>
+                            <span>80+ متجر</span>
+                        </div>
+                        <div class="subcategory-stat">
+                            <i class="fas fa-star"></i>
+                            <span>4.7</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- بقالة -->
+            <a href="providers.html" class="subcategory-card">
+                <img src="images/subcategories/grocery.jpg" alt="بقالة" class="subcategory-image">
+                <div class="subcategory-content">
+                    <div class="subcategory-name">
+                        <i class="fas fa-shopping-basket"></i>
+                        بقالة
+                    </div>
+                    <p class="subcategory-description">احصل على احتياجاتك اليومية من أقرب بقالة</p>
+                    <div class="subcategory-stats">
+                        <div class="subcategory-stat">
+                            <i class="fas fa-store"></i>
+                            <span>120+ بقالة</span>
+                        </div>
+                        <div class="subcategory-stat">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- خضراوات -->
+            <a href="providers.html" class="subcategory-card">
+                <img src="images/subcategories/vegetables.jpg" alt="خضراوات" class="subcategory-image">
+                <div class="subcategory-content">
+                    <div class="subcategory-name">
+                        <i class="fas fa-carrot"></i>
+                        خضراوات
+                    </div>
+                    <p class="subcategory-description">خضراوات طازجة يومياً</p>
+                    <div class="subcategory-stats">
+                        <div class="subcategory-stat">
+                            <i class="fas fa-store"></i>
+                            <span>90+ متجر</span>
+                        </div>
+                        <div class="subcategory-stat">
+                            <i class="fas fa-star"></i>
+                            <span>4.8</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- فواكه -->
+            <a href="providers.html" class="subcategory-card">
+                <img src="images/subcategories/fruits.jpg" alt="فواكه" class="subcategory-image">
+                <div class="subcategory-content">
+                    <div class="subcategory-name">
+                        <i class="fas fa-apple-alt"></i>
+                        فواكه
+                    </div>
+                    <p class="subcategory-description">فواكه طازجة وموسمية</p>
+                    <div class="subcategory-stats">
+                        <div class="subcategory-stat">
+                            <i class="fas fa-store"></i>
+                            <span>70+ متجر</span>
+                        </div>
+                        <div class="subcategory-stat">
+                            <i class="fas fa-star"></i>
+                            <span>4.7</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- حلواني -->
+            <a href="providers.html" class="subcategory-card">
+                <img src="images/subcategories/sweets.jpg" alt="حلواني" class="subcategory-image">
+                <div class="subcategory-content">
+                    <div class="subcategory-name">
+                        <i class="fas fa-cookie"></i>
+                        حلواني
+                    </div>
+                    <p class="subcategory-description">أشهى الحلويات الشرقية والغربية</p>
+                    <div class="subcategory-stats">
+                        <div class="subcategory-stat">
+                            <i class="fas fa-store"></i>
+                            <span>60+ محل</span>
+                        </div>
+                        <div class="subcategory-stat">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <a href="#" class="pagination-item disabled">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+            <a href="#" class="pagination-item active">1</a>
+            <a href="#" class="pagination-item">2</a>
+            <a href="#" class="pagination-item">3</a>
+            <span class="pagination-item">...</span>
+            <a href="#" class="pagination-item">10</a>
+            <a href="#" class="pagination-item">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/footer-logo.png" alt="نطاق" class="logo-img">
+                    <p class="footer-desc">نطاق هي منصة رقمية تربط بين المستخدمين ومقدمي الخدمات في مختلف المجالات. نسعى لتسهيل عملية البحث عن الخدمات وتوفير تجربة سلسة وآمنة للجميع.</p>
+                    <div class="footer-contact">
+                        <p>📞 تواصل معنا: 0123456789</p>
+                        <p>📧 البريد الإلكتروني: info@netaak.com</p>
+                        <p>📍 العنوان: القاهرة، مصر</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="categories.html">التصنيفات</a></li>
+                        <li><a href="map.html">خريطة الموقع</a></li>
+                        <li><a href="profile.html">حسابي</a></li>
+                        <li><a href="orders.html">طلباتي</a></li>
+                        <li><a href="about.html">عن نطاق</a></li>
+                        <li><a href="contact.html">اتصل بنا</a></li>
+                        <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                        <li><a href="terms.html">الشروط والأحكام</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>تابعنا على</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                    <div class="newsletter">
+                        <h4>النشرة البريدية</h4>
+                        <p>اشترك في نشرتنا البريدية واحصل على آخر العروض المميزة والأخبار الحصرية</p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="أدخل بريدك الإلكتروني" required>
+                            <button type="submit" class="btn btn-primary">اشترك الآن</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>جميع الحقوق محفوظة © 2025 نطاق</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html> 

@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مقدمي الخدمة - نطاق</title>
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="images/icon.png">
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <link rel="apple-touch-icon" href="images/icon.png">
+    <meta name="theme-color" content="#6f8051">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        :root {
+            --primary-color: #6f8051;
+            --primary-color-dark: #5a6a42;
+            --primary-color-rgb: 111, 128, 81;
+            --secondary-color: #919663;
+            --accent-color: #c9ad7a;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --background-light: #f8f9fa;
+            --white: #ffffff;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+            --border-radius: 8px;
+            --transition: all 0.2s ease;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: var(--background-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Category Header */
+        .category-header {
+            background: var(--white);
+            padding: 2.5rem 0;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid rgba(111, 128, 81, 0.1);
+        }
+
+        .category-header-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .category-icon {
+            width: 68px;
+            height: 68px;
+            background: var(--primary-color);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.9rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(111, 128, 81, 0.15);
+        }
+
+        .category-info {
+            flex: 1;
+        }
+
+        .category-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .category-description {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+        }
+
+        .category-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .stat-item i {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        /* Filters Section */
+        .filters-section {
+            background: var(--white);
+            padding: 1.75rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .filter-select {
+            padding: 0.8rem 1rem;
+            border: 1px solid rgba(111, 128, 81, 0.2);
+            border-radius: 8px;
+            background: var(--white);
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(111, 128, 81, 0.1);
+        }
+
+        /* Providers Grid */
+        .providers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .provider-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            transition: all 0.2s ease;
+        }
+
+        .provider-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .provider-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .provider-content {
+            padding: 1.5rem;
+        }
+
+        .provider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .provider-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .provider-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .provider-description {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 1rem 0;
+        }
+
+        .provider-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(111, 128, 81, 0.03);
+            border-radius: 8px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .info-item i {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .provider-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-book {
+            flex: 1;
+            padding: 0.9rem;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-book:hover {
+            background: var(--primary-color-dark);
+        }
+
+        .btn-call {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--white);
+            border: 1px solid rgba(111, 128, 81, 0.2);
+            border-radius: 8px;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 0;
+        }
+
+        .btn-call:hover {
+            color: var(--primary-color-dark);
+            border-color: var(--primary-color);
+            background: rgba(111, 128, 81, 0.05);
+        }
+
+        /* Enhanced Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 3rem 0 4rem;
+        }
+
+        .pagination-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: var(--white);
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 1px solid rgba(111, 128, 81, 0.1);
+        }
+
+        .pagination-item:hover {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        .pagination-item.active {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        .pagination-item.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .container,
+            .category-header-content {
+                padding: 0 1.5rem;
+            }
+
+            .category-header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .category-stats {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 1.5rem;
+            }
+
+            .providers-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+
+            .category-header {
+                padding: 2rem 0;
+            }
+
+            .category-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.7rem;
+            }
+
+            .category-title {
+                font-size: 1.8rem;
+            }
+
+            .filters-section {
+                padding: 1.5rem;
+            }
+
+            .provider-card {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .pagination {
+                gap: 0.25rem;
+            }
+
+            .pagination-item {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container,
+            .category-header-content {
+                padding: 0 1rem;
+            }
+
+            .category-title {
+                font-size: 1.6rem;
+            }
+
+            .providers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .provider-image {
+                height: 180px;
+            }
+
+            .provider-content {
+                padding: 1.25rem;
+            }
+
+            .provider-name {
+                font-size: 1.2rem;
+            }
+
+            .provider-actions {
+                flex-direction: column;
+            }
+
+            .btn-call {
+                width: 100%;
+                height: 45px;
+            }
+
+            .pagination {
+                gap: 0.25rem;
+            }
+
+            .pagination-item {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Dynamic Category Colors */
+        .category-header.food {
+            border-bottom-color: rgba(111, 128, 81, 0.1);
+        }
+        .category-header.health {
+            border-bottom-color: rgba(76, 175, 80, 0.1);
+        }
+        .category-header.education {
+            border-bottom-color: rgba(33, 150, 243, 0.1);
+        }
+        .category-header.services {
+            border-bottom-color: rgba(156, 39, 176, 0.1);
+        }
+
+        /* Dynamic Category Icons */
+        .category-icon.food {
+            background: var(--primary-color);
+        }
+        .category-icon.health {
+            background: #4CAF50;
+        }
+        .category-icon.education {
+            background: #2196F3;
+        }
+        .category-icon.services {
+            background: #9C27B0;
+        }
+
+        /* Provider Status Badge */
+        .provider-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--white);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .status-open {
+            background: #4CAF50;
+        }
+        .status-closed {
+            background: #F44336;
+        }
+        .status-busy {
+            background: #FF9800;
+        }
+
+        /* Provider Features */
+        .provider-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .feature-tag {
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            background: rgba(111, 128, 81, 0.1);
+            color: var(--primary-color);
+        }
+
+        /* Provider Actions */
+        .provider-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+        .btn-book {
+            flex: 1;
+            padding: 0.75rem;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .btn-book:hover {
+            background: var(--primary-color-dark);
+        }
+        .btn-book i {
+            font-size: 1rem;
+        }
+
+        /* Provider Card Layout */
+        .provider-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .provider-content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        /* Category Specific Styles */
+        .category-food .btn-book {
+            background: var(--primary-color);
+        }
+        .category-health .btn-book {
+            background: #4CAF50;
+        }
+        .category-education .btn-book {
+            background: #2196F3;
+        }
+        .category-services .btn-book {
+            background: #9C27B0;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .provider-features {
+                justify-content: center;
+            }
+            .provider-status {
+                font-size: 0.7rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+
+        /* Search Section */
+        .search-section {
+            background: var(--white);
+            padding: 1.75rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .search-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.9rem 1.25rem;
+            border: 1px solid rgba(111, 128, 81, 0.2);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(111, 128, 81, 0.1);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-light);
+        }
+
+        .search-button {
+            padding: 0 1.5rem;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-button:hover {
+            background: var(--primary-color-dark);
+        }
+
+        @media (max-width: 768px) {
+            .search-form {
+                flex-direction: column;
+            }
+
+            .search-button {
+                padding: 0.9rem;
+            }
+        }
+
+        /* Advertisements Section */
+        .ads-section {
+            margin-bottom: 2rem;
+            padding: 0;
+        }
+
+        .swiper {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(111, 128, 81, 0.08);
+        }
+
+        .swiper-slide {
+            width: 100%;
+            height: 300px;
+            position: relative;
+        }
+
+        .ad-card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ad-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .ad-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(to top, 
+                rgba(111, 128, 81, 0.9) 0%,
+                rgba(111, 128, 81, 0.7) 50%,
+                transparent 100%);
+            color: var(--white);
+        }
+
+        .ad-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .ad-description {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+        }
+
+        .ad-badge {
+            display: inline-block;
+            padding: 0.3rem 0.75rem;
+            background: var(--white);
+            color: var(--primary-color);
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: var(--primary-color);
+            background: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            background: var(--white);
+            color: var(--primary-color-dark);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .swiper-button-next i,
+        .swiper-button-prev i {
+            font-size: 0.8rem;
+        }
+
+        .swiper-button-prev {
+            right: 16px;
+            left: auto;
+        }
+
+        .swiper-button-next {
+            left: 16px;
+            right: auto;
+        }
+
+        .swiper-pagination {
+            bottom: 10px !important;
+        }
+
+        .swiper-pagination-bullet {
+            width: 8px;
+            height: 8px;
+            background: var(--white);
+            opacity: 0.5;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--primary-color);
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .swiper-slide {
+                height: 250px;
+            }
+
+            .ad-content {
+                padding: 1.25rem;
+            }
+
+            .ad-title {
+                font-size: 1.2rem;
+            }
+
+            .ad-description {
+                font-size: 0.9rem;
+            }
+
+            .swiper-button-next,
+            .swiper-button-prev {
+                width: 32px;
+                height: 32px;
+            }
+
+            .swiper-button-next:after,
+            .swiper-button-prev:after {
+                font-size: 0.8rem;
+            }
+
+            .swiper-button-prev {
+                right: 10px;
+            }
+
+            .swiper-button-next {
+                left: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="home.html" class="logo">
+                    <img src="images/logo.png" alt="نطاق" class="logo-img">
+                </a>
+                
+                <div class="nav-buttons">
+                    <div class="user-menu">
+                        <a href="profile.html" class="btn btn-outline">
+                            <i class="fas fa-user"></i>
+                            الملف الشخصي
+                        </a>
+                        <a href="orders.html" class="btn btn-outline">
+                            <i class="fas fa-list"></i>
+                            طلباتي
+                        </a>
+                        <a href="notifications.html" class="btn btn-outline">
+                            <i class="fas fa-bell"></i>
+                            الإشعارات
+                        </a>
+                        <a href="index.html" class="btn btn-primary">
+                            <i class="fas fa-sign-out-alt"></i>
+                            تسجيل خروج
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Category Header -->
+    <section class="category-header" data-category="food">
+        <div class="category-header-content">
+            <div class="category-icon" data-category="food">
+                <i class="fas fa-store"></i>
+            </div>
+            <div class="category-info">
+                <h1 class="category-title">مطاعم</h1>
+                <p class="category-description">اكتشف أفضل المطاعم في منطقتك</p>
+                <div class="category-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-store"></i>
+                        <span>150+ مطعم</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-star"></i>
+                        <span>4.9 تقييم</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>متوفر في 20 منطقة</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Search Section -->
+        <section class="search-section">
+            <form class="search-form">
+                <input type="text" class="search-input" placeholder="ابحث عن مقدم خدمة..." required>
+                <button type="submit" class="search-button">
+                    <i class="fas fa-search"></i>
+                    بحث
+                </button>
+            </form>
+        </section>
+
+        <!-- Update advertisements section HTML -->
+        <section class="ads-section">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide">
+                        <a href="#" class="ad-card">
+                            <img src="images/ads/ad1.jpg" alt="عروض المطاعم" class="ad-image">
+                            <div class="ad-content">
+                                <h3 class="ad-title">عروض المطاعم المميزة</h3>
+                                <p class="ad-description">احصل على خصم 30% على طلبات المطاعم المختارة. عروض حصرية لفترة محدودة مع توصيل مجاني للطلبات</p>
+                                <span class="ad-badge">خصم 30%</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="swiper-slide">
+                        <a href="#" class="ad-card">
+                            <img src="images/ads/ad2.jpg" alt="خدمات جديدة" class="ad-image">
+                            <div class="ad-content">
+                                <h3 class="ad-title">خدمات جديدة في نطاق</h3>
+                                <p class="ad-description">اكتشف مجموعة متنوعة من الخدمات الجديدة في منطقتك. احجز الآن واحصل على خصم 20% على أول طلب</p>
+                                <span class="ad-badge">خدمات جديدة</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="swiper-slide">
+                        <a href="#" class="ad-card">
+                            <img src="images/ads/ad3.jpg" alt="عروض حصرية" class="ad-image">
+                            <div class="ad-content">
+                                <h3 class="ad-title">عروض نهاية الأسبوع</h3>
+                                <p class="ad-description">استمتع بأفضل العروض في نهاية الأسبوع. خصومات تصل إلى 50% على مجموعة من الخدمات المميزة</p>
+                                <span class="ad-badge">عروض نهاية الأسبوع</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Slide 4 -->
+                    <div class="swiper-slide">
+                        <a href="#" class="ad-card">
+                            <img src="images/ads/ad4.jpg" alt="خدمات منزلية" class="ad-image">
+                            <div class="ad-content">
+                                <h3 class="ad-title">خدمات منزلية احترافية</h3>
+                                <p class="ad-description">احصل على خدمات منزلية احترافية بأسعار تنافسية. تنظيف، صيانة، وتنسيق حدائق</p>
+                                <span class="ad-badge">خدمات منزلية</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Slide 5 -->
+                    <div class="swiper-slide">
+                        <a href="#" class="ad-card">
+                            <img src="images/ads/ad5.jpg" alt="خدمات تعليمية" class="ad-image">
+                            <div class="ad-content">
+                                <h3 class="ad-title">خدمات تعليمية مميزة</h3>
+                                <p class="ad-description">دروس خصوصية، دورات تدريبية، وبرامج تعليمية متنوعة. احصل على خصم 25% على الاشتراكات</p>
+                                <span class="ad-badge">خدمات تعليمية</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Enhanced Navigation -->
+                <div class="swiper-button-prev" aria-label="السابق">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+                <div class="swiper-button-next" aria-label="التالي">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </div>
+                
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+
+        <!-- Filters Section -->
+        <section class="filters-section">
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label class="filter-label">المنطقة</label>
+                    <select class="filter-select">
+                        <option value="">كل المناطق</option>
+                        <option value="area1">المنطقة 1</option>
+                        <option value="area2">المنطقة 2</option>
+                        <option value="area3">المنطقة 3</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">التقييم</label>
+                    <select class="filter-select">
+                        <option value="">كل التقييمات</option>
+                        <option value="5">5 نجوم</option>
+                        <option value="4">4 نجوم وأعلى</option>
+                        <option value="3">3 نجوم وأعلى</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">السعر</label>
+                    <select class="filter-select">
+                        <option value="">كل الأسعار</option>
+                        <option value="low">منخفض</option>
+                        <option value="medium">متوسط</option>
+                        <option value="high">مرتفع</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">الترتيب</label>
+                    <select class="filter-select">
+                        <option value="rating">الأعلى تقييماً</option>
+                        <option value="price-low">الأقل سعراً</option>
+                        <option value="price-high">الأعلى سعراً</option>
+                        <option value="distance">الأقرب</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Providers Grid -->
+        <div class="providers-grid">
+            <!-- Provider Card 1 -->
+            <div class="provider-card">
+                <div class="provider-status status-open">مفتوح</div>
+                <img src="images/providers/restaurant1.jpg" alt="مطعم 1" class="provider-image">
+                <div class="provider-content">
+                    <div class="provider-header">
+                        <h3 class="provider-name">مطعم الشرق</h3>
+                        <div class="provider-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                    </div>
+                    <div class="provider-features">
+                        <span class="feature-tag">توصيل مجاني</span>
+                        <span class="feature-tag">دفع إلكتروني</span>
+                        <span class="feature-tag">حجز طاولة</span>
+                    </div>
+                    <p class="provider-description">مطعم شرقي يقدم أشهى المأكولات الشرقية بأسعار مناسبة</p>
+                    <div class="provider-info">
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>المنطقة 1، شارع الرئيسي</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>متاح الآن</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-tag"></i>
+                            <span>من 50 ريال</span>
+                        </div>
+                    </div>
+                    <div class="provider-actions">
+                        <a href="#" class="btn-book">
+                            <i class="fas fa-store"></i>
+                            زور مقدم الخدمة
+                        </a>
+                        <button class="btn-call">
+                            <i class="fas fa-phone"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Provider Card 2 -->
+            <div class="provider-card">
+                <div class="provider-status status-busy">مشغول</div>
+                <img src="images/providers/restaurant2.jpg" alt="مطعم 2" class="provider-image">
+                <div class="provider-content">
+                    <div class="provider-header">
+                        <h3 class="provider-name">مطعم الغرب</h3>
+                        <div class="provider-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.8</span>
+                        </div>
+                    </div>
+                    <div class="provider-features">
+                        <span class="feature-tag">توصيل سريع</span>
+                        <span class="feature-tag">عروض خاصة</span>
+                        <span class="feature-tag">حجز طاولة</span>
+                    </div>
+                    <p class="provider-description">مطعم غربي يقدم أشهى المأكولات العالمية</p>
+                    <div class="provider-info">
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>المنطقة 2، شارع السلام</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>متاح بعد 30 دقيقة</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-tag"></i>
+                            <span>من 70 ريال</span>
+                        </div>
+                    </div>
+                    <div class="provider-actions">
+                        <a href="#" class="btn-book">
+                            <i class="fas fa-store"></i>
+                            زور مقدم الخدمة
+                        </a>
+                        <button class="btn-call">
+                            <i class="fas fa-phone"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Provider Card 3 -->
+            <div class="provider-card">
+                <div class="provider-status status-closed">مغلق</div>
+                <img src="images/providers/restaurant3.jpg" alt="مطعم 3" class="provider-image">
+                <div class="provider-content">
+                    <div class="provider-header">
+                        <h3 class="provider-name">مطعم البحر</h3>
+                        <div class="provider-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.7</span>
+                        </div>
+                    </div>
+                    <div class="provider-features">
+                        <span class="feature-tag">مأكولات بحرية</span>
+                        <span class="feature-tag">توصيل مجاني</span>
+                        <span class="feature-tag">حجز طاولة</span>
+                    </div>
+                    <p class="provider-description">مطعم بحري يقدم أشهى المأكولات البحرية الطازجة</p>
+                    <div class="provider-info">
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>المنطقة 3، شارع البحر</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>يفتح غداً 12:00</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-tag"></i>
+                            <span>من 90 ريال</span>
+                        </div>
+                    </div>
+                    <div class="provider-actions">
+                        <a href="#" class="btn-book">
+                            <i class="fas fa-store"></i>
+                            زور مقدم الخدمة
+                        </a>
+                        <button class="btn-call">
+                            <i class="fas fa-phone"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <a href="#" class="pagination-item disabled">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+            <a href="#" class="pagination-item active">1</a>
+            <a href="#" class="pagination-item">2</a>
+            <a href="#" class="pagination-item">3</a>
+            <span class="pagination-item ellipsis">...</span>
+            <a href="#" class="pagination-item">10</a>
+            <a href="#" class="pagination-item">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/footer-logo.png" alt="نطاق" class="logo-img">
+                    <p class="footer-desc">نطاق هي منصة رقمية تربط بين المستخدمين ومقدمي الخدمات في مختلف المجالات. نسعى لتسهيل عملية البحث عن الخدمات وتوفير تجربة سلسة وآمنة للجميع.</p>
+                    <div class="footer-contact">
+                        <p>📞 تواصل معنا: 0123456789</p>
+                        <p>📧 البريد الإلكتروني: info@netaak.com</p>
+                        <p>📍 العنوان: القاهرة، مصر</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="categories.html">التصنيفات</a></li>
+                        <li><a href="map.html">خريطة الموقع</a></li>
+                        <li><a href="profile.html">حسابي</a></li>
+                        <li><a href="orders.html">طلباتي</a></li>
+                        <li><a href="about.html">عن نطاق</a></li>
+                        <li><a href="contact.html">اتصل بنا</a></li>
+                        <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                        <li><a href="terms.html">الشروط والأحكام</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>تابعنا على</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                    <div class="newsletter">
+                        <h4>النشرة البريدية</h4>
+                        <p>اشترك في نشرتنا البريدية واحصل على آخر العروض المميزة والأخبار الحصرية</p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="أدخل بريدك الإلكتروني" required>
+                            <button type="submit" class="btn btn-primary">اشترك الآن</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>جميع الحقوق محفوظة © 2025 نطاق</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // Dynamic Category Handling
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get category from URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get('category') || 'food';
+
+            // Update page title and content based on category
+            const categoryConfig = {
+                food: {
+                    title: 'مطاعم',
+                    icon: 'fa-store',
+                    description: 'اكتشف أفضل المطاعم في منطقتك',
+                    stats: {
+                        providers: '150+ مطعم',
+                        rating: '4.9 تقييم',
+                        areas: 'متوفر في 20 منطقة'
+                    }
+                },
+                health: {
+                    title: 'خدمات طبية',
+                    icon: 'fa-hospital',
+                    description: 'اكتشف أفضل الخدمات الطبية في منطقتك',
+                    stats: {
+                        providers: '200+ مزود خدمة',
+                        rating: '4.8 تقييم',
+                        areas: 'متوفر في 15 منطقة'
+                    }
+                },
+                education: {
+                    title: 'خدمات تعليمية',
+                    icon: 'fa-graduation-cap',
+                    description: 'اكتشف أفضل الخدمات التعليمية في منطقتك',
+                    stats: {
+                        providers: '100+ مزود خدمة',
+                        rating: '4.7 تقييم',
+                        areas: 'متوفر في 10 مناطق'
+                    }
+                },
+                services: {
+                    title: 'خدمات عامة',
+                    icon: 'fa-tools',
+                    description: 'اكتشف أفضل الخدمات العامة في منطقتك',
+                    stats: {
+                        providers: '300+ مزود خدمة',
+                        rating: '4.6 تقييم',
+                        areas: 'متوفر في 25 منطقة'
+                    }
+                }
+            };
+
+            const config = categoryConfig[category];
+            if (config) {
+                // Update page title
+                document.title = `${config.title} - نطاق`;
+
+                // Update category header
+                const categoryHeader = document.querySelector('.category-header');
+                categoryHeader.className = `category-header ${category}`;
+                categoryHeader.setAttribute('data-category', category);
+
+                const categoryIcon = document.querySelector('.category-icon');
+                categoryIcon.className = `category-icon ${category}`;
+                categoryIcon.innerHTML = `<i class="fas ${config.icon}"></i>`;
+
+                document.querySelector('.category-title').textContent = config.title;
+                document.querySelector('.category-description').textContent = config.description;
+
+                const stats = document.querySelectorAll('.stat-item span');
+                stats[0].textContent = config.stats.providers;
+                stats[1].textContent = config.stats.rating;
+                stats[2].textContent = config.stats.areas;
+
+                // Update provider cards
+                document.querySelectorAll('.provider-card').forEach(card => {
+                    card.classList.add(`category-${category}`);
+                });
+            }
+        });
+
+        const swiper = new Swiper('.swiper', {
+            // Optional parameters
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            
+            // Pagination
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    </script>
+</body>
+</html> 

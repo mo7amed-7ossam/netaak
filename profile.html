@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الملف الشخصي - نطاق</title>
+    <link rel="stylesheet" href="css/libs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/icon.png">
+    <style>
+        .profile-section {
+            padding: 2rem 0;
+            background: #f8f9fa;
+            min-height: calc(100vh - 80px);
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+        }
+
+        .profile-sidebar {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            height: fit-content;
+        }
+
+        .profile-main {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid var(--primary-color);
+        }
+
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-picture-upload {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            padding: 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            color: white;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .profile-picture-upload:hover {
+            background: rgba(0,0,0,0.8);
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-email {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .profile-nav {
+            margin-top: 2rem;
+        }
+
+        .profile-nav-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .profile-nav-item:hover,
+        .profile-nav-item.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .profile-nav-item i {
+            margin-left: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.1);
+            outline: none;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .save-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(var(--primary-color-rgb), 0.3);
+        }
+
+        .security-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .security-info {
+            flex: 1;
+        }
+
+        .security-title {
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .security-description {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .security-action {
+            margin-right: 1rem;
+        }
+
+        .security-action button {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .security-action button:hover {
+            background: rgba(var(--primary-color-rgb), 0.1);
+        }
+
+        @media (max-width: 992px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-sidebar {
+                margin-bottom: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="home.html" class="logo">
+                    <img src="images/logo.png" alt="نطاق" class="logo-img">
+                </a>
+                
+                <div class="nav-buttons">
+                    <div class="user-menu">
+                        <a href="profile.html" class="btn btn-outline active">
+                            <i class="fas fa-user"></i>
+                            الملف الشخصي
+                        </a>
+                        <a href="orders.html" class="btn btn-outline">
+                            <i class="fas fa-list"></i>
+                            طلباتي
+                        </a>
+                        <a href="notifications.html" class="btn btn-outline">
+                            <i class="fas fa-bell"></i>
+                            الإشعارات
+                        </a>
+                        <a href="index.html" class="btn btn-primary">
+                            <i class="fas fa-sign-out-alt"></i>
+                            تسجيل خروج
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="profile-section">
+        <div class="profile-container">
+            <div class="profile-grid">
+                <!-- Sidebar -->
+                <div class="profile-sidebar">
+                    <div class="profile-header">
+                        <div class="profile-picture">
+                            <img src="images/default-avatar.png" alt="الصورة الشخصية">
+                            <label class="profile-picture-upload">
+                                <i class="fas fa-camera"></i>
+                                تغيير الصورة
+                                <input type="file" accept="image/*" style="display: none;">
+                            </label>
+                        </div>
+                        <h2 class="profile-name">أحمد محمد</h2>
+                        <p class="profile-email">ahmed@example.com</p>
+                    </div>
+
+                    <nav class="profile-nav">
+                        <a href="#personal" class="profile-nav-item active">
+                            <i class="fas fa-user"></i>
+                            المعلومات الشخصية
+                        </a>
+                        <a href="#contact" class="profile-nav-item">
+                            <i class="fas fa-address-book"></i>
+                            معلومات الاتصال
+                        </a>
+                        <a href="#security" class="profile-nav-item">
+                            <i class="fas fa-shield-alt"></i>
+                            الأمان
+                        </a>
+                        <a href="#notifications" class="profile-nav-item">
+                            <i class="fas fa-bell"></i>
+                            الإشعارات
+                        </a>
+                    </nav>
+                </div>
+
+                <!-- Main Content -->
+                <div class="profile-main">
+                    <!-- Personal Information -->
+                    <div id="personal">
+                        <h3 class="section-title">
+                            <i class="fas fa-user"></i>
+                            المعلومات الشخصية
+                        </h3>
+
+                        <form id="personalForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">الاسم الأول</label>
+                                    <input type="text" class="form-input" value="أحمد">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">الاسم الأخير</label>
+                                    <input type="text" class="form-input" value="محمد">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">تاريخ الميلاد</label>
+                                <input type="date" class="form-input">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">الجنس</label>
+                                <select class="form-input">
+                                    <option value="male">ذكر</option>
+                                    <option value="female">أنثى</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="save-btn">
+                                <i class="fas fa-save"></i>
+                                حفظ التغييرات
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div id="contact" style="display: none;">
+                        <h3 class="section-title">
+                            <i class="fas fa-address-book"></i>
+                            معلومات الاتصال
+                        </h3>
+
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label class="form-label">البريد الإلكتروني</label>
+                                <input type="email" class="form-input" value="ahmed@example.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">رقم الجوال</label>
+                                <input type="tel" class="form-input" value="+966 50 123 4567">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">العنوان</label>
+                                <input type="text" class="form-input" placeholder="أدخل عنوانك">
+                            </div>
+
+                            <button type="submit" class="save-btn">
+                                <i class="fas fa-save"></i>
+                                حفظ التغييرات
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Security Settings -->
+                    <div id="security" style="display: none;">
+                        <h3 class="section-title">
+                            <i class="fas fa-shield-alt"></i>
+                            الأمان
+                        </h3>
+
+                        <div class="security-item">
+                            <div class="security-info">
+                                <h4 class="security-title">تغيير كلمة المرور</h4>
+                                <p class="security-description">قم بتحديث كلمة المرور الخاصة بك بشكل دوري للحفاظ على أمان حسابك</p>
+                            </div>
+                            <div class="security-action">
+                                <button type="button">تغيير</button>
+                            </div>
+                        </div>
+
+                        <div class="security-item">
+                            <div class="security-info">
+                                <h4 class="security-title">المصادقة الثنائية</h4>
+                                <p class="security-description">قم بتفعيل المصادقة الثنائية لحماية حسابك بشكل إضافي</p>
+                            </div>
+                            <div class="security-action">
+                                <button type="button">تفعيل</button>
+                            </div>
+                        </div>
+
+                        <div class="security-item">
+                            <div class="security-info">
+                                <h4 class="security-title">جلسات تسجيل الدخول</h4>
+                                <p class="security-description">عرض وإدارة جلسات تسجيل الدخول النشطة على حسابك</p>
+                            </div>
+                            <div class="security-action">
+                                <button type="button">عرض</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notification Settings -->
+                    <div id="notifications" style="display: none;">
+                        <h3 class="section-title">
+                            <i class="fas fa-bell"></i>
+                            الإشعارات
+                        </h3>
+
+                        <form id="notificationsForm">
+                            <div class="security-item">
+                                <div class="security-info">
+                                    <h4 class="security-title">إشعارات البريد الإلكتروني</h4>
+                                    <p class="security-description">استلام إشعارات عبر البريد الإلكتروني</p>
+                                </div>
+                                <div class="security-action">
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="security-item">
+                                <div class="security-info">
+                                    <h4 class="security-title">إشعارات الجوال</h4>
+                                    <p class="security-description">استلام إشعارات على جهازك الجوال</p>
+                                </div>
+                                <div class="security-action">
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="save-btn">
+                                <i class="fas fa-save"></i>
+                                حفظ التغييرات
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Profile Navigation
+        const navItems = document.querySelectorAll('.profile-nav-item');
+        const sections = document.querySelectorAll('.profile-main > div');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Remove active class from all items
+                navItems.forEach(navItem => navItem.classList.remove('active'));
+                
+                // Add active class to clicked item
+                item.classList.add('active');
+                
+                // Hide all sections
+                sections.forEach(section => section.style.display = 'none');
+                
+                // Show target section
+                const targetId = item.getAttribute('href').substring(1);
+                document.getElementById(targetId).style.display = 'block';
+            });
+        });
+
+        // Profile Picture Upload
+        const profilePictureInput = document.querySelector('.profile-picture input[type="file"]');
+        const profilePictureImg = document.querySelector('.profile-picture img');
+
+        profilePictureInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    profilePictureImg.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Form Submissions
+        document.getElementById('personalForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Handle personal information form submission
+            console.log('Personal information updated');
+        });
+
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Handle contact information form submission
+            console.log('Contact information updated');
+        });
+
+        document.getElementById('notificationsForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Handle notifications settings form submission
+            console.log('Notification settings updated');
+        });
+    </script>
+</body>
+</html> 
