@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,8 +26,7 @@
         }
 
         body {
-            background-color: #faf3e1;
-            background-image: linear-gradient(135deg, #faf3e1 0%, #fff 100%);
+            background-color: #fff;
             min-height: 100vh;
         }
 
@@ -58,6 +58,7 @@
             box-shadow: var(--shadow-lg);
             transform: translateY(0);
             transition: transform var(--transition-fast);
+            border: solid 1px rgba(0, 0, 0, 0.1);
         }
 
         .login-container:hover {
@@ -87,7 +88,7 @@
 
         .form-input {
             width: 100%;
-            padding: 0.8rem 2.5rem 0.8rem 1rem;
+            padding: 0.8rem 1rem ;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
             font-size: 1rem;
@@ -102,14 +103,12 @@
         }
 
         .form-group i {
-            position: absolute;
-            right: 1rem;
-            top: 2.8rem;
             color: #919663;
             transition: var(--transition-fast);
+            margin-left:.3rem;
         }
 
-        .form-input:focus + i {
+        .form-input:focus+i {
             color: #6f8051;
         }
 
@@ -271,8 +270,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         @media (max-width: 480px) {
@@ -285,19 +289,19 @@
                 font-size: 1.75rem;
             }
         }
+
+        @media (min-width: 1000px) {
+
+            .container>div,
+            .form-section .card {
+                width: 40vw !important;
+                max-width: none !important;
+            }
+        }
     </style>
 </head>
+
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <nav class="nav">
-                <a href="index.html" class="logo">
-                    <img src="images/logo.svg" alt="نطاق" class="logo-img" style="height: 40px;">
-                </a>
-            </nav>
-        </div>
-    </header>
 
     <!-- Login Section -->
     <section class="login-section">
@@ -306,17 +310,15 @@
                 <h1 class="section-title">تسجيل الدخول</h1>
                 <form id="loginForm" class="login-form">
                     <div class="form-group">
-                        <label class="form-label">البريد الإلكتروني أو رقم الهاتف</label>
+                        <label class="form-label"> <i class="fas fa-user"></i> البريد الإلكتروني أو رقم الهاتف</label>
                         <input type="text" class="form-input" required>
-                        <i class="fas fa-user"></i>
-                        <div class="form-error">يرجى إدخال بريد إلكتروني أو رقم هاتف صحيح</div>
+                        <!-- <div class="form-error">يرجى إدخال بريد إلكتروني أو رقم هاتف صحيح</div> -->
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">كلمة المرور</label>
+                        <label class="form-label"> <i class="fas fa-lock"></i> كلمة المرور</label>
                         <input type="password" class="form-input" required>
-                        <i class="fas fa-lock"></i>
-                        <div class="form-error">يرجى إدخال كلمة المرور</div>
+                        <!-- <div class="form-error">يرجى إدخال كلمة المرور</div> -->
                     </div>
 
                     <div class="forgot-password">
@@ -328,7 +330,7 @@
                     </button>
                 </form>
 
-                <div class="social-login">
+                <!-- <div class="social-login">
                     <div class="social-login-title">
                         <span>أو سجل دخول باستخدام</span>
                     </div>
@@ -343,23 +345,14 @@
                             <i class="fab fa-apple"></i>
                         </button>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="login-footer">
-                    <p><i class="fas fa-user-plus"></i> ليس لديك حساب؟ <a href="register.html">تسجيل حساب جديد</a></p>
+                    <p><i class="fas fa-user-plus"></i> ليس لديك حساب؟ <a href="customer-register.html">تسجيل حساب جديد</a></p>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-bottom">
-                <p>جميع الحقوق محفوظة © 2024 نطاق</p>
-            </div>
-        </div>
-    </footer>
 
     <!-- Loading Indicator -->
     <div id="loadingIndicator" class="loading-indicator" style="display: none;">
@@ -385,18 +378,18 @@
     </div>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Form Validation
-            $('#loginForm').on('submit', function(e) {
+            $('#loginForm').on('submit', function (e) {
                 e.preventDefault();
                 let isValid = true;
-                
+
                 // Reset errors
                 $('.form-error').hide();
                 $('.form-input').removeClass('error');
 
                 // Validate required fields
-                $(this).find('[required]').each(function() {
+                $(this).find('[required]').each(function () {
                     if (!$(this).val()) {
                         $(this).addClass('error');
                         $(this).siblings('.form-error').show();
@@ -414,26 +407,26 @@
             });
 
             // Forgot Password Modal
-            $('#forgotPasswordBtn').on('click', function(e) {
+            $('#forgotPasswordBtn').on('click', function (e) {
                 e.preventDefault();
                 $('#forgotPasswordModal').fadeIn();
             });
 
-            $('.modal-close').on('click', function() {
+            $('.modal-close').on('click', function () {
                 $('#forgotPasswordModal').fadeOut();
             });
 
-            $(window).on('click', function(e) {
+            $(window).on('click', function (e) {
                 if ($(e.target).hasClass('modal')) {
                     $('#forgotPasswordModal').fadeOut();
                 }
             });
 
             // Forgot Password Form
-            $('#forgotPasswordForm').on('submit', function(e) {
+            $('#forgotPasswordForm').on('submit', function (e) {
                 e.preventDefault();
                 const email = $(this).find('input[type="email"]').val();
-                
+
                 if (email) {
                     $('#loadingIndicator').fadeIn();
                     // Simulate API call
@@ -446,11 +439,12 @@
             });
 
             // Social Login Buttons
-            $('.social-btn').on('click', function() {
+            $('.social-btn').on('click', function () {
                 // Implement social login functionality
                 alert('سيتم تفعيل تسجيل الدخول عبر وسائل التواصل الاجتماعي قريباً');
             });
         });
     </script>
 </body>
-</html> 
+
+</html>
