@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,8 +30,8 @@
             --text-light: #666666;
             --background-light: #f8f9fa;
             --white: #ffffff;
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
             --border-radius: 8px;
             --transition: all 0.2s ease;
         }
@@ -162,6 +163,37 @@
             width: 100%;
             height: 180px;
             object-fit: cover;
+            position: relative;
+        }
+
+        .subcategory-image.error {
+            background-color: var(--background-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .subcategory-image.error::before {
+            content: '\f03e';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            font-size: 2rem;
+            color: var(--primary-color);
+            opacity: 0.5;
+        }
+
+        .subcategory-image.error::after {
+            content: 'الصورة غير متوفرة';
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .subcategory-image.error + .subcategory-content {
+            border-top: 1px solid rgba(111, 128, 81, 0.1);
         }
 
         .subcategory-content {
@@ -257,6 +289,11 @@
         }
 
         @media (max-width: 768px) {
+            .category-min-header {
+                flex-direction: column;
+                align-items: center;
+                gap: 0rem !important;
+            }
             .container,
             .category-header-content,
             .subcategories-container {
@@ -281,6 +318,7 @@
         }
 
         @media (max-width: 480px) {
+
             .container,
             .category-header-content,
             .subcategories-container {
@@ -315,6 +353,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header class="header">
@@ -323,7 +362,7 @@
                 <a href="home.html" class="logo">
                     <img src="images/logo.png" alt="نطاق" class="logo-img">
                 </a>
-                
+
                 <div class="nav-buttons">
                     <div class="user-menu">
                         <a href="profile.html" class="btn btn-outline">
@@ -351,12 +390,17 @@
     <!-- Category Header -->
     <section class="category-header">
         <div class="category-header-content">
-            <div class="category-icon">
-                <i class="fas fa-utensils"></i>
-            </div>
+
             <div class="category-info">
-                <h1 class="category-title">طعام</h1>
-                <p class="category-description">اكتشف أفضل مزودي الخدمات الغذائية في منطقتك</p>
+                <div class="category-min-header" style="display: flex; align-items: center; gap: 1rem;justify-content: center;">
+                    <div class="category-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div>
+                        <h1 class="category-title">طعام</h1>
+                        <p class="category-description">اكتشف أفضل مزودي الخدمات الغذائية في منطقتك</p>
+                    </div>
+                </div>
                 <div class="category-stats">
                     <div class="stat-item">
                         <i class="fas fa-store"></i>
@@ -514,29 +558,7 @@
                 </div>
             </a>
 
-            <!-- طبيب -->
-            <div class="subcategory-card">
-                <div class="subcategory-icon">👨‍⚕️</div>
-                <h3 class="subcategory-title">أطباء</h3>
-                <p class="subcategory-desc">أطباء متخصصون في مختلف التخصصات الطبية</p>
-                <div class="subcategory-stats">
-                    <span class="stat">⭐ 4.9</span>
-                    <span class="stat">👥 300+</span>
-                </div>
-                <a href="providers.html?category=medical&subcategory=doctors" class="btn btn-secondary">عرض المقدمين</a>
-            </div>
 
-            <!-- صيدلية -->
-            <div class="subcategory-card">
-                <div class="subcategory-icon">💊</div>
-                <h3 class="subcategory-title">صيدليات</h3>
-                <p class="subcategory-desc">صيدليات توفر جميع احتياجاتك الدوائية</p>
-                <div class="subcategory-stats">
-                    <span class="stat">⭐ 4.8</span>
-                    <span class="stat">👥 200+</span>
-                </div>
-                <a href="providers.html?category=medical&subcategory=pharmacies" class="btn btn-secondary">عرض المقدمين</a>
-            </div>
         </div>
 
         <!-- Pagination -->
@@ -561,7 +583,8 @@
             <div class="footer-content">
                 <div class="footer-logo">
                     <img src="images/footer-logo.png" alt="نطاق" class="logo-img">
-                    <p class="footer-desc">نطاق هي منصة رقمية تربط بين المستخدمين ومقدمي الخدمات في مختلف المجالات. نسعى لتسهيل عملية البحث عن الخدمات وتوفير تجربة سلسة وآمنة للجميع.</p>
+                    <p class="footer-desc">نطاق هي منصة رقمية تربط بين المستخدمين ومقدمي الخدمات في مختلف المجالات. نسعى
+                        لتسهيل عملية البحث عن الخدمات وتوفير تجربة سلسة وآمنة للجميع.</p>
                     <div class="footer-contact">
                         <p>📞 تواصل معنا: 0123456789</p>
                         <p>📧 البريد الإلكتروني: info@netaak.com</p>
@@ -620,5 +643,30 @@
 
     <!-- JavaScript -->
     <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // التحقق من جميع صور التصنيفات الفرعية
+            const subcategoryImages = document.querySelectorAll('.subcategory-image');
+            
+            subcategoryImages.forEach(img => {
+                // إضافة مستمع حدث للتحقق من فشل تحميل الصورة
+                img.addEventListener('error', function() {
+                    this.classList.add('error');
+                    this.removeAttribute('src');
+                });
+
+                // التحقق من حالة الصورة عند التحميل
+                if (!img.complete) {
+                    img.addEventListener('load', function() {
+                        this.classList.remove('error');
+                    });
+                } else if (img.naturalWidth === 0) {
+                    img.classList.add('error');
+                    img.removeAttribute('src');
+                }
+            });
+        });
+    </script>
 </body>
-</html> 
+
+</html>

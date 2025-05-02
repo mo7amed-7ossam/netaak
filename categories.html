@@ -264,8 +264,39 @@
 
         .category-image {
             width: 100%;
-            height: 160px;
+            height: 180px;
             object-fit: cover;
+            position: relative;
+        }
+
+        .category-image.error {
+            background-color: var(--background-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .category-image.error::before {
+            content: '\f03e';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            font-size: 2rem;
+            color: var(--primary-color);
+            opacity: 0.5;
+        }
+
+        .category-image.error::after {
+            content: 'صورة القسم غير متوفرة';
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .category-image.error + .category-content {
+            border-top: 1px solid rgba(111, 128, 81, 0.1);
         }
 
         .category-content {
@@ -515,6 +546,37 @@
             height: 200px;
             object-fit: cover;
             object-position: center;
+            position: relative;
+        }
+
+        .ad-image.error {
+            background-color: var(--background-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .ad-image.error::before {
+            content: '\f03e';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            font-size: 2rem;
+            color: var(--primary-color);
+            opacity: 0.5;
+        }
+
+        .ad-image.error::after {
+            content: 'صورة الإعلان غير متوفرة';
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .ad-image.error + .ad-content {
+            border-top: 1px solid rgba(111, 128, 81, 0.1);
         }
 
         .ad-content {
@@ -938,30 +1000,55 @@
             </div>
 
             <div class="categories-grid">
+
                 <!-- القطاع الطبي -->
                 <div class="category-card">
-                    <div class="category-icon">⚕️</div>
-                    <h3 class="category-title">القطاع الطبي</h3>
-                    <p class="category-desc">أطباء، صيدليات، معامل تحاليل</p>
-                    <div class="category-stats">
-                        <span class="stat">⭐ 4.9</span>
-                        <span class="stat">👥 700+</span>
+                    <img src="images/categories/craftsman.jpg" alt="القطاع الطبي" class="category-image">
+                    <div class="category-content">
+                        <h3 class="category-title">
+                            <i class="fas fa-tools"></i>
+                            القطاع الطبي
+                        </h3>
+                        <p class="category-description">
+                            أطباء، صيدليات، معامل تحاليل
+                        </p>
+                        <div class="category-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-users"></i>
+                                <span>450+ مزود</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-star"></i>
+                                <span>4.7</span>
+                            </div>
+                        </div>
                     </div>
-                    <a href="subcategories.html?category=medical" class="btn btn-secondary">استكشف</a>
+                    <a href="subcategories.html?id=medical" class="category-link"></a>
                 </div>
-
                 <!-- طعام -->
                 <div class="category-card">
-                    <div class="category-icon">🍽️</div>
-                    <h3 class="category-title">طعام</h3>
-                    <p class="category-desc">مطاعم، سوبر ماركت، بقالة</p>
-                    <div class="category-stats">
-                        <span class="stat">⭐ 4.8</span>
-                        <span class="stat">👥 1200+</span>
+                    <img src="images/categories/craftsman.jpg" alt="طعام" class="category-image">
+                    <div class="category-content">
+                        <h3 class="category-title">
+                            <i class="fas fa-tools"></i>
+                            طعام
+                        </h3>
+                        <p class="category-description">
+                            مطاعم، سوبر ماركت، بقالة
+                        </p>
+                        <div class="category-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-users"></i>
+                                <span>450+ مزود</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-star"></i>
+                                <span>4.7</span>
+                            </div>
+                        </div>
                     </div>
-                    <a href="subcategories.html?category=food" class="btn btn-secondary">استكشف</a>
+                    <a href="subcategories.html?id=food" class="category-link"></a>
                 </div>
-
                 <!-- صنايعي -->
                 <div class="category-card">
                     <img src="images/categories/craftsman.jpg" alt="صنايعي" class="category-image">
@@ -984,7 +1071,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=craftsman" class="category-link"></a>
+                    <a href="subcategories.html?id=craftsman" class="category-link"></a>
                 </div>
 
                 <!-- صيانة -->
@@ -1009,7 +1096,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=maintenance" class="category-link"></a>
+                    <a href="subcategories.html?id=maintenance" class="category-link"></a>
                 </div>
 
                 <!-- تعليم -->
@@ -1034,7 +1121,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=education" class="category-link"></a>
+                    <a href="subcategories.html?id=education" class="category-link"></a>
                 </div>
 
                 <!-- لوازم أفراح -->
@@ -1059,7 +1146,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=wedding" class="category-link"></a>
+                    <a href="subcategories.html?id=wedding" class="category-link"></a>
                 </div>
 
                 <!-- ملابس -->
@@ -1084,7 +1171,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=clothes" class="category-link"></a>
+                    <a href="subcategories.html?id=clothes" class="category-link"></a>
                 </div>
 
                 <!-- خدمات التنظيف -->
@@ -1109,7 +1196,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=cleaning" class="category-link"></a>
+                    <a href="subcategories.html?id=cleaning" class="category-link"></a>
                 </div>
 
                 <!-- كوافير رجالي -->
@@ -1134,7 +1221,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=mens-salon" class="category-link"></a>
+                    <a href="subcategories.html?id=mens-salon" class="category-link"></a>
                 </div>
 
                 <!-- كوافير حريمي -->
@@ -1159,7 +1246,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=womens-salon" class="category-link"></a>
+                    <a href="subcategories.html?id=womens-salon" class="category-link"></a>
                 </div>
 
                 <!-- سائق -->
@@ -1184,7 +1271,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=driver" class="category-link"></a>
+                    <a href="subcategories.html?id=driver" class="category-link"></a>
                 </div>
 
                 <!-- تصوير فوتوغرافي -->
@@ -1209,7 +1296,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=photography" class="category-link"></a>
+                    <a href="subcategories.html?id=photography" class="category-link"></a>
                 </div>
 
                 <!-- محامون -->
@@ -1234,7 +1321,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=lawyer" class="category-link"></a>
+                    <a href="subcategories.html?id=lawyer" class="category-link"></a>
                 </div>
 
                 <!-- منتجات ألبان -->
@@ -1259,7 +1346,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=dairy" class="category-link"></a>
+                    <a href="subcategories.html?id=dairy" class="category-link"></a>
                 </div>
 
                 <!-- صالات رياضية -->
@@ -1284,7 +1371,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=gym" class="category-link"></a>
+                    <a href="subcategories.html?id=gym" class="category-link"></a>
                 </div>
 
                 <!-- مكتبات -->
@@ -1309,7 +1396,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=library" class="category-link"></a>
+                    <a href="subcategories.html?id=library" class="category-link"></a>
                 </div>
 
                 <!-- أحذية -->
@@ -1334,7 +1421,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=shoes" class="category-link"></a>
+                    <a href="subcategories.html?id=shoes" class="category-link"></a>
                 </div>
 
                 <!-- موبايل -->
@@ -1359,7 +1446,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=mobile" class="category-link"></a>
+                    <a href="subcategories.html?id=mobile" class="category-link"></a>
                 </div>
 
                 <!-- كمبيوتر -->
@@ -1384,7 +1471,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=computer" class="category-link"></a>
+                    <a href="subcategories.html?id=computer" class="category-link"></a>
                 </div>
 
                 <!-- هدايا -->
@@ -1409,7 +1496,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=gifts" class="category-link"></a>
+                    <a href="subcategories.html?id=gifts" class="category-link"></a>
                 </div>
 
                 <!-- مشغولات يدوية -->
@@ -1434,7 +1521,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=handicrafts" class="category-link"></a>
+                    <a href="subcategories.html?id=handicrafts" class="category-link"></a>
                 </div>
 
                 <!-- مستحضرات تجميل -->
@@ -1459,7 +1546,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=cosmetics" class="category-link"></a>
+                    <a href="subcategories.html?id=cosmetics" class="category-link"></a>
                 </div>
 
                 <!-- منظفات -->
@@ -1484,7 +1571,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=cleaning-supplies" class="category-link"></a>
+                    <a href="subcategories.html?id=cleaning-supplies" class="category-link"></a>
                 </div>
 
                 <!-- فراشة وصوتيات -->
@@ -1509,7 +1596,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=dj" class="category-link"></a>
+                    <a href="subcategories.html?id=dj" class="category-link"></a>
                 </div>
 
                 <!-- محلات بويات ودهانات -->
@@ -1534,7 +1621,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="category-details.html?id=paints" class="category-link"></a>
+                    <a href="subcategories.html?id=paints" class="category-link"></a>
                 </div>
             </div>
         </div>
@@ -1647,6 +1734,44 @@
                     centeredSlides: false
                 }
             }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // التحقق من صور الأقسام
+            const categoryImages = document.querySelectorAll('.category-image');
+            categoryImages.forEach(img => {
+                img.addEventListener('error', function() {
+                    this.classList.add('error');
+                    this.removeAttribute('src');
+                });
+
+                if (!img.complete) {
+                    img.addEventListener('load', function() {
+                        this.classList.remove('error');
+                    });
+                } else if (img.naturalWidth === 0) {
+                    img.classList.add('error');
+                    img.removeAttribute('src');
+                }
+            });
+
+            // التحقق من صور الإعلانات
+            const adImages = document.querySelectorAll('.ad-image');
+            adImages.forEach(img => {
+                img.addEventListener('error', function() {
+                    this.classList.add('error');
+                    this.removeAttribute('src');
+                });
+
+                if (!img.complete) {
+                    img.addEventListener('load', function() {
+                        this.classList.remove('error');
+                    });
+                } else if (img.naturalWidth === 0) {
+                    img.classList.add('error');
+                    img.removeAttribute('src');
+                }
+            });
         });
     </script>
 </body>
