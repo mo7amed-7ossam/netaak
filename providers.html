@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,8 +31,8 @@
             --text-light: #666666;
             --background-light: #f8f9fa;
             --white: #ffffff;
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
             --border-radius: 8px;
             --transition: all 0.2s ease;
         }
@@ -274,8 +275,8 @@
         }
 
         .btn-call {
-            width: 45px;
-            height: 45px;
+            width: 48.5px;
+            height: 48.5px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -337,6 +338,11 @@
         }
 
         @media (max-width: 768px) {
+
+            .category-info-header{
+                flex-direction: column;
+            }
+
             .container,
             .category-header-content {
                 padding: 0 1.5rem;
@@ -393,6 +399,7 @@
         }
 
         @media (max-width: 480px) {
+
             .container,
             .category-header-content {
                 padding: 0 1rem;
@@ -442,12 +449,15 @@
         .category-header.food {
             border-bottom-color: rgba(111, 128, 81, 0.1);
         }
+
         .category-header.health {
             border-bottom-color: rgba(76, 175, 80, 0.1);
         }
+
         .category-header.education {
             border-bottom-color: rgba(33, 150, 243, 0.1);
         }
+
         .category-header.services {
             border-bottom-color: rgba(156, 39, 176, 0.1);
         }
@@ -456,12 +466,15 @@
         .category-icon.food {
             background: var(--primary-color);
         }
+
         .category-icon.health {
             background: #4CAF50;
         }
+
         .category-icon.education {
             background: #2196F3;
         }
+
         .category-icon.services {
             background: #9C27B0;
         }
@@ -478,12 +491,15 @@
             color: var(--white);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
+
         .status-open {
             background: #4CAF50;
         }
+
         .status-closed {
             background: #F44336;
         }
+
         .status-busy {
             background: #FF9800;
         }
@@ -495,6 +511,7 @@
             gap: 0.5rem;
             margin-bottom: 1rem;
         }
+
         .feature-tag {
             padding: 0.25rem 0.75rem;
             border-radius: 15px;
@@ -509,6 +526,7 @@
             gap: 1rem;
             margin-top: auto;
         }
+
         .btn-book {
             flex: 1;
             padding: 0.75rem;
@@ -526,9 +544,11 @@
             justify-content: center;
             gap: 0.5rem;
         }
+
         .btn-book:hover {
             background: var(--primary-color-dark);
         }
+
         .btn-book i {
             font-size: 1rem;
         }
@@ -540,6 +560,7 @@
             flex-direction: column;
             height: 100%;
         }
+
         .provider-content {
             display: flex;
             flex-direction: column;
@@ -550,12 +571,15 @@
         .category-food .btn-book {
             background: var(--primary-color);
         }
+
         .category-health .btn-book {
             background: #4CAF50;
         }
+
         .category-education .btn-book {
             background: #2196F3;
         }
+
         .category-services .btn-book {
             background: #9C27B0;
         }
@@ -565,6 +589,7 @@
             .provider-features {
                 justify-content: center;
             }
+
             .provider-status {
                 font-size: 0.7rem;
                 padding: 0.4rem 0.8rem;
@@ -673,10 +698,10 @@
             left: 0;
             right: 0;
             padding: 1.5rem;
-            background: linear-gradient(to top, 
-                rgba(111, 128, 81, 0.9) 0%,
-                rgba(111, 128, 81, 0.7) 50%,
-                transparent 100%);
+            background: linear-gradient(to top,
+                    rgba(111, 128, 81, 0.9) 0%,
+                    rgba(111, 128, 81, 0.7) 50%,
+                    transparent 100%);
             color: var(--white);
         }
 
@@ -795,6 +820,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header class="header">
@@ -803,7 +829,7 @@
                 <a href="home.html" class="logo">
                     <img src="images/logo.png" alt="نطاق" class="logo-img">
                 </a>
-                
+
                 <div class="nav-buttons">
                     <div class="user-menu">
                         <a href="profile.html" class="btn btn-outline">
@@ -831,12 +857,16 @@
     <!-- Category Header -->
     <section class="category-header" data-category="food">
         <div class="category-header-content">
-            <div class="category-icon" data-category="food">
-                <i class="fas fa-store"></i>
-            </div>
-            <div class="category-info">
-                <h1 class="category-title">مطاعم</h1>
-                <p class="category-description">اكتشف أفضل المطاعم في منطقتك</p>
+            <div class="category-info" >
+                <div class="category-info-header" style="display: flex; align-items: center; gap: 20px;justify-content: center;">
+                    <div class="category-icon" data-category="food">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <div class="header-box">
+                        <h1 class="category-title">مطاعم</h1>
+                        <p class="category-description">اكتشف أفضل المطاعم في منطقتك</p>
+                    </div>
+                </div>
                 <div class="category-stats">
                     <div class="stat-item">
                         <i class="fas fa-store"></i>
@@ -877,7 +907,8 @@
                             <img src="images/ads/ad1.jpg" alt="عروض المطاعم" class="ad-image">
                             <div class="ad-content">
                                 <h3 class="ad-title">عروض المطاعم المميزة</h3>
-                                <p class="ad-description">احصل على خصم 30% على طلبات المطاعم المختارة. عروض حصرية لفترة محدودة مع توصيل مجاني للطلبات</p>
+                                <p class="ad-description">احصل على خصم 30% على طلبات المطاعم المختارة. عروض حصرية لفترة
+                                    محدودة مع توصيل مجاني للطلبات</p>
                                 <span class="ad-badge">خصم 30%</span>
                             </div>
                         </a>
@@ -889,7 +920,8 @@
                             <img src="images/ads/ad2.jpg" alt="خدمات جديدة" class="ad-image">
                             <div class="ad-content">
                                 <h3 class="ad-title">خدمات جديدة في نطاق</h3>
-                                <p class="ad-description">اكتشف مجموعة متنوعة من الخدمات الجديدة في منطقتك. احجز الآن واحصل على خصم 20% على أول طلب</p>
+                                <p class="ad-description">اكتشف مجموعة متنوعة من الخدمات الجديدة في منطقتك. احجز الآن
+                                    واحصل على خصم 20% على أول طلب</p>
                                 <span class="ad-badge">خدمات جديدة</span>
                             </div>
                         </a>
@@ -901,7 +933,8 @@
                             <img src="images/ads/ad3.jpg" alt="عروض حصرية" class="ad-image">
                             <div class="ad-content">
                                 <h3 class="ad-title">عروض نهاية الأسبوع</h3>
-                                <p class="ad-description">استمتع بأفضل العروض في نهاية الأسبوع. خصومات تصل إلى 50% على مجموعة من الخدمات المميزة</p>
+                                <p class="ad-description">استمتع بأفضل العروض في نهاية الأسبوع. خصومات تصل إلى 50% على
+                                    مجموعة من الخدمات المميزة</p>
                                 <span class="ad-badge">عروض نهاية الأسبوع</span>
                             </div>
                         </a>
@@ -913,7 +946,8 @@
                             <img src="images/ads/ad4.jpg" alt="خدمات منزلية" class="ad-image">
                             <div class="ad-content">
                                 <h3 class="ad-title">خدمات منزلية احترافية</h3>
-                                <p class="ad-description">احصل على خدمات منزلية احترافية بأسعار تنافسية. تنظيف، صيانة، وتنسيق حدائق</p>
+                                <p class="ad-description">احصل على خدمات منزلية احترافية بأسعار تنافسية. تنظيف، صيانة،
+                                    وتنسيق حدائق</p>
                                 <span class="ad-badge">خدمات منزلية</span>
                             </div>
                         </a>
@@ -925,13 +959,14 @@
                             <img src="images/ads/ad5.jpg" alt="خدمات تعليمية" class="ad-image">
                             <div class="ad-content">
                                 <h3 class="ad-title">خدمات تعليمية مميزة</h3>
-                                <p class="ad-description">دروس خصوصية، دورات تدريبية، وبرامج تعليمية متنوعة. احصل على خصم 25% على الاشتراكات</p>
+                                <p class="ad-description">دروس خصوصية، دورات تدريبية، وبرامج تعليمية متنوعة. احصل على
+                                    خصم 25% على الاشتراكات</p>
                                 <span class="ad-badge">خدمات تعليمية</span>
                             </div>
                         </a>
                     </div>
                 </div>
-                
+
                 <!-- Enhanced Navigation -->
                 <div class="swiper-button-prev" aria-label="السابق">
                     <i class="fa-solid fa-chevron-right"></i>
@@ -939,7 +974,7 @@
                 <div class="swiper-button-next" aria-label="التالي">
                     <i class="fa-solid fa-chevron-left"></i>
                 </div>
-                
+
                 <!-- Add Pagination -->
                 <div class="swiper-pagination"></div>
             </div>
@@ -1144,7 +1179,8 @@
             <div class="footer-content">
                 <div class="footer-logo">
                     <img src="images/footer-logo.png" alt="نطاق" class="logo-img">
-                    <p class="footer-desc">نطاق هي منصة رقمية تربط بين المستخدمين ومقدمي الخدمات في مختلف المجالات. نسعى لتسهيل عملية البحث عن الخدمات وتوفير تجربة سلسة وآمنة للجميع.</p>
+                    <p class="footer-desc">نطاق هي منصة رقمية تربط بين المستخدمين ومقدمي الخدمات في مختلف المجالات. نسعى
+                        لتسهيل عملية البحث عن الخدمات وتوفير تجربة سلسة وآمنة للجميع.</p>
                     <div class="footer-contact">
                         <p>📞 تواصل معنا: 0123456789</p>
                         <p>📧 البريد الإلكتروني: info@netaak.com</p>
@@ -1206,7 +1242,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         // Dynamic Category Handling
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Get category from URL parameter
             const urlParams = new URLSearchParams(window.location.search);
             const category = urlParams.get('category') || 'food';
@@ -1291,13 +1327,13 @@
                 delay: 5000,
                 disableOnInteraction: false,
             },
-            
+
             // Navigation arrows
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
-            
+
             // Pagination
             pagination: {
                 el: '.swiper-pagination',
@@ -1306,4 +1342,5 @@
         });
     </script>
 </body>
-</html> 
+
+</html>
