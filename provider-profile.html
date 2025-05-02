@@ -296,6 +296,7 @@
             scrollbar-width: none;
             -ms-overflow-style: none;
             justify-content: space-evenly;
+            flex-wrap: wrap;
         }
 
 
@@ -5118,6 +5119,9 @@
             .tab-item {
                 padding: 12px 16px;
                 font-size: 0.9rem;
+                width: calc(100% / 3);
+                min-width: auto !important;
+                max-width: none !important;
             }
 
             .tab-content {
