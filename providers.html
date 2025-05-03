@@ -21,6 +21,22 @@
     <meta name="theme-color" content="#6f8051">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
+        .provider-image.error,
+        body {
+            background-color: var(--background-light)
+        }
+
+        .ad-card,
+        .provider-card,
+        .swiper {
+            overflow: hidden
+        }
+
+        .ad-image,
+        .provider-image {
+            object-fit: cover
+        }
+
         :root {
             --primary-color: #6f8051;
             --primary-color-dark: #5a6a42;
@@ -34,28 +50,26 @@
             --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
             --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
             --border-radius: 8px;
-            --transition: all 0.2s ease;
+            --transition: all 0.2s ease
         }
 
         body {
             margin: 0;
             padding: 0;
-            min-height: 100vh;
-            background-color: var(--background-light);
+            min-height: 100vh
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 2rem
         }
 
-        /* Category Header */
         .category-header {
             background: var(--white);
             padding: 2.5rem 0;
             margin-bottom: 2.5rem;
-            border-bottom: 1px solid rgba(111, 128, 81, 0.1);
+            border-bottom: 1px solid rgba(111, 128, 81, .1)
         }
 
         .category-header-content {
@@ -64,7 +78,7 @@
             gap: 2rem;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 2rem
         }
 
         .category-icon {
@@ -78,126 +92,127 @@
             color: var(--white);
             font-size: 1.9rem;
             flex-shrink: 0;
-            box-shadow: 0 4px 12px rgba(111, 128, 81, 0.15);
+            box-shadow: 0 4px 12px rgba(111, 128, 81, .15)
+        }
+
+        .filters-section,
+        .provider-card,
+        .search-section {
+            background: var(--white);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, .04)
         }
 
         .category-info {
-            flex: 1;
+            flex: 1
         }
 
         .category-title {
             font-size: 2rem;
             font-weight: 700;
             color: var(--text-dark);
-            margin-bottom: 0.75rem;
+            margin-bottom: .75rem
         }
 
         .category-description {
             color: var(--text-light);
             font-size: 1rem;
             margin-bottom: 1.5rem;
-            max-width: 600px;
+            max-width: 600px
         }
 
         .category-stats {
             display: flex;
-            gap: 2rem;
+            gap: 2rem
         }
 
         .stat-item {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: .5rem;
             color: var(--text-light);
-            font-size: 0.9rem;
+            font-size: .9rem
         }
 
+        .info-item i,
         .stat-item i {
             color: var(--primary-color);
-            font-size: 1.1rem;
+            font-size: 1.1rem
         }
 
-        /* Filters Section */
-        .filters-section {
-            background: var(--white);
+        .filters-section,
+        .search-section {
             padding: 1.75rem;
             border-radius: 12px;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            margin-bottom: 2rem
         }
 
         .filters-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+            gap: 1rem
         }
 
         .filter-group {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: .5rem
         }
 
         .filter-label {
             font-weight: 600;
             color: var(--text-dark);
-            font-size: 0.9rem;
+            font-size: .9rem
         }
 
         .filter-select {
-            padding: 0.8rem 1rem;
-            border: 1px solid rgba(111, 128, 81, 0.2);
+            padding: .8rem 1rem;
+            border: 1px solid rgba(111, 128, 81, .2);
             border-radius: 8px;
             background: var(--white);
             color: var(--text-dark);
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
-            width: 100%;
+            font-size: .95rem;
+            transition: .2s;
+            width: 100%
         }
 
-        .filter-select:focus {
-            outline: none;
+        .filter-select:focus,
+        .search-input:focus {
+            outline: 0;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(111, 128, 81, 0.1);
+            box-shadow: 0 0 0 3px rgba(111, 128, 81, .1)
         }
 
-        /* Providers Grid */
         .providers-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 3rem;
+            margin-bottom: 3rem
         }
 
         .provider-card {
-            background: var(--white);
             border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-            transition: all 0.2s ease;
+            transition: .2s
         }
 
         .provider-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, .08)
         }
 
         .provider-image {
             width: 100%;
             height: 200px;
-            object-fit: cover;
-            position: relative;
+            position: relative
         }
 
         .provider-image.error {
-            background-color: var(--background-light);
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: .5rem;
             padding: 1rem;
-            text-align: center;
+            text-align: center
         }
 
         .provider-image.error::before {
@@ -206,62 +221,64 @@
             font-weight: 900;
             font-size: 2rem;
             color: var(--primary-color);
-            opacity: 0.5;
+            opacity: .5
         }
 
         .provider-image.error::after {
             content: 'صورة المزود غير متوفرة';
             color: var(--text-light);
-            font-size: 0.9rem;
+            font-size: .9rem
         }
 
-        .provider-image.error + .provider-content {
-            border-top: 1px solid rgba(111, 128, 81, 0.1);
+        .provider-image.error+.provider-content {
+            border-top: 1px solid rgba(111, 128, 81, .1)
         }
 
         .retry-button {
             background: var(--primary-color);
-            color: white;
+            color: #fff;
             border: none;
-            padding: 0.5rem 1rem;
+            padding: .5rem 1rem;
             border-radius: 4px;
-            font-size: 0.85rem;
+            font-size: .85rem;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
+            gap: .5rem;
+            transition: .3s;
             opacity: 0;
-            transform: translateY(10px);
+            transform: translateY(10px)
         }
 
         .provider-image.error:hover .retry-button {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0)
         }
 
         .retry-button:hover {
             background: var(--primary-color-dark);
-            transform: translateY(-2px);
+            transform: translateY(-2px)
         }
 
         .retry-button i {
-            font-size: 0.9rem;
+            font-size: .9rem
         }
 
         .image-loading {
             position: relative;
-            background: linear-gradient(90deg, 
-                var(--background-light) 0%, 
-                rgba(111, 128, 81, 0.1) 50%, 
-                var(--background-light) 100%);
+            background: linear-gradient(90deg, var(--background-light) 0, rgba(111, 128, 81, .1) 50%, var(--background-light) 100%);
             background-size: 200% 100%;
-            animation: loading 1.5s infinite;
+            animation: 1.5s infinite loading
         }
 
         @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+            0% {
+                background-position: 200% 0
+            }
+
+            100% {
+                background-position: -200% 0
+            }
         }
 
         .image-loading::after {
@@ -275,515 +292,429 @@
             border: 3px solid var(--primary-color);
             border-top-color: transparent;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: 1s linear infinite spin
         }
 
         @keyframes spin {
-            to { transform: translate(-50%, -50%) rotate(360deg); }
+            to {
+                transform: translate(-50%, -50%) rotate(360deg)
+            }
         }
 
         .provider-content {
-            padding: 1.5rem;
+            padding: 1.5rem
         }
 
         .provider-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 1rem;
+            margin-bottom: 1rem
         }
 
         .provider-name {
             font-size: 1.3rem;
             font-weight: 600;
             color: var(--text-dark);
-            margin: 0;
-            margin-bottom: 0.5rem;
+            margin: 0 0 .5rem
         }
 
         .provider-rating {
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: .4rem;
             color: var(--accent-color);
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: .95rem
+        }
+
+        .info-item,
+        .provider-description {
+            color: var(--text-light);
+            font-size: .95rem
         }
 
         .provider-description {
-            color: var(--text-light);
-            font-size: 0.95rem;
             line-height: 1.5;
-            margin: 1rem 0;
+            margin: 1rem 0
         }
 
         .provider-info {
             display: flex;
             flex-direction: column;
-            gap: 0.6rem;
+            gap: .6rem;
             margin-bottom: 1.5rem;
             padding: 1rem;
-            background: rgba(111, 128, 81, 0.03);
-            border-radius: 8px;
+            background: rgba(111, 128, 81, .03);
+            border-radius: 8px
         }
 
         .info-item {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-            color: var(--text-light);
-            font-size: 0.95rem;
-        }
-
-        .info-item i {
-            color: var(--primary-color);
-            font-size: 1.1rem;
-        }
-
-        .provider-actions {
-            display: flex;
-            gap: 1rem;
+            gap: .6rem
         }
 
         .btn-book {
             flex: 1;
-            padding: 0.9rem;
             background: var(--primary-color);
             color: var(--white);
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
-            text-decoration: none;
+            font-size: .95rem;
+            transition: .2s;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+            justify-content: center
         }
 
-        .btn-book:hover {
-            background: var(--primary-color-dark);
+        .btn-call,
+        .pagination-item {
+            background: var(--white);
+            display: flex
         }
 
         .btn-call {
             width: 48.5px;
             height: 48.5px;
-            display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--white);
-            border: 1px solid rgba(111, 128, 81, 0.2);
+            border: 1px solid rgba(111, 128, 81, .2);
             border-radius: 8px;
             color: var(--primary-color);
             cursor: pointer;
-            transition: all 0.2s ease;
-            padding: 0;
+            transition: .2s;
+            padding: 0
         }
 
         .btn-call:hover {
             color: var(--primary-color-dark);
             border-color: var(--primary-color);
-            background: rgba(111, 128, 81, 0.05);
+            background: rgba(111, 128, 81, .05)
         }
 
-        /* Enhanced Pagination */
         .pagination {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 0.5rem;
-            margin: 3rem 0 4rem;
+            gap: .5rem;
+            margin: 3rem 0 4rem
         }
 
         .pagination-item {
-            display: flex;
             align-items: center;
             justify-content: center;
             width: 40px;
             height: 40px;
             border-radius: 8px;
-            background: var(--white);
             color: var(--text-dark);
             text-decoration: none;
             font-weight: 600;
             transition: var(--transition);
-            border: 1px solid rgba(111, 128, 81, 0.1);
+            border: 1px solid rgba(111, 128, 81, .1)
         }
 
+        .pagination-item.active,
         .pagination-item:hover {
             background: var(--primary-color);
             color: var(--white);
-            border-color: var(--primary-color);
-        }
-
-        .pagination-item.active {
-            background: var(--primary-color);
-            color: var(--white);
-            border-color: var(--primary-color);
+            border-color: var(--primary-color)
         }
 
         .pagination-item.disabled {
-            opacity: 0.5;
+            opacity: .5;
             cursor: not-allowed;
-            pointer-events: none;
+            pointer-events: none
         }
 
-        @media (max-width: 768px) {
-
-            .category-info-header{
-                flex-direction: column;
+        @media (max-width:768px) {
+            .category-info-header {
+                flex-direction: column
             }
 
-            .container,
-            .category-header-content {
-                padding: 0 1.5rem;
+            .category-header-content,
+            .container {
+                padding: 0 1.5rem
             }
 
             .category-header-content {
                 flex-direction: column;
                 text-align: center;
-                gap: 1.5rem;
+                gap: 1.5rem
             }
 
             .category-stats {
                 justify-content: center;
                 flex-wrap: wrap;
-                gap: 1.5rem;
+                gap: 1.5rem
             }
 
             .providers-grid {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
             }
 
             .category-header {
-                padding: 2rem 0;
+                padding: 2rem 0
             }
 
             .category-icon {
                 width: 60px;
                 height: 60px;
-                font-size: 1.7rem;
+                font-size: 1.7rem
             }
 
             .category-title {
-                font-size: 1.8rem;
+                font-size: 1.8rem
             }
 
             .filters-section {
-                padding: 1.5rem;
+                padding: 1.5rem
             }
 
             .provider-card {
                 max-width: 400px;
-                margin: 0 auto;
+                margin: 0 auto
             }
 
             .pagination {
-                gap: 0.25rem;
+                gap: .25rem
             }
 
             .pagination-item {
                 width: 35px;
                 height: 35px;
-                font-size: 0.9rem;
+                font-size: .9rem
             }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width:480px) {
 
-            .container,
-            .category-header-content {
-                padding: 0 1rem;
+            .category-header-content,
+            .container {
+                padding: 0 1rem
             }
 
             .category-title {
-                font-size: 1.6rem;
+                font-size: 1.6rem
             }
 
             .providers-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr
             }
 
             .provider-image {
-                height: 180px;
+                height: 180px
             }
 
             .provider-content {
-                padding: 1.25rem;
+                padding: 1.25rem
             }
 
             .provider-name {
-                font-size: 1.2rem;
+                font-size: 1.2rem
             }
 
             .provider-actions {
-                flex-direction: column;
+                flex-direction: column
             }
 
             .btn-call {
                 width: 100%;
-                height: 45px;
+                height: 45px
             }
 
             .pagination {
-                gap: 0.25rem;
+                gap: .25rem
             }
 
             .pagination-item {
                 width: 35px;
                 height: 35px;
-                font-size: 0.9rem;
+                font-size: .9rem
             }
         }
 
-        /* Dynamic Category Colors */
         .category-header.food {
-            border-bottom-color: rgba(111, 128, 81, 0.1);
+            border-bottom-color: rgba(111, 128, 81, .1)
         }
 
         .category-header.health {
-            border-bottom-color: rgba(76, 175, 80, 0.1);
+            border-bottom-color: rgba(76, 175, 80, .1)
         }
 
         .category-header.education {
-            border-bottom-color: rgba(33, 150, 243, 0.1);
+            border-bottom-color: rgba(33, 150, 243, .1)
         }
 
         .category-header.services {
-            border-bottom-color: rgba(156, 39, 176, 0.1);
+            border-bottom-color: rgba(156, 39, 176, .1)
         }
 
-        /* Dynamic Category Icons */
+        .category-food .btn-book,
         .category-icon.food {
-            background: var(--primary-color);
+            background: var(--primary-color)
         }
 
-        .category-icon.health {
-            background: #4CAF50;
+        .category-health .btn-book,
+        .category-icon.health,
+        .status-open {
+            background: #4caf50
         }
 
+        .category-education .btn-book,
         .category-icon.education {
-            background: #2196F3;
+            background: #2196f3
         }
 
-        .category-icon.services {
-            background: #9C27B0;
+        .category-icon.services,
+        .category-services .btn-book {
+            background: #9c27b0
         }
 
-        /* Provider Status Badge */
         .provider-status {
             position: absolute;
             top: 1rem;
             right: 1rem;
-            padding: 0.5rem 1rem;
+            padding: .5rem 1rem;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: .85rem;
             font-weight: 600;
             color: var(--white);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .status-open {
-            background: #4CAF50;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .1)
         }
 
         .status-closed {
-            background: #F44336;
+            background: #f44336
         }
 
         .status-busy {
-            background: #FF9800;
+            background: #ff9800
         }
 
-        /* Provider Features */
         .provider-features {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
+            gap: .5rem;
+            margin-bottom: 1rem
         }
 
         .feature-tag {
-            padding: 0.25rem 0.75rem;
+            padding: .25rem .75rem;
             border-radius: 15px;
-            font-size: 0.8rem;
-            background: rgba(111, 128, 81, 0.1);
-            color: var(--primary-color);
+            font-size: .8rem;
+            background: rgba(111, 128, 81, .1);
+            color: var(--primary-color)
         }
 
-        /* Provider Actions */
+        .btn-book,
+        .search-button {
+            background: var(--primary-color);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            font-weight: 600
+        }
+
         .provider-actions {
             display: flex;
+            display: flex;
             gap: 1rem;
-            margin-top: auto;
+            margin-top: auto
         }
 
         .btn-book {
             flex: 1;
-            padding: 0.75rem;
-            background: var(--primary-color);
+            padding: .75rem;
             color: var(--white);
             border: none;
             border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
             text-align: center;
             text-decoration: none;
-            display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            gap: .5rem
         }
 
-        .btn-book:hover {
-            background: var(--primary-color-dark);
+        .btn-book:hover,
+        .search-button:hover {
+            background: var(--primary-color-dark)
         }
 
         .btn-book i {
-            font-size: 1rem;
+            font-size: 1rem
         }
 
-        /* Provider Card Layout */
         .provider-card {
             position: relative;
             display: flex;
             flex-direction: column;
-            height: 100%;
+            height: 100%
         }
 
         .provider-content {
             display: flex;
             flex-direction: column;
-            flex: 1;
-        }
-
-        /* Category Specific Styles */
-        .category-food .btn-book {
-            background: var(--primary-color);
-        }
-
-        .category-health .btn-book {
-            background: #4CAF50;
-        }
-
-        .category-education .btn-book {
-            background: #2196F3;
-        }
-
-        .category-services .btn-book {
-            background: #9C27B0;
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            .provider-features {
-                justify-content: center;
-            }
-
-            .provider-status {
-                font-size: 0.7rem;
-                padding: 0.4rem 0.8rem;
-            }
-        }
-
-        /* Search Section */
-        .search-section {
-            background: var(--white);
-            padding: 1.75rem;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            flex: 1
         }
 
         .search-form {
             display: flex;
             gap: 1rem;
             max-width: 800px;
-            margin: 0 auto;
+            margin: 0 auto
         }
 
         .search-input {
             flex: 1;
-            padding: 0.9rem 1.25rem;
-            border: 1px solid rgba(111, 128, 81, 0.2);
+            padding: .9rem 1.25rem;
+            border: 1px solid rgba(111, 128, 81, .2);
             border-radius: 8px;
-            font-size: 0.95rem;
+            font-size: .95rem;
             color: var(--text-dark);
-            transition: var(--transition);
+            transition: var(--transition)
         }
 
-        .search-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(111, 128, 81, 0.1);
+        .ad-content,
+        .ad-title,
+        .search-button {
+            color: var(--white)
         }
 
         .search-input::placeholder {
-            color: var(--text-light);
+            color: var(--text-light)
         }
 
         .search-button {
             padding: 0 1.5rem;
-            background: var(--primary-color);
-            color: var(--white);
             border: none;
             border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: .5rem
         }
 
-        .search-button:hover {
-            background: var(--primary-color-dark);
-        }
-
-        @media (max-width: 768px) {
-            .search-form {
-                flex-direction: column;
-            }
-
-            .search-button {
-                padding: 0.9rem;
-            }
-        }
-
-        /* Advertisements Section */
         .ads-section {
             margin-bottom: 2rem;
-            padding: 0;
+            padding: 0
         }
 
         .swiper {
             width: 100%;
             border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 12px rgba(111, 128, 81, 0.08);
+            box-shadow: 0 2px 12px rgba(111, 128, 81, .08)
         }
 
         .swiper-slide {
             width: 100%;
             height: 300px;
-            position: relative;
+            position: relative
+        }
+
+        .ad-card,
+        .ad-image {
+            width: 100%;
+            height: 100%
         }
 
         .ad-card {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .ad-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            position: relative
         }
 
         .ad-content {
@@ -792,124 +723,139 @@
             left: 0;
             right: 0;
             padding: 1.5rem;
-            background: linear-gradient(to top,
-                    rgba(111, 128, 81, 0.9) 0%,
-                    rgba(111, 128, 81, 0.7) 50%,
-                    transparent 100%);
-            color: var(--white);
+            background: linear-gradient(to top, rgba(111, 128, 81, .9) 0, rgba(111, 128, 81, .7) 50%, transparent 100%)
         }
 
         .ad-title {
             font-size: 1.3rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--white);
+            margin-bottom: .5rem
         }
 
         .ad-description {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 0.95rem;
+            color: rgba(255, 255, 255, .9);
+            font-size: .95rem;
             line-height: 1.5;
-            margin-bottom: 0.75rem;
+            margin-bottom: .75rem
+        }
+
+        .ad-badge,
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: var(--primary-color);
+            background: var(--white)
+        }
+
+        .ad-badge,
+        .swiper-button-next i,
+        .swiper-button-prev i {
+            font-size: .8rem
         }
 
         .ad-badge {
             display: inline-block;
-            padding: 0.3rem 0.75rem;
-            background: var(--white);
-            color: var(--primary-color);
+            padding: .3rem .75rem;
             border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            font-weight: 600
         }
 
         .swiper-button-next,
         .swiper-button-prev {
-            color: var(--primary-color);
-            background: var(--white);
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            transition: all 0.2s ease;
+            transition: .2s;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .1)
         }
 
         .swiper-button-next:hover,
         .swiper-button-prev:hover {
             background: var(--white);
             color: var(--primary-color-dark);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transform: translateY(-1px);
-        }
-
-        .swiper-button-next i,
-        .swiper-button-prev i {
-            font-size: 0.8rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+            transform: translateY(-1px)
         }
 
         .swiper-button-prev {
             right: 16px;
-            left: auto;
+            left: auto
         }
 
         .swiper-button-next {
             left: 16px;
-            right: auto;
+            right: auto
         }
 
         .swiper-pagination {
-            bottom: 10px !important;
+            bottom: 10px !important
         }
 
         .swiper-pagination-bullet {
             width: 8px;
             height: 8px;
             background: var(--white);
-            opacity: 0.5;
+            opacity: .5
         }
 
         .swiper-pagination-bullet-active {
             background: var(--primary-color);
-            opacity: 1;
+            opacity: 1
         }
 
-        @media (max-width: 768px) {
+        @media (max-width:768px) {
+            .provider-features {
+                justify-content: center
+            }
+
+            .provider-status {
+                font-size: .7rem;
+                padding: .4rem .8rem
+            }
+
+            .search-form {
+                flex-direction: column
+            }
+
+            .search-button {
+                padding: .9rem
+            }
+
             .swiper-slide {
-                height: 250px;
+                height: 250px
             }
 
             .ad-content {
-                padding: 1.25rem;
+                padding: 1.25rem
             }
 
             .ad-title {
-                font-size: 1.2rem;
+                font-size: 1.2rem
             }
 
             .ad-description {
-                font-size: 0.9rem;
+                font-size: .9rem
             }
 
             .swiper-button-next,
             .swiper-button-prev {
                 width: 32px;
-                height: 32px;
+                height: 32px
             }
 
             .swiper-button-next:after,
             .swiper-button-prev:after {
-                font-size: 0.8rem;
+                font-size: .8rem
             }
 
             .swiper-button-prev {
-                right: 10px;
+                right: 10px
             }
 
             .swiper-button-next {
-                left: 10px;
+                left: 10px
             }
         }
     </style>
@@ -920,28 +866,46 @@
     <header class="header">
         <div class="container">
             <nav class="nav">
-                <a href="home.html" class="logo">
+                <a href="/" class="logo">
                     <img src="images/logo.png" alt="نطاق" class="logo-img">
                 </a>
 
-                <div class="nav-buttons">
+                <div class="nav-actions">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-comment"></i>
+                                رسالة جديدة
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-heart"></i>
+                                تم الإعجاب بخدمتك
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-star"></i>
+                                تقييم جديد
+                            </a>
+                        </div>
+                    </div>
+
                     <div class="user-menu">
-                        <a href="profile.html" class="btn btn-outline">
-                            <i class="fas fa-user"></i>
-                            الملف الشخصي
-                        </a>
-                        <a href="orders.html" class="btn btn-outline">
-                            <i class="fas fa-list"></i>
-                            طلباتي
-                        </a>
-                        <a href="notifications.html" class="btn btn-outline">
-                            <i class="fas fa-bell"></i>
-                            الإشعارات
-                        </a>
-                        <a href="index.html" class="btn btn-primary">
-                            <i class="fas fa-sign-out-alt"></i>
-                            تسجيل خروج
-                        </a>
+                        <img src="images/user-avatar.jpg" class="user-avatar">
+                        <div class="dropdown">
+                            <a href="/profile" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                الملف الشخصي
+                            </a>
+                            <a href="/settings" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                الإعدادات
+                            </a>
+                            <a href="/logout" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                تسجيل الخروج
+                            </a>
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -951,8 +915,9 @@
     <!-- Category Header -->
     <section class="category-header" data-category="food">
         <div class="category-header-content">
-            <div class="category-info" >
-                <div class="category-info-header" style="display: flex; align-items: center; gap: 20px;justify-content: center;">
+            <div class="category-info">
+                <div class="category-info-header"
+                    style="display: flex; align-items: center; gap: 20px;justify-content: center;">
                     <div class="category-icon" data-category="food">
                         <i class="fas fa-store"></i>
                     </div>
@@ -1435,17 +1400,17 @@
             },
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const providerImages = document.querySelectorAll('.provider-image');
-            
+
             providerImages.forEach(img => {
-                img.addEventListener('error', function() {
+                img.addEventListener('error', function () {
                     this.classList.add('error');
                     this.removeAttribute('src');
                 });
 
                 if (!img.complete) {
-                    img.addEventListener('load', function() {
+                    img.addEventListener('load', function () {
                         this.classList.remove('error');
                     });
                 } else if (img.naturalWidth === 0) {

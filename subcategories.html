@@ -192,7 +192,7 @@
             font-size: 0.9rem;
         }
 
-        .subcategory-image.error + .subcategory-content {
+        .subcategory-image.error+.subcategory-content {
             border-top: 1px solid rgba(111, 128, 81, 0.1);
         }
 
@@ -294,6 +294,7 @@
                 align-items: center;
                 gap: 0rem !important;
             }
+
             .container,
             .category-header-content,
             .subcategories-container {
@@ -359,28 +360,46 @@
     <header class="header">
         <div class="container">
             <nav class="nav">
-                <a href="home.html" class="logo">
+                <a href="/" class="logo">
                     <img src="images/logo.png" alt="نطاق" class="logo-img">
                 </a>
 
-                <div class="nav-buttons">
+                <div class="nav-actions">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-comment"></i>
+                                رسالة جديدة
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-heart"></i>
+                                تم الإعجاب بخدمتك
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-star"></i>
+                                تقييم جديد
+                            </a>
+                        </div>
+                    </div>
+
                     <div class="user-menu">
-                        <a href="profile.html" class="btn btn-outline">
-                            <i class="fas fa-user"></i>
-                            الملف الشخصي
-                        </a>
-                        <a href="orders.html" class="btn btn-outline">
-                            <i class="fas fa-list"></i>
-                            طلباتي
-                        </a>
-                        <a href="notifications.html" class="btn btn-outline">
-                            <i class="fas fa-bell"></i>
-                            الإشعارات
-                        </a>
-                        <a href="index.html" class="btn btn-primary">
-                            <i class="fas fa-sign-out-alt"></i>
-                            تسجيل خروج
-                        </a>
+                        <img src="images/user-avatar.jpg" class="user-avatar">
+                        <div class="dropdown">
+                            <a href="/profile" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                الملف الشخصي
+                            </a>
+                            <a href="/settings" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                الإعدادات
+                            </a>
+                            <a href="/logout" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                تسجيل الخروج
+                            </a>
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -392,7 +411,8 @@
         <div class="category-header-content">
 
             <div class="category-info">
-                <div class="category-min-header" style="display: flex; align-items: center; gap: 1rem;justify-content: center;">
+                <div class="category-min-header"
+                    style="display: flex; align-items: center; gap: 1rem;justify-content: center;">
                     <div class="category-icon">
                         <i class="fas fa-utensils"></i>
                     </div>
@@ -644,20 +664,20 @@
     <!-- JavaScript -->
     <script src="js/main.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // التحقق من جميع صور التصنيفات الفرعية
             const subcategoryImages = document.querySelectorAll('.subcategory-image');
-            
+
             subcategoryImages.forEach(img => {
                 // إضافة مستمع حدث للتحقق من فشل تحميل الصورة
-                img.addEventListener('error', function() {
+                img.addEventListener('error', function () {
                     this.classList.add('error');
                     this.removeAttribute('src');
                 });
 
                 // التحقق من حالة الصورة عند التحميل
                 if (!img.complete) {
-                    img.addEventListener('load', function() {
+                    img.addEventListener('load', function () {
                         this.classList.remove('error');
                     });
                 } else if (img.naturalWidth === 0) {

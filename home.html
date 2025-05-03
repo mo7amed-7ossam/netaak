@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,33 +20,52 @@
     <link rel="apple-touch-icon" href="images/icon.png">
     <meta name="theme-color" content="#6f8051">
 </head>
+
 <body>
     <!-- Header -->
     <header class="header">
         <div class="container">
             <nav class="nav">
-                <a href="home.html" class="logo">
+                <a href="/" class="logo">
                     <img src="images/logo.png" alt="نطاق" class="logo-img">
                 </a>
-                
-                <div class="nav-buttons">
+
+                <div class="nav-actions">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-comment"></i>
+                                رسالة جديدة
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-heart"></i>
+                                تم الإعجاب بخدمتك
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-star"></i>
+                                تقييم جديد
+                            </a>
+                        </div>
+                    </div>
+
                     <div class="user-menu">
-                        <a href="profile.html" class="btn btn-outline">
-                            <i class="fas fa-user"></i>
-                            الملف الشخصي
-                        </a>
-                        <a href="orders.html" class="btn btn-outline">
-                            <i class="fas fa-list"></i>
-                            طلباتي
-                        </a>
-                        <a href="notifications.html" class="btn btn-outline">
-                            <i class="fas fa-bell"></i>
-                            الإشعارات
-                        </a>
-                        <a href="index.html" class="btn btn-primary">
-                            <i class="fas fa-sign-out-alt"></i>
-                            تسجيل خروج
-                        </a>
+                        <img src="images/user-avatar.jpg" class="user-avatar">
+                        <div class="dropdown">
+                            <a href="/profile" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                الملف الشخصي
+                            </a>
+                            <a href="/settings" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                الإعدادات
+                            </a>
+                            <a href="/logout" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                تسجيل الخروج
+                            </a>
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -57,7 +77,8 @@
         <div class="container">
             <div class="hero-content">
                 <h1 class="hero-title">اكتشف أفضل الخدمات في منطقتك</h1>
-                <p class="hero-text">منصة نطاق توفر لك تجربة فريدة في البحث عن الخدمات. نوصل لك أمهر مقدمي الخدمات بضمان الجودة والأمان</p>
+                <p class="hero-text">منصة نطاق توفر لك تجربة فريدة في البحث عن الخدمات. نوصل لك أمهر مقدمي الخدمات بضمان
+                    الجودة والأمان</p>
                 <div class="search-box">
                     <input type="text" placeholder="ابحث عن أي خدمة تحتاجها..." class="search-input">
                     <button class="search-btn">
@@ -94,9 +115,12 @@
                 <div class="about-text">
                     <div class="about-header">
                         <h3>نطاق</h3>
-                        <p class="about-main-text">منصة رقمية تربط بين أبناء المناطق الريفية ومقدمي الخدمات المحليين. نسعى لتسهيل حصول أهالي القرى والأرياف على الخدمات المختلفة بجودة عالية وأسعار مناسبة. نؤمن بأهمية دعم المشاريع الصغيرة وتنمية المجتمعات الريفية من خلال توفير فرص عمل جديدة وتحسين جودة الحياة.</p>
+                        <p class="about-main-text">منصة رقمية تربط بين أبناء المناطق الريفية ومقدمي الخدمات المحليين.
+                            نسعى لتسهيل حصول أهالي القرى والأرياف على الخدمات المختلفة بجودة عالية وأسعار مناسبة. نؤمن
+                            بأهمية دعم المشاريع الصغيرة وتنمية المجتمعات الريفية من خلال توفير فرص عمل جديدة وتحسين جودة
+                            الحياة.</p>
                     </div>
-                    
+
                     <div class="about-features">
                         <div class="feature">
                             <div class="feature-icon">
@@ -541,7 +565,8 @@
             <div class="footer-content">
                 <div class="footer-logo">
                     <img src="images/footer-logo.png" alt="نطاق" class="logo-img">
-                    <p class="footer-desc">نطاق هي منصة رقمية تربط بين المستخدمين ومقدمي الخدمات في مختلف المجالات. نسعى لتسهيل عملية البحث عن الخدمات وتوفير تجربة سلسة وآمنة للجميع.</p>
+                    <p class="footer-desc">نطاق هي منصة رقمية تربط بين المستخدمين ومقدمي الخدمات في مختلف المجالات. نسعى
+                        لتسهيل عملية البحث عن الخدمات وتوفير تجربة سلسة وآمنة للجميع.</p>
                     <div class="footer-contact">
                         <p>📞 تواصل معنا: 0123456789</p>
                         <p>📧 البريد الإلكتروني: info@netaak.com</p>
@@ -600,4 +625,5 @@
     <!-- JavaScript -->
     <script src="js/main.js"></script>
 </body>
-</html> 
+
+</html>
