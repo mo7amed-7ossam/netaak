@@ -177,4 +177,27 @@ $(document).ready(function () {
             }
         });
     }
+
+    // التحكم في القوائم المنسدلة
+    $(document).click(function(event) {
+        if (!$(event.target).closest('.notification-icon, .user-menu').length) {
+            $('.dropdown').removeClass('active');
+        }
+    });
+
+    // فتح وإغلاق قائمة الإشعارات
+    $('.notification-icon').click(function(e) {
+        e.stopPropagation();
+        $('.user-menu .dropdown').removeClass('active');
+        $(this).find('.dropdown').toggleClass('active');
+    });
+
+    // فتح وإغلاق قائمة المستخدم
+    $('.user-menu').click(function(e) {
+        e.stopPropagation();
+        $('.notification-icon .dropdown').removeClass('active');
+        $(this).find('.dropdown').toggleClass('active');
+    });
 }); 
+
+
