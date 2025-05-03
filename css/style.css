@@ -187,7 +187,7 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 8px;
     font-size: 1rem;
     font-family: 'Cairo', sans-serif;
-    background-color: var(--background-light);
+    /* background-color: var(--background-light); */
     transition: all 0.2s;
 }
 
