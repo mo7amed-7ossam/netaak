@@ -795,14 +795,12 @@
         .comment-text {
             width: 100%;
             padding: 8px 12px;
-            padding-right: 40px;
             border-radius: 20px;
             border: 1px solid var(--accent-light);
             background: var(--accent-light);
             font-size: 0.95rem;
             resize: none;
             min-height: 36px;
-            max-height: 100px;
             transition: all 0.2s ease;
             font-family: inherit;
         }
@@ -1314,6 +1312,7 @@
         /* تعديلات خاصة بالردود المتداخلة */
         .comment-replies .comment-replies {
             margin-right: 20px;
+            margin-right: 0% !important;
         }
 
         .comment-replies .comment-item {
@@ -4726,14 +4725,12 @@
         .reply-text {
             flex: 1;
             padding: 12px 16px;
-            padding-right: 48px;
             border-radius: 20px;
             border: 1px solid var(--accent-light);
             background: var(--white);
             font-size: 0.95rem;
             resize: none;
             min-height: 40px;
-            max-height: 120px;
             transition: all 0.2s ease;
         }
 
@@ -4794,14 +4791,12 @@
         .comment-text {
             width: 100%;
             padding: 12px 16px;
-            padding-right: 48px;
             border-radius: 20px;
             border: 1px solid var(--accent-light);
             background: var(--white);
             font-size: 0.95rem;
             resize: none;
             min-height: 40px;
-            max-height: 120px;
             transition: all 0.2s ease;
         }
 
@@ -4874,7 +4869,7 @@
         .post-card {
             background: var(--white);
             border-radius: 8px;
-            padding: 20px;
+            padding: 20px 10px;
             margin-bottom: 20px;
             box-shadow: var(--shadow);
         }
@@ -5084,7 +5079,7 @@
                 min-width: 120px;
             }
         }
-
+        
         @media screen and (max-width: 768px) {
             .cover-photo {
                 height: 250px;
@@ -5119,8 +5114,7 @@
             .tab-item {
                 padding: 12px 16px;
                 font-size: 0.9rem;
-                width: calc(100% / 3);
-                min-width: auto !important;
+                min-width: calc(100% / 3) !important;
                 max-width: none !important;
             }
 
@@ -6320,7 +6314,8 @@
                                     <div class="comment-item">
                                         <div class="comment-content">
                                             <div class="comment-author">
-                                                <img src="images/user-avatar.jpg" alt="صورة المستخدم" class="comment-avatar">
+                                                <img src="images/user-avatar.jpg" alt="صورة المستخدم"
+                                                    class="comment-avatar">
                                                 محمد علي
                                                 <i class="fas fa-check-circle"></i>
                                             </div>
@@ -6363,8 +6358,8 @@
                                                             <div class="comment-item">
                                                                 <div class="comment-content">
                                                                     <div class="comment-author">
-                                                                        <img src="images/user-avatar.jpg" alt="صورة المستخدم"
-                                                                            class="comment-avatar">
+                                                                        <img src="images/user-avatar.jpg"
+                                                                            alt="صورة المستخدم" class="comment-avatar">
                                                                         محمد علي
                                                                         <i class="fas fa-check-circle"></i>
                                                                     </div>
@@ -6411,8 +6406,8 @@
                                                             <div class="comment-item">
                                                                 <div class="comment-content">
                                                                     <div class="comment-author">
-                                                                        <img src="images/user-avatar.jpg" alt="صورة المستخدم"
-                                                                            class="comment-avatar">
+                                                                        <img src="images/user-avatar.jpg"
+                                                                            alt="صورة المستخدم" class="comment-avatar">
                                                                         أحمد محمد
                                                                         <i class="fas fa-check-circle"></i>
                                                                     </div>
@@ -6482,8 +6477,8 @@
                                                             <div class="comment-item">
                                                                 <div class="comment-content">
                                                                     <div class="comment-author">
-                                                                        <img src="images/user-avatar.jpg" alt="صورة المستخدم"
-                                                                            class="comment-avatar">
+                                                                        <img src="images/user-avatar.jpg"
+                                                                            alt="صورة المستخدم" class="comment-avatar">
                                                                         أحمد محمد
                                                                         <i class="fas fa-check-circle"></i>
                                                                     </div>
