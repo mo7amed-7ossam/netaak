@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نطاق - الشروط والأحكام</title>
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="images/icon.png">
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <link rel="apple-touch-icon" href="images/icon.png">
+    <meta name="theme-color" content="#6f8051">
+    <style>
+        .terms-hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #8fa67b 100%);
+            padding: 4rem 0;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .terms-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/pattern.png');
+            opacity: 0.1;
+        }
+
+        .terms-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .terms-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .terms-section {
+            padding: 4rem 0;
+            background: #f8f9fa;
+        }
+
+        .terms-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .terms-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .terms-content h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .terms-content h3 {
+            color: var(--text-primary);
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .terms-content p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .terms-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .terms-content ul li {
+            color: var(--text-secondary);
+            padding: 0.5rem 0;
+            padding-right: 1.5rem;
+            position: relative;
+        }
+
+        .terms-content ul li::before {
+            content: '•';
+            color: var(--primary-color);
+            position: absolute;
+            right: 0;
+        }
+
+        .terms-content .last-updated {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e9ecef;
+        }
+
+        @media (max-width: 768px) {
+            .terms-hero h1 {
+                font-size: 2rem;
+            }
+
+            .terms-hero p {
+                font-size: 1rem;
+            }
+
+            .terms-container {
+                padding: 1rem;
+            }
+
+            .terms-content {
+                padding: 1.5rem;
+            }
+
+            .terms-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .terms-content h3 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">
+                    <img src="images/logo.png" alt="نطاق" class="logo-img">
+                </a>
+
+                <div class="nav-actions">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-comment"></i>
+                                رسالة جديدة
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-heart"></i>
+                                تم الإعجاب بخدمتك
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-star"></i>
+                                تقييم جديد
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="user-menu">
+                        <img src="images/user-avatar.jpg" class="user-avatar">
+                        <div class="dropdown">
+                            <a href="/profile" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                الملف الشخصي
+                            </a>
+                            <a href="/settings" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                الإعدادات
+                            </a>
+                            <a href="/logout" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                تسجيل الخروج
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Terms Hero -->
+    <section class="terms-hero">
+        <div class="container">
+            <h1>الشروط والأحكام</h1>
+            <p>يرجى قراءة هذه الشروط والأحكام بعناية قبل استخدام منصة نطاق</p>
+        </div>
+    </section>
+
+    <!-- Terms Section -->
+    <section class="terms-section">
+        <div class="container">
+            <div class="terms-container">
+                <div class="terms-content">
+                    <h2>الشروط والأحكام</h2>
+                    <p>مرحباً بك في منصة نطاق. باستخدامك لهذه المنصة، فإنك توافق على الالتزام بهذه الشروط والأحكام. يرجى قراءتها بعناية.</p>
+
+                    <h3>القبول بالشروط</h3>
+                    <p>باستخدامك لمنصة نطاق، فإنك توافق على الالتزام بهذه الشروط والأحكام. إذا كنت لا توافق على أي جزء من هذه الشروط، يرجى عدم استخدام المنصة.</p>
+
+                    <h3>حساب المستخدم</h3>
+                    <p>عند إنشاء حساب على المنصة، يجب عليك:</p>
+                    <ul>
+                        <li>تقديم معلومات دقيقة وكاملة</li>
+                        <li>الحفاظ على سرية حسابك وكلمة المرور</li>
+                        <li>إخطارنا فوراً بأي استخدام غير مصرح به لحسابك</li>
+                        <li>أن تكون فوق 18 عاماً</li>
+                    </ul>
+
+                    <h3>قواعد السلوك</h3>
+                    <p>يجب على جميع المستخدمين الالتزام بالقواعد التالية:</p>
+                    <ul>
+                        <li>احترام حقوق الآخرين</li>
+                        <li>عدم نشر محتوى مسيء أو ضار</li>
+                        <li>عدم استخدام المنصة لأغراض غير قانونية</li>
+                        <li>عدم محاولة إلحاق الضرر بالمنصة أو مستخدميها</li>
+                    </ul>
+
+                    <h3>المحتوى</h3>
+                    <p>أنت مسؤول عن جميع المحتوى الذي تنشره على المنصة. يجب أن يكون المحتوى:</p>
+                    <ul>
+                        <li>دقيقاً وصحيحاً</li>
+                        <li>لا ينتهك حقوق الملكية الفكرية</li>
+                        <li>لا يحتوي على معلومات مضللة</li>
+                        <li>يتوافق مع قوانين المملكة العربية السعودية</li>
+                    </ul>
+
+                    <h3>المسؤولية القانونية</h3>
+                    <p>لا تتحمل نطاق المسؤولية عن:</p>
+                    <ul>
+                        <li>أي أضرار مباشرة أو غير مباشرة</li>
+                        <li>فقدان البيانات أو المعلومات</li>
+                        <li>أي خسائر تجارية</li>
+                        <li>أي أضرار ناتجة عن استخدام المنصة</li>
+                    </ul>
+
+                    <h3>التعديلات</h3>
+                    <p>نحتفظ بالحق في تعديل هذه الشروط والأحكام في أي وقت. سيتم إخطارك بأي تغييرات جوهرية من خلال البريد الإلكتروني أو إشعار على المنصة.</p>
+
+                    <h3>إنهاء الخدمة</h3>
+                    <p>نحتفظ بالحق في تعليق أو إنهاء حسابك في أي وقت إذا:</p>
+                    <ul>
+                        <li>انتهكت هذه الشروط والأحكام</li>
+                        <li>قدمت معلومات غير دقيقة</li>
+                        <li>استخدمت المنصة بشكل غير قانوني</li>
+                        <li>ألحقت الضرر بالمنصة أو مستخدميها</li>
+                    </ul>
+
+                    <h3>القانون المطبق</h3>
+                    <p>تخضع هذه الشروط والأحكام لقوانين المملكة العربية السعودية. أي نزاعات تنشأ عن استخدام المنصة ستخضع للاختصاص الحصري لمحاكم المملكة.</p>
+
+                    <p class="last-updated">آخر تحديث: 1 يناير 2024</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/footer-logo.png" alt="نطاق" class="logo-img">
+                    <p class="footer-desc">نطاق هي منصة رقمية تربط بين المستخدمين ومقدمي الخدمات في مختلف المجالات. نسعى
+                        لتسهيل عملية البحث عن الخدمات وتوفير تجربة سلسة وآمنة للجميع.</p>
+                    <div class="footer-contact">
+                        <p>📞 تواصل معنا: 0123456789</p>
+                        <p>📧 البريد الإلكتروني: info@netaak.com</p>
+                        <p>📍 العنوان: القاهرة، مصر</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="about.html">عن نطاق</a></li>
+                        <li><a href="contact.html">اتصل بنا</a></li>
+                        <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                        <li><a href="terms.html">الشروط والأحكام</a></li>
+                        <li><a href="faq.html">الأسئلة الشائعة</a></li>
+                        <li><a href="blog.html">المدونة</a></li>
+                        <li><a href="careers.html">الوظائف</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>تابعنا على</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                    <div class="newsletter">
+                        <h4>النشرة البريدية</h4>
+                        <p>اشترك في نشرتنا البريدية واحصل على آخر العروض المميزة والأخبار الحصرية</p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="أدخل بريدك الإلكتروني" required>
+                            <button type="submit" class="btn btn-primary">اشترك الآن</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>جميع الحقوق محفوظة © 2025 نطاق</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html> 

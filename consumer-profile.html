@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نطاق - الملف الشخصي</title>
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="images/icon.png">
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <link rel="apple-touch-icon" href="images/icon.png">
+    <meta name="theme-color" content="#6f8051">
+    <style>
+        .profile-container,
+        .profile-picture {
+            overflow: hidden;
+            box-shadow: var(--shadow-sm)
+        }
+
+        .profile-nav-item i,
+        .section-title i {
+            color: var(--primary-color)
+        }
+
+        .profile-container,
+        .profile-nav,
+        .profile-picture {
+            box-shadow: var(--shadow-sm)
+        }
+
+        :root {
+            --primary-color: #6f8051;
+            --secondary-color: #919663;
+            --background-color: #fafafa;
+            --card-background: #ffffff;
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+            --border-color: #f0f0f0;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.08);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --white: #ffffff;
+            --accent-light: #f8f9fa;
+            --transition: all 0.2s ease
+        }
+
+        .profile-nav-item,
+        .profile-nav-item i,
+        .profile-picture,
+        .profile-picture-upload {
+            transition: var(--transition)
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            font-family: Cairo, sans-serif;
+            line-height: 1.6
+        }
+
+        .profile-section {
+            max-width: 1100px;
+            margin: 1.5rem auto;
+            padding: 0 1rem
+        }
+
+        .profile-container {
+            background: var(--card-background);
+            border-radius: var(--radius-lg)
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 1.5rem
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative
+        }
+
+        .profile-picture {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, .9);
+            margin: 0 auto;
+            position: relative;
+            background: #fff
+        }
+
+        .profile-picture:hover {
+            transform: scale(1.03);
+            border-color: var(--white)
+        }
+
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .profile-picture-upload {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, .6);
+            padding: .4rem;
+            text-align: center;
+            cursor: pointer;
+            color: #fff;
+            font-size: .85rem;
+            opacity: 0
+        }
+
+        .profile-email,
+        .profile-name,
+        .profile-nav-item.active i,
+        .profile-nav-item:hover,
+        .profile-nav-item:hover i {
+            color: var(--white)
+        }
+
+        .profile-picture:hover .profile-picture-upload {
+            opacity: 1
+        }
+
+        .profile-name {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin: 1.2rem 0 .4rem
+        }
+
+        .profile-email {
+            font-size: .95rem;
+            opacity: .9
+        }
+
+        .profile-nav {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: .8rem;
+            margin: .8rem
+        }
+
+        .profile-nav-list {
+            display: flex;
+            flex-direction: column;
+            gap: .4rem
+        }
+
+        .profile-nav-item,
+        .section-title {
+            color: var(--text-primary);
+            display: flex;
+            align-items: center
+        }
+
+        .profile-nav-item {
+            gap: .8rem;
+            padding: .8rem 1rem;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            background: var(--accent-light);
+            font-size: .95rem
+        }
+
+        .profile-nav-item i {
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center
+        }
+
+        .profile-nav-item:hover {
+            background: var(--primary-color);
+            transform: translateX(-3px)
+        }
+
+        .profile-nav-item.active {
+            background: var(--primary-color);
+            color: var(--white)
+        }
+
+        .profile-main {
+            padding: 1.5rem
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            gap: .5rem
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: .4rem;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: .9rem
+        }
+
+        .change-password-btn,
+        .save-btn {
+            color: var(--white);
+            gap: .5rem;
+            font-weight: 500;
+            cursor: pointer
+        }
+
+        .form-input,
+        .save-btn {
+            font-size: .95rem;
+            transition: var(--transition)
+        }
+
+        .form-input {
+            width: 100%;
+            padding: .7rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--white)
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-color);
+            outline: 0;
+            box-shadow: 0 0 0 3px rgba(111, 128, 81, .08)
+        }
+
+        .save-btn {
+            background: var(--primary-color);
+            border: none;
+            padding: .8rem 1.8rem;
+            border-radius: var(--radius-sm);
+            display: inline-flex;
+            align-items: center
+        }
+
+        .change-password-btn:hover,
+        .location-btn:hover,
+        .save-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-1px)
+        }
+
+        .notification-item,
+        .security-item {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 1.2rem;
+            margin-bottom: .8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition)
+        }
+
+        .notification-item:hover,
+        .security-item:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md)
+        }
+
+        .notification-info h4,
+        .security-info h4 {
+            margin: 0 0 .2rem;
+            color: var(--text-primary);
+            font-size: 1rem
+        }
+
+        .notification-info p,
+        .security-info p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: .85rem
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 24px
+        }
+
+        .slider,
+        .slider:before {
+            position: absolute;
+            transition: var(--transition)
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0
+        }
+
+        .slider {
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--border-color);
+            border-radius: 24px
+        }
+
+        .slider:before {
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: var(--white);
+            border-radius: 50%;
+            box-shadow: var(--shadow-sm)
+        }
+
+        input:checked+.slider {
+            background-color: var(--primary-color)
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(24px)
+        }
+
+        .change-password-btn {
+            background: var(--primary-color);
+            border: none;
+            padding: .7rem 1.3rem;
+            border-radius: var(--radius-sm);
+            display: inline-flex;
+            align-items: center;
+            transition: var(--transition);
+            font-size: .9rem
+        }
+
+        @media (max-width:1200px) {
+            .profile-section {
+                max-width: 95%
+            }
+        }
+
+        @media (max-width:992px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem
+            }
+
+            .profile-sidebar {
+                max-width: 100%;
+                width: 100%;
+                margin: 0 auto
+            }
+
+            .profile-header {
+                padding: 2rem 1rem
+            }
+
+            .profile-picture {
+                width: 120px;
+                height: 120px
+            }
+        }
+
+        @media (max-width:768px) {
+            .profile-section {
+                margin: .8rem auto
+            }
+
+            .profile-container {
+                border-radius: var(--radius-md)
+            }
+
+            .profile-header {
+                padding: 1.8rem 1rem
+            }
+
+            .profile-picture {
+                width: 100px;
+                height: 100px
+            }
+
+            .profile-name {
+                font-size: 1.3rem
+            }
+
+            .profile-email {
+                font-size: .9rem
+            }
+
+            .notification-item,
+            .profile-main,
+            .security-item {
+                padding: 1rem
+            }
+
+            .section-title {
+                font-size: 1.2rem;
+                margin-bottom: 1.2rem
+            }
+
+            .form-group {
+                margin-bottom: 1rem
+            }
+
+            .form-input {
+                padding: .6rem .8rem;
+                font-size: .9rem
+            }
+
+            .save-btn {
+                width: 100%;
+                justify-content: center
+            }
+        }
+
+        @media (max-width:576px) {
+            .profile-section {
+                padding: 0 .5rem
+            }
+
+            .profile-header {
+                padding: 1.5rem .8rem
+            }
+
+            .profile-picture {
+                width: 90px;
+                height: 90px
+            }
+
+            .profile-name {
+                font-size: 1.2rem
+            }
+
+            .form-label,
+            .profile-email {
+                font-size: .85rem
+            }
+
+            .profile-nav {
+                margin: .5rem;
+                padding: .6rem
+            }
+
+            .profile-nav-item {
+                padding: .7rem .8rem;
+                font-size: .9rem
+            }
+
+            .profile-main {
+                padding: .8rem
+            }
+
+            .section-title {
+                font-size: 1.1rem;
+                margin-bottom: 1rem
+            }
+
+            .form-input {
+                padding: .5rem .7rem;
+                font-size: .85rem
+            }
+
+            .notification-item,
+            .security-item {
+                padding: .8rem;
+                margin-bottom: .6rem
+            }
+
+            .notification-info h4,
+            .security-info h4 {
+                font-size: .95rem
+            }
+
+            .notification-info p,
+            .security-info p {
+                font-size: .8rem
+            }
+
+            .switch {
+                width: 44px;
+                height: 22px
+            }
+
+            .slider:before {
+                height: 16px;
+                width: 16px;
+                left: 3px;
+                bottom: 3px
+            }
+
+            input:checked+.slider:before {
+                transform: translateX(22px)
+            }
+
+            .change-password-btn {
+                width: 100%;
+                justify-content: center
+            }
+        }
+
+        @media (max-width:360px) {
+            .profile-header {
+                padding: 1.2rem .6rem
+            }
+
+            .profile-picture {
+                width: 80px;
+                height: 80px
+            }
+
+            .profile-name {
+                font-size: 1.1rem
+            }
+
+            .profile-email {
+                font-size: .8rem
+            }
+
+            .profile-nav-item {
+                padding: .6rem .7rem;
+                font-size: .85rem
+            }
+
+            .profile-nav-item i {
+                font-size: 1rem
+            }
+        }
+
+        @media print {
+            .profile-section {
+                max-width: 100%;
+                margin: 0;
+                padding: 0
+            }
+
+            .profile-container {
+                box-shadow: none
+            }
+
+            .profile-header {
+                background: 0 0;
+                color: var(--text-primary)
+            }
+
+            .profile-picture {
+                border-color: var(--border-color)
+            }
+
+            .change-password-btn,
+            .profile-nav,
+            .save-btn {
+                display: none
+            }
+        }
+
+        .location-input-group {
+            display: flex;
+            gap: .8rem;
+            align-items: center
+        }
+
+        .location-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: .7rem 1.2rem;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            transition: var(--transition);
+            font-size: .9rem;
+            white-space: nowrap;
+            min-width: 120px;
+            justify-content: center
+        }
+
+        .location-btn i {
+            font-size: 1rem;
+            transition: var(--transition)
+        }
+
+        .location-btn:hover i {
+            transform: scale(1.1)
+        }
+
+        .location-btn:active {
+            transform: translateY(0)
+        }
+
+        @media (max-width:576px) {
+            .location-input-group {
+                flex-direction: column;
+                gap: .8rem
+            }
+
+            .location-btn {
+                width: 100%
+            }
+        }
+
+        .header,
+        .nav {
+            position: static
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">
+                    <img src="images/logo.png" alt="نطاق" class="logo-img">
+                </a>
+
+                <div class="nav-actions">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-comment"></i>
+                                رسالة جديدة
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-heart"></i>
+                                تم الإعجاب بخدمتك
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-star"></i>
+                                تقييم جديد
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="user-menu">
+                        <img src="images/user-avatar.jpg" class="user-avatar">
+                        <div class="dropdown">
+                            <a href="/profile" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                الملف الشخصي
+                            </a>
+                            <a href="/settings" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                الإعدادات
+                            </a>
+                            <a href="/logout" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                تسجيل الخروج
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="profile-section">
+        <div class="profile-container">
+            <div class="profile-grid">
+                <!-- Sidebar -->
+                <div class="profile-sidebar">
+                    <div class="profile-header">
+                        <div class="profile-picture">
+                            <img src="images/default-avatar.png" alt="الصورة الشخصية">
+                            <label class="profile-picture-upload">
+                                <i class="fas fa-camera"></i>
+                                تغيير الصورة
+                                <input type="file" accept="image/*" style="display: none;">
+                            </label>
+                        </div>
+                        <h2 class="profile-name">أحمد محمد</h2>
+                        <p class="profile-email">ahmed@example.com</p>
+                    </div>
+
+                    <nav class="profile-nav">
+                        <a href="#personal" class="profile-nav-item active">
+                            <i class="fas fa-user"></i>
+                            المعلومات الشخصية
+                        </a>
+                        <a href="#contact" class="profile-nav-item">
+                            <i class="fas fa-address-book"></i>
+                            معلومات الاتصال
+                        </a>
+                        <a href="#security" class="profile-nav-item">
+                            <i class="fas fa-shield-alt"></i>
+                            الأمان
+                        </a>
+                        <a href="#notifications" class="profile-nav-item">
+                            <i class="fas fa-bell"></i>
+                            الإشعارات
+                        </a>
+                    </nav>
+                </div>
+
+                <!-- Main Content -->
+                <div class="profile-main">
+                    <!-- Personal Information -->
+                    <div id="personal">
+                        <h3 class="section-title">
+                            <i class="fas fa-user"></i>
+                            المعلومات الشخصية
+                        </h3>
+
+                        <form id="personalForm">
+                            <div class="form-group">
+                                <label class="form-label">الاسم الكامل</label>
+                                <input type="text" class="form-input" value="أحمد محمد" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">البريد الإلكتروني</label>
+                                <input type="email" class="form-input" value="ahmed@example.com" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">رقم الجوال</label>
+                                <input type="tel" class="form-input" value="+966 50 123 4567" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">الدولة</label>
+                                <select class="form-input" required>
+                                    <option value="sa">المملكة العربية السعودية</option>
+                                    <option value="ae">الإمارات العربية المتحدة</option>
+                                    <option value="kw">الكويت</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="save-btn">
+                                <i class="fas fa-save"></i>
+                                حفظ التغييرات
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div id="contact" style="display: none;">
+                        <h3 class="section-title">
+                            <i class="fas fa-address-book"></i>
+                            معلومات الاتصال
+                        </h3>
+
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label class="form-label">العنوان</label>
+                                <div class="location-input-group">
+                                    <input type="text" class="form-input" id="address-input" placeholder="أدخل عنوانك"
+                                        required>
+                                    <button type="button" class="location-btn" onclick="getLocation()">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        استلام الموقع
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">المنطقة</label>
+                                <input type="text" class="form-input" placeholder="أدخل منطقتك">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">الرمز البريدي</label>
+                                <input type="text" class="form-input" placeholder="أدخل الرمز البريدي">
+                            </div>
+
+                            <button type="submit" class="save-btn">
+                                <i class="fas fa-save"></i>
+                                حفظ التغييرات
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Security Settings -->
+                    <div id="security" style="display: none;">
+                        <h3 class="section-title">
+                            <i class="fas fa-shield-alt"></i>
+                            الأمان
+                        </h3>
+
+                        <form id="securityForm">
+                            <div class="security-item">
+                                <div class="security-info">
+                                    <h4 class="security-title">تغيير كلمة المرور</h4>
+                                    <p class="security-description">تحديث كلمة المرور الخاصة بحسابك</p>
+                                </div>
+                                <div class="security-action">
+                                    <button type="button" class="change-password-btn">
+                                        <i class="fas fa-key"></i>
+                                        تغيير كلمة المرور
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Notification Settings -->
+                    <div id="notifications" style="display: none;">
+                        <h3 class="section-title">
+                            <i class="fas fa-bell"></i>
+                            إعدادات الإشعارات
+                        </h3>
+
+                        <div class="notification-settings">
+                            <div class="notification-item">
+                                <div class="notification-info">
+                                    <h4>إشعارات الموقع</h4>
+                                    <p>السماح للموقع بإرسال إشعارات على جهازك</p>
+                                </div>
+                                <div class="notification-toggle">
+                                    <label class="switch">
+                                        <input type="checkbox" id="websiteNotifications">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Profile Navigation
+        const navItems = document.querySelectorAll('.profile-nav-item');
+        const sections = document.querySelectorAll('.profile-main > div');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                // Remove active class from all items
+                navItems.forEach(navItem => navItem.classList.remove('active'));
+
+                // Add active class to clicked item
+                item.classList.add('active');
+
+                // Hide all sections
+                sections.forEach(section => section.style.display = 'none');
+
+                // Show target section
+                const targetId = item.getAttribute('href').substring(1);
+                document.getElementById(targetId).style.display = 'block';
+            });
+        });
+
+        // Profile Picture Upload
+        const profilePictureInput = document.querySelector('.profile-picture input[type="file"]');
+        const profilePictureImg = document.querySelector('.profile-picture img');
+
+        profilePictureInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    profilePictureImg.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Form Submissions
+        document.getElementById('personalForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Handle personal information form submission
+            console.log('Personal information updated');
+        });
+
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Handle contact information form submission
+            console.log('Contact information updated');
+        });
+
+        document.getElementById('notificationsForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Handle notifications settings form submission
+            console.log('Notification settings updated');
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/footer-logo.png" alt="نطاق" class="logo-img">
+                    <p class="footer-desc">نطاق هي منصة رقمية تربط بين المستخدمين ومقدمي الخدمات في مختلف المجالات. نسعى
+                        لتسهيل عملية البحث عن الخدمات وتوفير تجربة سلسة وآمنة للجميع.</p>
+                    <div class="footer-contact">
+                        <p>📞 تواصل معنا: 0123456789</p>
+                        <p>📧 البريد الإلكتروني: info@netaak.com</p>
+                        <p>📍 العنوان: القاهرة، مصر</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="about.html">عن نطاق</a></li>
+                        <li><a href="contact.html">اتصل بنا</a></li>
+                        <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                        <li><a href="terms.html">الشروط والأحكام</a></li>
+                        <li><a href="faq.html">الأسئلة الشائعة</a></li>
+                        <li><a href="blog.html">المدونة</a></li>
+                        <li><a href="careers.html">الوظائف</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>تابعنا على</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                    <div class="newsletter">
+                        <h4>النشرة البريدية</h4>
+                        <p>اشترك في نشرتنا البريدية واحصل على آخر العروض المميزة والأخبار الحصرية</p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="أدخل بريدك الإلكتروني" required>
+                            <button type="submit" class="btn btn-primary">اشترك الآن</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>جميع الحقوق محفوظة © 2025 نطاق</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نطاق - المدونة</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        .blog-hero {
+            background: var(--primary-color);
+            padding: 6rem 0;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.1;
+        }
+
+        .blog-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: -0.02em;
+        }
+
+        .blog-hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .blog-section {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        .blog-posts {
+            display: grid;
+            gap: 3rem;
+        }
+
+        .blog-post {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .blog-post:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .post-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .blog-post:hover .post-image {
+            transform: scale(1.05);
+        }
+
+        .post-content {
+            padding: 2rem;
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .post-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .post-meta i {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .post-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1.2rem;
+            line-height: 1.4;
+            letter-spacing: -0.02em;
+        }
+
+        .post-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .post-title a:hover {
+            color: var(--primary-color);
+        }
+
+        .post-excerpt {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            background: rgba(var(--primary-rgb), 0.1);
+        }
+
+        .read-more:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .blog-sidebar {
+            position: sticky;
+            top: 2rem;
+        }
+
+        .sidebar-widget {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .widget-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--primary-color);
+            letter-spacing: -0.02em;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .search-form input {
+            flex: 1;
+            padding: 1rem 1.2rem;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-form input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.1);
+        }
+
+        .search-form button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-form button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .categories-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .categories-list li {
+            margin-bottom: 1rem;
+        }
+
+        .categories-list a {
+            color: #666;
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .categories-list a:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .categories-list span {
+            background: rgba(255,255,255,0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .recent-posts {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .recent-post {
+            display: flex;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .recent-post:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .recent-post img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .recent-post:hover img {
+            transform: scale(1.1);
+        }
+
+        .recent-post-content h4 {
+            font-size: 1.1rem;
+            margin: 0 0 0.8rem;
+            line-height: 1.4;
+        }
+
+        .recent-post-content h4 a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .recent-post-content h4 a:hover {
+            color: var(--primary-color);
+        }
+
+        .recent-post-content .post-date {
+            color: #666;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .recent-post-content .post-date i {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 992px) {
+            .blog-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .blog-sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blog-hero {
+                padding: 4rem 0;
+            }
+
+            .blog-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .blog-hero p {
+                font-size: 1.1rem;
+            }
+
+            .blog-section {
+                padding: 3rem 0;
+            }
+
+            .post-image {
+                height: 300px;
+            }
+
+            .post-title {
+                font-size: 1.5rem;
+            }
+
+            .post-content {
+                padding: 1.5rem;
+            }
+
+            .sidebar-widget {
+                padding: 1.5rem;
+            }
+
+            .swiper-slide img {
+                height: 300px;
+            }
+
+            .blog-post img {
+                height: 250px;
+            }
+
+            .recent-post img {
+                width: 80px;
+                height: 80px;
+            }
+
+            .logo-img {
+                width: 100px;
+                height: 35px;
+            }
+
+            .footer-logo .logo-img {
+                width: 120px;
+                height: 40px;
+            }
+        }
+
+        /* Swiper Styles */
+        .swiper {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 2rem;
+        }
+
+        .swiper-slide {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .slide-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: white;
+            z-index: 1;
+        }
+
+        .slide-content h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .slide-content p {
+            font-size: 1.1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease 0.2s;
+            line-height: 1.5;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 400;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: 0.3px;
+        }
+
+        .swiper-slide-active .slide-content h3,
+        .swiper-slide-active .slide-content p {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: white;
+            background: rgba(255,255,255,0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .swiper-button-next:after,
+        .swiper-button-prev:after {
+            font-size: 1.5rem;
+        }
+
+        .swiper-pagination-bullet {
+            width: 12px;
+            height: 12px;
+            background: rgba(255,255,255,0.5);
+            opacity: 1;
+            transition: all 0.3s ease;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .swiper {
+                height: 300px;
+            }
+
+            .slide-content {
+                padding: 1.5rem;
+            }
+
+            .slide-content h3 {
+                font-size: 1.5rem;
+            }
+
+            .slide-content p {
+                font-size: 1rem;
+                max-width: 100%;
+                padding: 0 1rem;
+            }
+        }
+
+        /* Image Dimensions */
+        .swiper-slide img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .blog-post img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .recent-post img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 50%;
+        }
+
+        .logo-img {
+            width: 120px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .footer-logo .logo-img {
+            width: 150px;
+            height: 50px;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .swiper-slide img {
+                height: 300px;
+            }
+
+            .blog-post img {
+                height: 250px;
+            }
+
+            .recent-post img {
+                width: 80px;
+                height: 80px;
+            }
+
+            .logo-img {
+                width: 100px;
+                height: 35px;
+            }
+
+            .footer-logo .logo-img {
+                width: 120px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">
+                    <img src="images/logo.png" alt="نطاق" class="logo-img">
+                </a>
+
+                <div class="nav-actions">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-comment"></i>
+                                رسالة جديدة
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-heart"></i>
+                                تم الإعجاب بخدمتك
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-star"></i>
+                                تقييم جديد
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="user-menu">
+                        <img src="images/user-avatar.jpg" class="user-avatar">
+                        <div class="dropdown">
+                            <a href="/profile" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                الملف الشخصي
+                            </a>
+                            <a href="/settings" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                الإعدادات
+                            </a>
+                            <a href="/logout" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                تسجيل الخروج
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+        <div class="container">
+            <h1>المدونة</h1>
+            <p>أحدث المقالات والأخبار حول منصة نطاق وخدماتها</p>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog-section">
+        <div class="container">
+            <div class="blog-container">
+                <!-- Main Content -->
+                <div class="blog-posts">
+                    <div class="swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="images/blog/slide-1.jpg" alt="عنوان المقال">
+                                <div class="slide-content">
+                                    <h3>كيف يمكنك تطوير أعمالك باستخدام منصة نطاق</h3>
+                                    <p>تعرف على كيفية استخدام منصة نطاق لتطوير أعمالك وزيادة مبيعاتك</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/blog/slide-2.jpg" alt="عنوان المقال">
+                                <div class="slide-content">
+                                    <h3>نصائح للتسويق الرقمي الفعال في 2024</h3>
+                                    <p>اكتشف أحدث استراتيجيات التسويق الرقمي لتعزيز وجودك على الإنترنت</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/blog/slide-3.jpg" alt="عنوان المقال">
+                                <div class="slide-content">
+                                    <h3>كيف تبدأ مشروعك الخاص باستخدام منصة نطاق</h3>
+                                    <p>دليل شامل للمبتدئين حول كيفية بدء مشروعك الخاص وتنميته</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
+
+                    <article class="blog-post">
+                        <img src="images/blog/post-1.jpg" alt="عنوان المقال" class="post-image">
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar"></i> 15 مارس 2024</span>
+                                <span><i class="far fa-user"></i> أحمد محمد</span>
+                                <span><i class="far fa-folder"></i> تطوير الأعمال</span>
+                            </div>
+                            <h2 class="post-title">
+                                <a href="#">كيف يمكنك تطوير أعمالك باستخدام منصة نطاق</a>
+                            </h2>
+                            <p class="post-excerpt">
+                                تعرف على كيفية استخدام منصة نطاق لتطوير أعمالك وزيادة مبيعاتك من خلال الوصول إلى عملاء جدد وتقديم خدماتك بشكل احترافي.
+                            </p>
+                            <a href="#" class="read-more">
+                                اقرأ المزيد
+                                <i class="fas fa-arrow-left"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="blog-post">
+                        <img src="images/blog/post-2.jpg" alt="عنوان المقال" class="post-image">
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar"></i> 10 مارس 2024</span>
+                                <span><i class="far fa-user"></i> سارة أحمد</span>
+                                <span><i class="far fa-folder"></i> التسويق الرقمي</span>
+                            </div>
+                            <h2 class="post-title">
+                                <a href="#">نصائح للتسويق الرقمي الفعال في 2024</a>
+                            </h2>
+                            <p class="post-excerpt">
+                                اكتشف أحدث استراتيجيات التسويق الرقمي التي يمكنك استخدامها لتعزيز وجودك على الإنترنت وجذب المزيد من العملاء.
+                            </p>
+                            <a href="#" class="read-more">
+                                اقرأ المزيد
+                                <i class="fas fa-arrow-left"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="blog-post">
+                        <img src="images/blog/post-3.jpg" alt="عنوان المقال" class="post-image">
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar"></i> 5 مارس 2024</span>
+                                <span><i class="far fa-user"></i> محمد علي</span>
+                                <span><i class="far fa-folder"></i> ريادة الأعمال</span>
+                            </div>
+                            <h2 class="post-title">
+                                <a href="#">كيف تبدأ مشروعك الخاص باستخدام منصة نطاق</a>
+                            </h2>
+                            <p class="post-excerpt">
+                                دليل شامل للمبتدئين حول كيفية بدء مشروعك الخاص وتنميته باستخدام منصة نطاق كأداة فعالة للوصول إلى العملاء.
+                            </p>
+                            <a href="#" class="read-more">
+                                اقرأ المزيد
+                                <i class="fas fa-arrow-left"></i>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Sidebar -->
+                <aside class="blog-sidebar">
+                    <!-- Search Widget -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">البحث</h3>
+                        <form class="search-form">
+                            <input type="text" placeholder="ابحث عن مقال...">
+                            <button type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Categories Widget -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">التصنيفات</h3>
+                        <ul class="categories-list">
+                            <li>
+                                <a href="#">
+                                    تطوير الأعمال
+                                    <span>12</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    التسويق الرقمي
+                                    <span>8</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    ريادة الأعمال
+                                    <span>15</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    التكنولوجيا
+                                    <span>6</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    نصائح وإرشادات
+                                    <span>10</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Recent Posts Widget -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">أحدث المقالات</h3>
+                        <ul class="recent-posts">
+                            <li class="recent-post">
+                                <img src="images/blog/post-1.jpg" alt="عنوان المقال">
+                                <div class="recent-post-content">
+                                    <h4>
+                                        <a href="#">كيف يمكنك تطوير أعمالك باستخدام منصة نطاق</a>
+                                    </h4>
+                                    <span class="post-date">15 مارس 2024</span>
+                                </div>
+                            </li>
+                            <li class="recent-post">
+                                <img src="images/blog/post-2.jpg" alt="عنوان المقال">
+                                <div class="recent-post-content">
+                                    <h4>
+                                        <a href="#">نصائح للتسويق الرقمي الفعال في 2024</a>
+                                    </h4>
+                                    <span class="post-date">10 مارس 2024</span>
+                                </div>
+                            </li>
+                            <li class="recent-post">
+                                <img src="images/blog/post-3.jpg" alt="عنوان المقال">
+                                <div class="recent-post-content">
+                                    <h4>
+                                        <a href="#">كيف تبدأ مشروعك الخاص باستخدام منصة نطاق</a>
+                                    </h4>
+                                    <span class="post-date">5 مارس 2024</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/footer-logo.png" alt="نطاق" class="logo-img">
+                    <p class="footer-desc">نطاق هي منصة رقمية تربط بين المستخدمين ومقدمي الخدمات في مختلف المجالات. نسعى
+                        لتسهيل عملية البحث عن الخدمات وتوفير تجربة سلسة وآمنة للجميع.</p>
+                    <div class="footer-contact">
+                        <p>📞 تواصل معنا: 0123456789</p>
+                        <p>📧 البريد الإلكتروني: info@netaak.com</p>
+                        <p>📍 العنوان: القاهرة، مصر</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="about.html">عن نطاق</a></li>
+                        <li><a href="contact.html">اتصل بنا</a></li>
+                        <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                        <li><a href="terms.html">الشروط والأحكام</a></li>
+                        <li><a href="faq.html">الأسئلة الشائعة</a></li>
+                        <li><a href="blog.html">المدونة</a></li>
+                        <li><a href="careers.html">الوظائف</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>تابعنا على</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                    <div class="newsletter">
+                        <h4>النشرة البريدية</h4>
+                        <p>اشترك في نشرتنا البريدية واحصل على آخر العروض المميزة والأخبار الحصرية</p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="أدخل بريدك الإلكتروني" required>
+                            <button type="submit" class="btn btn-primary">اشترك الآن</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>جميع الحقوق محفوظة © 2025 نطاق</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            new Swiper('.swiper', {
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                speed: 600,
+                effect: 'creative',
+                creativeEffect: {
+                    prev: {
+                        translate: ['100%', 0, 0],
+                        opacity: 0,
+                        scale: 0.8
+                    },
+                    next: {
+                        translate: ['-100%', 0, 0],
+                        opacity: 0,
+                        scale: 0.8
+                    },
+                },
+                grabCursor: true,
+                keyboard: {
+                    enabled: true,
+                },
+                mousewheel: {
+                    forceToAxis: true,
+                },
+                rtl: true,
+                watchSlidesProgress: true,
+                observer: true,
+                observeParents: true,
+                preloadImages: true,
+                updateOnImagesReady: true,
+            });
+        });
+    </script>
+</body>
+
+</html> 

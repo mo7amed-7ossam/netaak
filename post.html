@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المنشور - نطاق</title>
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="images/icon.png">
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <link rel="apple-touch-icon" href="images/icon.png">
+    <meta name="theme-color" content="#6f8051">
+    <style>
+        :root {
+            --primary-color: #6f8051;
+            --secondary-color: #919663;
+            --background-light: #ffffff;
+            --accent-light: #f5f5f5;
+            --accent-dark: #e8e8e8;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --white: #ffffff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background: var(--accent-light);
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .post-card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .post-header {
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            border-bottom: 1px solid var(--accent-light);
+        }
+
+        .post-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .post-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .post-info {
+            flex: 1;
+        }
+
+        .post-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .post-options {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .options-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .options-btn:hover {
+            background: var(--accent-light);
+        }
+
+        .post-content {
+            padding: 16px;
+        }
+
+        .post-text {
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+
+        .post-images-grid {
+            display: grid;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .post-images-grid.single {
+            grid-template-columns: 1fr;
+        }
+
+        .post-image-wrapper {
+            position: relative;
+            width: 100%;
+            background: var(--accent-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .post-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .post-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-top: 1px solid var(--accent-light);
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .post-likes, .post-comments {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 4px;
+            padding: 8px 16px;
+            border-top: 1px solid var(--accent-light);
+        }
+
+        .post-action {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 8px;
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 4px;
+        }
+
+        .post-action:hover {
+            background: var(--accent-light);
+        }
+
+        .post-action.liked {
+            color: var(--primary-color);
+        }
+
+        .post-comments-section {
+            padding: 16px;
+            background: var(--white);
+        }
+
+        .comment-input {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .comment-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .comment-form {
+            flex: 1;
+            position: relative;
+        }
+
+        .comment-text {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--accent-light);
+            border-radius: 20px;
+            resize: none;
+            min-height: 40px;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .comment-text:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(111, 128, 81, 0.1);
+        }
+
+        .comment-submit {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .comment-submit:hover {
+            background: var(--secondary-color);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .comment-item {
+            display: flex;
+            gap: 12px;
+        }
+
+        .comment-content {
+            flex: 1;
+            background: var(--white);
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid var(--accent-light);
+            transition: var(--transition);
+        }
+
+        .comment-content:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 2px 8px rgba(111, 128, 81, 0.1);
+        }
+
+        .comment-author {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .comment-author i {
+            color: var(--primary-color);
+            font-size: 0.8rem;
+        }
+
+        .comment-text {
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .comment-actions {
+            display: flex;
+            gap: 16px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--accent-light);
+            padding-top: 12px;
+        }
+
+        .comment-action {
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 20px;
+            transition: var(--transition);
+            background: transparent;
+            border: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .comment-action:hover {
+            background: var(--accent-light);
+        }
+
+        .comment-action.liked {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .comment-time {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-right: auto;
+        }
+
+        .comment-replies {
+            margin-right: 48px;
+            margin-top: 12px;
+            padding-right: 8px;
+            position: relative;
+        }
+
+        .comment-replies::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent-light);
+            border-radius: 2px;
+        }
+
+        .comment-replies .comment-content {
+            background: var(--accent-light);
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .post-header {
+                padding: 12px;
+            }
+
+            .post-content {
+                padding: 12px;
+            }
+
+            .post-text {
+                font-size: 0.95rem;
+            }
+
+            .post-actions {
+                padding: 8px 12px;
+            }
+
+            .post-action {
+                font-size: 0.9rem;
+            }
+
+            .comment-content {
+                padding: 12px;
+            }
+
+            .comment-author {
+                font-size: 0.9rem;
+            }
+
+            .comment-text {
+                font-size: 0.9rem;
+            }
+
+            .comment-actions {
+                gap: 12px;
+            }
+
+            .comment-action {
+                font-size: 0.85rem;
+            }
+
+            .comment-replies {
+                margin-right: 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 12px;
+            }
+
+            .post-header {
+                padding: 10px;
+            }
+
+            .post-avatar {
+                width: 40px;
+                height: 40px;
+            }
+
+            .post-name {
+                font-size: 1rem;
+            }
+
+            .post-meta {
+                font-size: 0.8rem;
+            }
+
+            .post-content {
+                padding: 10px;
+            }
+
+            .post-text {
+                font-size: 0.9rem;
+            }
+
+            .post-actions {
+                padding: 6px 10px;
+            }
+
+            .post-action {
+                font-size: 0.85rem;
+                padding: 6px;
+            }
+
+            .comment-content {
+                padding: 10px;
+            }
+
+            .comment-author {
+                font-size: 0.85rem;
+            }
+
+            .comment-text {
+                font-size: 0.85rem;
+            }
+
+            .comment-actions {
+                gap: 8px;
+            }
+
+            .comment-action {
+                font-size: 0.8rem;
+                padding: 4px 8px;
+            }
+        }
+
+        .header {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 12px 0;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .notification-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notification-icon i {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary-color);
+            color: var(--white);
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        .user-menu {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 8px 0;
+            min-width: 200px;
+            display: none;
+            z-index: 100;
+        }
+
+        .notification-icon:hover .dropdown,
+        .user-menu:hover .dropdown {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .dropdown-item:hover {
+            background: var(--accent-light);
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1.5fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo img {
+            height: 50px;
+        }
+
+        .footer-desc {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links h4,
+        .footer-social h4 {
+            color: var(--white);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-links h4::after,
+        .footer-social h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-light);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            display: block;
+            padding: 0.3rem 0;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            transform: translateX(-5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-link:hover {
+            background-color: var(--accent-light);
+            transform: translateY(-3px);
+        }
+
+        .social-link i {
+            font-size: 1.2rem;
+            color: var(--white);
+        }
+
+        .social-link:hover i {
+            transform: scale(1.1);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-contact p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.5rem;
+        }
+
+        .newsletter p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+            font-family: Cairo, sans-serif;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            font-family: Cairo, sans-serif;
+        }
+
+        .newsletter-form input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .newsletter-form button {
+            padding: 0.8rem 1.5rem;
+            background-color: var(--secondary-color);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-family: Cairo, sans-serif;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .newsletter-form button:hover {
+            background-color: var(--secondary-color);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .newsletter-form button:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-logo {
+                text-align: center;
+                align-items: center;
+            }
+
+            .footer-links {
+                text-align: center;
+            }
+
+            .footer-social {
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 12px;
+            }
+
+            .nav-actions {
+                gap: 12px;
+            }
+
+            .user-avatar {
+                width: 32px;
+                height: 32px;
+            }
+
+            .notification-icon i {
+                font-size: 1.1rem;
+            }
+
+            .footer {
+                padding: 40px 0 20px;
+            }
+
+            .footer-content {
+                gap: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">
+                    <img src="images/logo.png" alt="نطاق" class="logo-img">
+                </a>
+
+                <div class="nav-actions">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-comment"></i>
+                                رسالة جديدة
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-heart"></i>
+                                تم الإعجاب بخدمتك
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-star"></i>
+                                تقييم جديد
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="user-menu">
+                        <img src="images/user-avatar.jpg" class="user-avatar">
+                        <div class="dropdown">
+                            <a href="/profile" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                الملف الشخصي
+                            </a>
+                            <a href="/settings" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                الإعدادات
+                            </a>
+                            <a href="/logout" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                تسجيل الخروج
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Post Container -->
+    <div class="container">
+        <!-- Post Card -->
+        <div class="post-card">
+            <div class="post-header">
+                <div class="post-avatar">
+                    <img src="images/user-avatar.jpg" alt="صورة المستخدم">
+                </div>
+                <div class="post-info">
+                    <div class="post-name">أحمد محمد</div>
+                    <div class="post-meta">
+                        <span class="post-time">منذ ساعة</span>
+                    </div>
+                </div>
+                <div class="post-options">
+                    <button class="options-btn">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="post-content">
+                <p class="post-text">تم إنجاز مشروع جديد في منطقة مدينة نصر. تركيب نظام إضاءة متكامل لمنزل مساحته 200 متر مربع. شكراً لثقة العميل 🙏</p>
+                <div class="post-images-grid single">
+                    <div class="post-image-wrapper">
+                        <img src="images/post-image.jpg" alt="صورة المشروع" onerror="handlePostImageError(this)">
+                    </div>
+                </div>
+            </div>
+            <div class="post-stats">
+                <div class="post-likes">
+                    <i class="fas fa-thumbs-up"></i>
+                    <span>120</span>
+                </div>
+                <div class="post-comments">
+                    <span>15 تعليق</span>
+                    <span>3 مشاركة</span>
+                </div>
+            </div>
+            <div class="post-actions">
+                <button class="post-action">
+                    <i class="far fa-thumbs-up"></i>
+                    <span>إعجاب</span>
+                </button>
+                <button class="post-action">
+                    <i class="far fa-comment"></i>
+                    <span>تعليق</span>
+                </button>
+                <button class="post-action">
+                    <i class="far fa-share-square"></i>
+                    <span>مشاركة</span>
+                </button>
+            </div>
+            <div class="post-comments-section">
+                <div class="comment-input">
+                    <img src="images/user-avatar.jpg" alt="صورة المستخدم" class="comment-avatar">
+                    <div class="comment-form">
+                        <textarea class="comment-text" placeholder="اكتب تعليقاً..."></textarea>
+                        <button class="comment-submit">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="comments-list">
+                    <div class="comment-item">
+                        <div class="comment-content">
+                            <div class="comment-author">
+                                <img src="images/user-avatar.jpg" alt="صورة المستخدم" class="comment-avatar">
+                                محمد علي
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <p class="comment-text">عمل رائع! هل يمكنني التواصل معك لتنفيذ مشروع مماثل؟</p>
+                            <div class="comment-actions">
+                                <button class="comment-action">
+                                    <i class="far fa-thumbs-up"></i>
+                                    إعجاب (12)
+                                </button>
+                                <button class="comment-action">
+                                    <i class="far fa-comment"></i>
+                                    رد
+                                </button>
+                                <span class="comment-time">منذ 30 دقيقة</span>
+                            </div>
+                            <div class="comment-replies">
+                                <div class="comment-item">
+                                    <div class="comment-content">
+                                        <div class="comment-author">
+                                            <img src="images/user-avatar.jpg" alt="صورة المستخدم" class="comment-avatar">
+                                            أحمد محمد
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                        <p class="comment-text">بالتأكيد! يمكنك التواصل معي على الرقم الموجود في الملف الشخصي</p>
+                                        <div class="comment-actions">
+                                            <button class="comment-action">
+                                                <i class="far fa-thumbs-up"></i>
+                                                إعجاب (5)
+                                            </button>
+                                            <button class="comment-action">
+                                                <i class="far fa-comment"></i>
+                                                رد
+                                            </button>
+                                            <span class="comment-time">منذ 20 دقيقة</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/footer-logo.png" alt="نطاق" class="logo-img">
+                    <p class="footer-desc">نطاق هي منصة رقمية تربط بين المستخدمين ومقدمي الخدمات في مختلف المجالات. نسعى
+                        لتسهيل عملية البحث عن الخدمات وتوفير تجربة سلسة وآمنة للجميع.</p>
+                    <div class="footer-contact">
+                        <p>📞 تواصل معنا: 0123456789</p>
+                        <p>📧 البريد الإلكتروني: info@netaak.com</p>
+                        <p>📍 العنوان: القاهرة، مصر</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="about.html">عن نطاق</a></li>
+                        <li><a href="contact.html">اتصل بنا</a></li>
+                        <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                        <li><a href="terms.html">الشروط والأحكام</a></li>
+                        <li><a href="faq.html">الأسئلة الشائعة</a></li>
+                        <li><a href="blog.html">المدونة</a></li>
+                        <li><a href="careers.html">الوظائف</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>تابعنا على</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                    <div class="newsletter">
+                        <h4>النشرة البريدية</h4>
+                        <p>اشترك في نشرتنا البريدية واحصل على آخر العروض المميزة والأخبار الحصرية</p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="أدخل بريدك الإلكتروني" required>
+                            <button type="submit" class="btn btn-primary">اشترك الآن</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>جميع الحقوق محفوظة © 2025 نطاق</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle post actions
+            const postActions = document.querySelectorAll('.post-action');
+            postActions.forEach(action => {
+                action.addEventListener('click', function() {
+                    if (this.classList.contains('liked')) {
+                        this.classList.remove('liked');
+                        this.querySelector('i').classList.remove('fas');
+                        this.querySelector('i').classList.add('far');
+                    } else {
+                        this.classList.add('liked');
+                        this.querySelector('i').classList.remove('far');
+                        this.querySelector('i').classList.add('fas');
+                    }
+                });
+            });
+
+            // Handle comment actions
+            const commentActions = document.querySelectorAll('.comment-action');
+            commentActions.forEach(action => {
+                action.addEventListener('click', function() {
+                    if (this.classList.contains('liked')) {
+                        this.classList.remove('liked');
+                        this.querySelector('i').classList.remove('fas');
+                        this.querySelector('i').classList.add('far');
+                    } else {
+                        this.classList.add('liked');
+                        this.querySelector('i').classList.remove('far');
+                        this.querySelector('i').classList.add('fas');
+                    }
+                });
+            });
+
+            // Handle comment submission
+            const commentSubmit = document.querySelector('.comment-submit');
+            const commentText = document.querySelector('.comment-text');
+            
+            if (commentSubmit && commentText) {
+                commentSubmit.addEventListener('click', function() {
+                    const text = commentText.value.trim();
+                    if (text) {
+                        // Here you would typically send the comment to the server
+                        console.log('New comment:', text);
+                        commentText.value = '';
+                    }
+                });
+            }
+        });
+
+        // Handle image error
+        function handlePostImageError(img) {
+            img.style.display = 'none';
+            const wrapper = img.parentElement;
+            wrapper.innerHTML = `
+                <div class="post-image-fallback">
+                    <i class="fas fa-image"></i>
+                    <span class="post-image-fallback-text">لم يتم تحميل الصورة</span>
+                </div>
+            `;
+        }
+    </script>
+</body>
+
+</html> 

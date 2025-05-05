@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كيف يمكنك تطوير أعمالك باستخدام منصة نطاق - نطاق</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body{
+            background: #fff;
+        }
+        .article-hero {
+            background:var(--primary-color);
+            padding: 6rem 0;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .article-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.03;
+        }
+
+        .article-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            line-height: 1.3;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            color: rgba(255,255,255,0.95);
+            font-size: 1rem;
+        }
+
+        .article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 30px;
+        }
+
+        .article-meta span:hover {
+            transform: translateY(-2px);
+            background: rgba(255,255,255,0.2);
+        }
+
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 5rem 3rem;
+            background: white;
+            border-radius: 30px;
+            margin-top: -4rem;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+
+        .article-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 4rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .article-text {
+            font-size: 1.15rem;
+            line-height: 2;
+            color: #444;
+        }
+
+        .article-text p {
+            margin-bottom: 2rem;
+        }
+
+        .article-text h2 {
+            font-size: 2rem;
+            color: #333;
+            margin: 4rem 0 2rem;
+            font-weight: 800;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .article-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .article-text h3 {
+            font-size: 1.6rem;
+            color: #333;
+            margin: 3rem 0 1.5rem;
+            font-weight: 700;
+        }
+
+        .article-text ul, 
+        .article-text ol {
+            margin: 2rem 0;
+            padding-right: 2rem;
+        }
+
+        .article-text li {
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-right: 0.8rem;
+        }
+
+        .article-text blockquote {
+            border-right: 4px solid var(--primary-color);
+            padding: 2rem 3rem;
+            margin: 3rem 0;
+            background: #f8f9fa;
+            border-radius: 0 20px 20px 0;
+            font-style: italic;
+            color: #555;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+        }
+
+        .article-text img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin: 3rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .article-tags {
+            display: flex;
+            gap: 1.2rem;
+            margin: 4rem 0;
+            flex-wrap: wrap;
+        }
+
+        .article-tag {
+            background: #f8f9fa;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            color: #666;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            border: 1px solid #eee;
+            font-weight: 500;
+        }
+
+        .article-tag:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            border-color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.2);
+        }
+
+        .article-share {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin: 4rem 0;
+            padding-top: 3rem;
+            border-top: 1px solid #eee;
+        }
+
+        .share-title {
+            font-weight: 700;
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .share-button {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            font-size: 1.2rem;
+        }
+
+        .share-button.facebook { background: #1877f2; }
+        .share-button.twitter { background: #1da1f2; }
+        .share-button.linkedin { background: #0077b5; }
+        .share-button.whatsapp { background: #25d366; }
+
+        .share-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .related-posts {
+            background: #f8f9fa;
+            padding: 6rem 0;
+            margin-top: 100px;
+        }
+
+        .related-posts h2 {
+            text-align: center;
+            margin-bottom: 4rem;
+            font-size: 2.2rem;
+            color: #333;
+            font-weight: 800;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        .related-post {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+            border: 1px solid #eee;
+        }
+
+        .related-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .related-post img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .related-post:hover img {
+            transform: scale(1.05);
+        }
+
+        .related-post-content {
+            padding: 2rem;
+        }
+
+        .related-post-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+            font-weight: 700;
+        }
+
+        .related-post-content h3 a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .related-post-content h3 a:hover {
+            color: var(--primary-color);
+        }
+
+        .related-post-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 992px) {
+            .related-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .article-hero {
+                padding: 5rem 0;
+            }
+
+            .article-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .article-content {
+                padding: 3rem 2rem;
+                margin-top: -3rem;
+            }
+
+            .article-image {
+                height: 350px;
+            }
+
+            .article-text {
+                font-size: 1.1rem;
+            }
+
+            .article-text h2 {
+                font-size: 1.8rem;
+            }
+
+            .article-text h3 {
+                font-size: 1.4rem;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">
+                    <img src="images/logo.png" alt="نطاق" class="logo-img">
+                </a>
+
+                <div class="nav-actions">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-comment"></i>
+                                رسالة جديدة
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-heart"></i>
+                                تم الإعجاب بخدمتك
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-star"></i>
+                                تقييم جديد
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="user-menu">
+                        <img src="images/user-avatar.jpg" class="user-avatar">
+                        <div class="dropdown">
+                            <a href="/profile" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                الملف الشخصي
+                            </a>
+                            <a href="/settings" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                الإعدادات
+                            </a>
+                            <a href="/logout" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                تسجيل الخروج
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Article Hero -->
+    <section class="article-hero">
+        <div class="container">
+            <h1>كيف يمكنك تطوير أعمالك باستخدام منصة نطاق</h1>
+            <div class="article-meta">
+                <span><i class="far fa-calendar"></i> 15 مارس 2024</span>
+                <span><i class="far fa-user"></i> أحمد محمد</span>
+                <span><i class="far fa-folder"></i> تطوير الأعمال</span>
+                <span><i class="far fa-clock"></i> 5 دقائق قراءة</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Article Content -->
+    <article class="article-content">
+        <img src="images/blog/post-1.jpg" alt="صورة المقال" class="article-image">
+        
+        <div class="article-text">
+            <p>في عالم الأعمال الرقمي المتسارع، أصبح من الضروري على الشركات والأفراد تبني حلول مبتكرة لتطوير أعمالهم وزيادة مبيعاتهم. منصة نطاق تقدم مجموعة متكاملة من الأدوات والخدمات التي تساعدك على تحقيق هذه الأهداف بفعالية.</p>
+
+            <h2>كيف يمكن لمنصة نطاق مساعدتك في تطوير أعمالك؟</h2>
+            
+            <p>تقدم منصة نطاق العديد من المميزات التي تساعدك على تطوير أعمالك:</p>
+
+            <ul>
+                <li>الوصول إلى قاعدة عملاء واسعة ومتنوعة</li>
+                <li>تقديم خدماتك بشكل احترافي ومنظم</li>
+                <li>إدارة العلاقات مع العملاء بفعالية</li>
+                <li>تحليل أداء أعمالك واتخاذ قرارات مدروسة</li>
+            </ul>
+
+            <h3>الخطوات الأولى للبدء</h3>
+
+            <p>للبدء في استخدام منصة نطاق، اتبع الخطوات التالية:</p>
+
+            <ol>
+                <li>إنشاء حساب على المنصة</li>
+                <li>إكمال الملف الشخصي لشركتك</li>
+                <li>إضافة الخدمات التي تقدمها</li>
+                <li>تحديد الأسعار والتفاصيل</li>
+                <li>بدء التسويق لخدماتك</li>
+            </ol>
+
+            <blockquote>
+                "منصة نطاق غيرت طريقة تقديم الخدمات في السوق العربي، وأصبحت الخيار الأمثل للشركات والأفراد الذين يسعون لتطوير أعمالهم."
+            </blockquote>
+
+            <h2>نصائح للنجاح على المنصة</h2>
+
+            <p>لتحقيق أفضل النتائج على منصة نطاق، نقدم لك هذه النصائح:</p>
+
+            <ul>
+                <li>احرص على تقديم وصف دقيق ومفصل لخدماتك</li>
+                <li>استخدم صور عالية الجودة لعرض أعمالك</li>
+                <li>رد بسرعة على استفسارات العملاء</li>
+                <li>حافظ على تقييمات إيجابية من خلال تقديم خدمة متميزة</li>
+            </ul>
+
+            <img src="images/blog/post-2.jpg" alt="صورة توضيحية">
+
+            <h2>الخاتمة</h2>
+
+            <p>منصة نطاق توفر لك كل ما تحتاجه لتطوير أعمالك وزيادة مبيعاتك. ابدأ اليوم في رحلة النجاح مع نطاق واستمتع بمميزات المنصة المتكاملة.</p>
+        </div>
+
+        <div class="article-tags">
+            <a href="#" class="article-tag">تطوير الأعمال</a>
+            <a href="#" class="article-tag">التسويق الرقمي</a>
+            <a href="#" class="article-tag">ريادة الأعمال</a>
+            <a href="#" class="article-tag">نصائح</a>
+        </div>
+
+        <div class="article-share">
+            <span class="share-title">شارك المقال:</span>
+            <div class="share-buttons">
+                <a href="#" class="share-button facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="share-button twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="share-button linkedin">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="share-button whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </article>
+
+    <!-- Related Posts -->
+    <section class="related-posts">
+        <div class="container">
+            <h2>مقالات ذات صلة</h2>
+            <div class="related-grid">
+                <article class="related-post">
+                    <img src="images/blog/post-2.jpg" alt="عنوان المقال">
+                    <div class="related-post-content">
+                        <h3>
+                            <a href="#">نصائح للتسويق الرقمي الفعال في 2024</a>
+                        </h3>
+                        <div class="related-post-meta">
+                            <span><i class="far fa-calendar"></i> 10 مارس 2024</span>
+                            <span><i class="far fa-user"></i> سارة أحمد</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="related-post">
+                    <img src="images/blog/post-3.jpg" alt="عنوان المقال">
+                    <div class="related-post-content">
+                        <h3>
+                            <a href="#">كيف تبدأ مشروعك الخاص باستخدام منصة نطاق</a>
+                        </h3>
+                        <div class="related-post-meta">
+                            <span><i class="far fa-calendar"></i> 5 مارس 2024</span>
+                            <span><i class="far fa-user"></i> محمد علي</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="related-post">
+                    <img src="images/blog/post-4.jpg" alt="عنوان المقال">
+                    <div class="related-post-content">
+                        <h3>
+                            <a href="#">أفضل استراتيجيات التسويق عبر وسائل التواصل الاجتماعي</a>
+                        </h3>
+                        <div class="related-post-meta">
+                            <span><i class="far fa-calendar"></i> 1 مارس 2024</span>
+                            <span><i class="far fa-user"></i> علي محمود</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/footer-logo.png" alt="نطاق" class="logo-img">
+                    <p class="footer-desc">نطاق هي منصة رقمية تربط بين المستخدمين ومقدمي الخدمات في مختلف المجالات. نسعى
+                        لتسهيل عملية البحث عن الخدمات وتوفير تجربة سلسة وآمنة للجميع.</p>
+                    <div class="footer-contact">
+                        <p>📞 تواصل معنا: 0123456789</p>
+                        <p>📧 البريد الإلكتروني: info@netaak.com</p>
+                        <p>📍 العنوان: القاهرة، مصر</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="about.html">عن نطاق</a></li>
+                        <li><a href="contact.html">اتصل بنا</a></li>
+                        <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                        <li><a href="terms.html">الشروط والأحكام</a></li>
+                        <li><a href="faq.html">الأسئلة الشائعة</a></li>
+                        <li><a href="blog.html">المدونة</a></li>
+                        <li><a href="careers.html">الوظائف</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>تابعنا على</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                    <div class="newsletter">
+                        <h4>النشرة البريدية</h4>
+                        <p>اشترك في نشرتنا البريدية واحصل على آخر العروض المميزة والأخبار الحصرية</p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="أدخل بريدك الإلكتروني" required>
+                            <button type="submit" class="btn btn-primary">اشترك الآن</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>جميع الحقوق محفوظة © 2025 نطاق</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html> 

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل حساب جديد - نطاق</title>
+    <link rel="stylesheet" href="css/libs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/icon.png">
+    <style>
+        @media (min-width: 1000px) {
+
+            .container>div,
+            .form-section .card {
+                width: 45vw !important;
+                max-width: none !important;
+            }
+
+        }
+
+        .form-section .card{
+            border: solid 1px rgb(0,0,0,0.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Registration Form Section -->
+    <section class="form-section" style="background: #f8f9fa; min-height: 100vh; padding: 2rem 0;">
+        <div class="container">
+            <div style="max-width: 500px; margin: 0 auto;">
+                <!-- Registration Form -->
+                <div class="card" style=" border-radius: 15px; overflow: hidden;">
+
+                    <h1 style="font-size: 1.9rem; padding: 2rem 0px;color: #6f8051;text-align: center;">إنشاء حساب
+                        جديد</h1>
+
+                    <div class="card-body" style="padding: 2rem;padding-top: 0%; background: white;">
+                        <form id="registerForm" class="contact-form" action="verify-account.html">
+                            <div class="form-group" style="margin-bottom: 1.5rem;">
+                                <label
+                                    style="display: block; margin-bottom: 0.5rem; color: var(--text-dark); font-weight: 500;">
+                                    <i class="fas fa-user"
+                                        style="color: var(--primary-color); margin-left: 0.5rem;"></i>
+                                    الاسم الكامل
+                                </label>
+                                <input type="text" class="form-input" name="fullName" required
+                                    style="width: 100%; padding: 0.8rem 1rem; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 1rem;">
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 1.5rem;">
+                                <label
+                                    style="display: block; margin-bottom: 0.5rem; color: var(--text-dark); font-weight: 500;">
+                                    <i class="fas fa-envelope"
+                                        style="color: var(--primary-color); margin-left: 0.5rem;"></i>
+                                    البريد الإلكتروني
+                                </label>
+                                <input type="email" class="form-input" name="email" required
+                                    style="width: 100%; padding: 0.8rem 1rem; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 1rem;">
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 1.5rem;">
+                                <label
+                                    style="display: block; margin-bottom: 0.5rem; color: var(--text-dark); font-weight: 500;">
+                                    <i class="fas fa-phone"
+                                        style="color: var(--primary-color); margin-left: 0.5rem;"></i>
+                                    رقم الجوال
+                                </label>
+                                <input type="tel" class="form-input" name="phone" required
+                                    style="width: 100%; padding: 0.8rem 1rem; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 1rem;">
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 1.5rem;">
+                                <label
+                                    style="display: block; margin-bottom: 0.5rem; color: var(--text-dark); font-weight: 500;">
+                                    <i class="fas fa-lock"
+                                        style="color: var(--primary-color); margin-left: 0.5rem;"></i>
+                                    كلمة المرور
+                                </label>
+                                <input type="password" class="form-input" name="password" required
+                                    style="width: 100%; padding: 0.8rem 1rem; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 1rem;">
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 1.5rem;">
+                                <label
+                                    style="display: block; margin-bottom: 0.5rem; color: var(--text-dark); font-weight: 500;">
+                                    <i class="fas fa-lock"
+                                        style="color: var(--primary-color); margin-left: 0.5rem;"></i>
+                                    تأكيد كلمة المرور
+                                </label>
+                                <input type="password" class="form-input" name="confirmPassword" required
+                                    style="width: 100%; padding: 0.8rem 1rem; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 1rem;">
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 1.5rem;">
+                                <label
+                                    style="display: block; margin-bottom: 0.5rem; color: var(--text-dark); font-weight: 500;">
+                                    <i class="fas fa-map-marker-alt"
+                                        style="color: var(--primary-color); margin-left: 0.5rem;"></i>
+                                    الموقع
+                                </label>
+                                <div style="display: flex; gap: 10px;">
+                                    <input type="text" class="form-input" name="location" id="locationInput"
+                                        placeholder="اضغط على زر تحديد الموقع" readonly required
+                                        style="flex: 1; padding: 0.8rem 1rem; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 1rem;">
+                                    <button type="button" class="btn btn-primary" id="getLocationBtn"
+                                        style="padding: 0.8rem 1.2rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9rem;">
+                                        <i class="fas fa-location-arrow"></i>
+                                        <span>تحديد الموقع</span>
+                                    </button>
+                                </div>
+                                <input type="hidden" name="latitude" id="latitude">
+                                <input type="hidden" name="longitude" id="longitude">
+                                <small id="locationStatus"
+                                    style="display: block; margin-top: 5px; font-size: 0.85rem; color: var(--text-light);"></small>
+                            </div>
+
+                            <!-- Terms and Conditions -->
+                            <div class="form-group" style="margin-bottom: 1.5rem;">
+                                <div
+                                    style="background: #f8f9fa; padding: 1.2rem; border-radius: 10px; border: 1px solid #e0e0e0;">
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <input type="checkbox" id="terms" required
+                                            style="width: 18px; height: 18px; accent-color: var(--primary-color);">
+                                        <label for="terms"
+                                            style="font-size: 0.95rem; color: var(--text-dark); line-height: 1.5;">
+                                            أوافق على
+                                            <a href="terms.html"
+                                                style="color: var(--primary-color); text-decoration: none; font-weight: 500; border-bottom: 1px solid var(--primary-color);">الشروط
+                                                والأحكام</a>
+                                            و
+                                            <a href="privacy.html"
+                                                style="color: var(--primary-color); text-decoration: none; font-weight: 500; border-bottom: 1px solid var(--primary-color);">سياسة
+                                                الخصوصية</a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="form-group" style="margin-bottom: 1.5rem;">
+                                <!-- <button type="submit" class="btn btn-primary"
+                                    style="width: 100%; padding: 1rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: 500;">
+                                    <i class="fas fa-user-plus" style="margin-left: 0.5rem;"></i>
+                                    إنشاء الحساب
+                                </button> -->
+                                <a href="verify-account.html" class="btn btn-primary"
+                                    style="width: 100%; padding: 1rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: 500;">
+                                    <i class="fas fa-user-plus" style="margin-left: 0.5rem;"></i>إنشاء الحساب</a>
+                            </div>
+
+                            <!-- Login Link -->
+                            <p style="text-align: center; font-size: 0.9rem; color: var(--text-light);">
+                                لديك حساب بالفعل؟ <a href="login.html" style="color: var(--primary-color);">تسجيل
+                                    الدخول</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Scripts -->
+    <script>
+        // Location handling
+        const locationInput = document.getElementById('locationInput');
+        const getLocationBtn = document.getElementById('getLocationBtn');
+        const locationStatus = document.getElementById('locationStatus');
+        const latitudeInput = document.getElementById('latitude');
+        const longitudeInput = document.getElementById('longitude');
+
+        getLocationBtn.addEventListener('click', () => {
+            if (!navigator.geolocation) {
+                locationStatus.textContent = 'متصفحك لا يدعم خدمة تحديد الموقع';
+                locationStatus.style.color = 'var(--error)';
+                return;
+            }
+
+            locationStatus.textContent = 'جاري تحديد موقعك...';
+            locationStatus.style.color = 'var(--info)';
+            getLocationBtn.disabled = true;
+            getLocationBtn.style.opacity = '0.7';
+            getLocationBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحديد...';
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+
+                    // Store coordinates in hidden fields
+                    latitudeInput.value = latitude;
+                    longitudeInput.value = longitude;
+
+                    // Reverse geocoding to get address
+                    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            locationInput.value = data.display_name;
+                            locationStatus.textContent = 'تم تحديد موقعك بنجاح';
+                            locationStatus.style.color = 'var(--success)';
+                            getLocationBtn.disabled = false;
+                            getLocationBtn.style.opacity = '1';
+                            getLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> <span>تحديد الموقع</span>';
+                        })
+                        .catch(error => {
+                            locationStatus.textContent = 'حدث خطأ في الحصول على العنوان';
+                            locationStatus.style.color = 'var(--error)';
+                            getLocationBtn.disabled = false;
+                            getLocationBtn.style.opacity = '1';
+                            getLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> <span>تحديد الموقع</span>';
+                        });
+                },
+                (error) => {
+                    switch (error.code) {
+                        case error.PERMISSION_DENIED:
+                            locationStatus.textContent = 'يرجى السماح بالوصول إلى موقعك';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            locationStatus.textContent = 'معلومات الموقع غير متوفرة';
+                            break;
+                        case error.TIMEOUT:
+                            locationStatus.textContent = 'انتهت مهلة طلب الموقع';
+                            break;
+                        default:
+                            locationStatus.textContent = 'حدث خطأ غير معروف';
+                    }
+                    locationStatus.style.color = 'var(--error)';
+                    getLocationBtn.disabled = false;
+                    getLocationBtn.style.opacity = '1';
+                    getLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> <span>تحديد الموقع</span>';
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 5000,
+                    maximumAge: 0
+                }
+            );
+        });
+
+        // Form validation
+        document.getElementById('registerForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const password = this.querySelector('input[name="password"]').value;
+            const confirmPassword = this.querySelector('input[name="confirmPassword"]').value;
+
+            if (password !== confirmPassword) {
+                alert('كلمات المرور غير متطابقة');
+                return;
+            }
+
+            // Here you would typically send the form data to your server
+            console.log('Form submitted');
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نطاق - الأسئلة الشائعة</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .faq-hero {
+            background: var(--primary-color);
+            padding: 4rem 0;
+            text-align: center;
+            color: white;
+        }
+
+        .faq-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .faq-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .faq-section {
+            padding: 4rem 0;
+            background: #fff;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .faq-category {
+            margin-bottom: 3rem;
+        }
+
+        .faq-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-category h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background: #fff;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question h3 {
+            color: #333;
+            font-size: 1.2rem;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .faq-question i {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-answer p {
+            color: #666;
+            line-height: 1.8;
+            margin: 0;
+            padding: 1.5rem;
+        }
+
+        .steps-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+
+        .steps-list li {
+            position: relative;
+            padding: 1rem 1rem   1rem 4rem;
+            margin-bottom: 0.8rem;
+            color: #444;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .steps-list li:last-child {
+            border-bottom: none;
+        }
+
+        .steps-list li:before {
+            content: attr(data-step);
+            
+            width: 2rem;
+            height: 2rem;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 0;
+            margin-left: 1rem;
+        }
+
+        .steps-list li:hover {
+            color: var(--primary-color);
+            padding-right: 0.5rem;
+        }
+
+        .faq-item.active .faq-question {
+            background: #f8f9fa;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            border-top: 1px solid #eee;
+        }
+
+        @media (max-width: 768px) {
+            .faq-hero {
+                padding: 3rem 0;
+            }
+
+            .faq-hero h1 {
+                font-size: 2rem;
+            }
+
+            .faq-hero p {
+                font-size: 1.1rem;
+            }
+
+            .faq-section {
+                padding: 3rem 0;
+            }
+
+            .faq-category h2 {
+                font-size: 1.5rem;
+            }
+
+            .faq-question h3 {
+                font-size: 1.1rem;
+            }
+
+            .steps-list li {
+                padding: 0.8rem 0 0.8rem 3.5rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">
+                    <img src="images/logo.png" alt="نطاق" class="logo-img">
+                </a>
+
+                <div class="nav-actions">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-comment"></i>
+                                رسالة جديدة
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-heart"></i>
+                                تم الإعجاب بخدمتك
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-star"></i>
+                                تقييم جديد
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="user-menu">
+                        <img src="images/user-avatar.jpg" class="user-avatar">
+                        <div class="dropdown">
+                            <a href="/profile" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                الملف الشخصي
+                            </a>
+                            <a href="/settings" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                الإعدادات
+                            </a>
+                            <a href="/logout" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                تسجيل الخروج
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- FAQ Hero -->
+    <section class="faq-hero">
+        <div class="container">
+            <h1>الأسئلة الشائعة</h1>
+            <p>إجابات على الأسئلة الأكثر شيوعاً حول منصة نطاق وخدماتها</p>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="faq-container">
+                <!-- الحساب والمستخدم -->
+                <div class="faq-category">
+                    <h2>الحساب والمستخدم</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>كيف يمكنني إنشاء حساب جديد؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>يمكنك إنشاء حساب جديد بسهولة من خلال النقر على زر "تسجيل" في أعلى الصفحة، ثم اتباع الخطوات التالية:</p>
+                            <ol class="steps-list">
+                                <li data-step="1">أدخل بريدك الإلكتروني</li>
+                                <li data-step="2">اختر كلمة مرور قوية</li>
+                                <li data-step="3">أكد كلمة المرور</li>
+                                <li data-step="4">انقر على "إنشاء حساب"</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>كيف يمكنني تغيير كلمة المرور؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>يمكنك تغيير كلمة المرور من خلال:</p>
+                            <ol class="steps-list">
+                                <li data-step="1">الدخول إلى حسابك</li>
+                                <li data-step="2">الذهاب إلى "الإعدادات"</li>
+                                <li data-step="3">اختيار "تغيير كلمة المرور"</li>
+                                <li data-step="4">إدخال كلمة المرور الحالية والجديدة</li>
+                                <li data-step="5">النقر على "حفظ التغييرات"</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>كيف يمكنني تحديث معلومات حسابي؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>يمكنك تحديث معلومات حسابك من خلال:</p>
+                            <ol class="steps-list">
+                                <li data-step="1">الدخول إلى حسابك</li>
+                                <li data-step="2">الذهاب إلى "الملف الشخصي"</li>
+                                <li data-step="3">النقر على "تعديل"</li>
+                                <li data-step="4">تحديث المعلومات المطلوبة</li>
+                                <li data-step="5">النقر على "حفظ التغييرات"</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الخدمات -->
+                <div class="faq-category">
+                    <h2>الخدمات</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>كيف يمكنني تقديم خدمة على المنصة؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>لتقديم خدمة على المنصة:</p>
+                            <ol class="steps-list">
+                                <li data-step="1">قم بتسجيل الدخول إلى حسابك</li>
+                                <li data-step="2">انقر على "إضافة خدمة جديدة"</li>
+                                <li data-step="3">املأ نموذج الخدمة بالمعلومات المطلوبة</li>
+                                <li data-step="4">أضف صور ووصفاً للخدمة</li>
+                                <li data-step="5">حدد السعر والمدة</li>
+                                <li data-step="6">انقر على "نشر الخدمة"</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>كيف يمكنني البحث عن خدمات؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>يمكنك البحث عن الخدمات بعدة طرق:</p>
+                            <ol class="steps-list">
+                                <li data-step="1">استخدام شريط البحث في أعلى الصفحة</li>
+                                <li data-step="2">تصفح الفئات المختلفة</li>
+                                <li data-step="3">استخدام الفلاتر المتاحة</li>
+                                <li data-step="4">تصفح الخدمات الأكثر طلباً</li>
+                                <li data-step="5">تصفح الخدمات الجديدة</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>كيف يتم تقييم الخدمات؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>يتم تقييم الخدمات من خلال:</p>
+                            <ol class="steps-list">
+                                <li data-step="1">تقييمات المستخدمين</li>
+                                <li data-step="2">عدد الطلبات المكتملة</li>
+                                <li data-step="3">جودة العمل المقدم</li>
+                                <li data-step="4">سرعة الاستجابة</li>
+                                <li data-step="5">رضا العملاء</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الدعم الفني -->
+                <div class="faq-category">
+                    <h2>الدعم الفني</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>كيف يمكنني التواصل مع الدعم الفني؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>يمكنك التواصل مع الدعم الفني من خلال:</p>
+                            <ol class="steps-list">
+                                <li data-step="1">نموذج الاتصال في صفحة "اتصل بنا"</li>
+                                <li data-step="2">البريد الإلكتروني: support@netaak.com</li>
+                                <li data-step="3">رقم الهاتف: 0123456789</li>
+                                <li data-step="4">الدردشة المباشرة على المنصة</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>ما هي ساعات عمل الدعم الفني؟</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>يعمل الدعم الفني على مدار الساعة طوال أيام الأسبوع، ويمكنك التواصل معنا في أي وقت للحصول على المساعدة المطلوبة.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/footer-logo.png" alt="نطاق" class="logo-img">
+                    <p class="footer-desc">نطاق هي منصة رقمية تربط بين المستخدمين ومقدمي الخدمات في مختلف المجالات. نسعى
+                        لتسهيل عملية البحث عن الخدمات وتوفير تجربة سلسة وآمنة للجميع.</p>
+                    <div class="footer-contact">
+                        <p>📞 تواصل معنا: 0123456789</p>
+                        <p>📧 البريد الإلكتروني: info@netaak.com</p>
+                        <p>📍 العنوان: القاهرة، مصر</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="about.html">عن نطاق</a></li>
+                        <li><a href="contact.html">اتصل بنا</a></li>
+                        <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                        <li><a href="terms.html">الشروط والأحكام</a></li>
+                        <li><a href="faq.html">الأسئلة الشائعة</a></li>
+                        <li><a href="blog.html">المدونة</a></li>
+                        <li><a href="careers.html">الوظائف</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>تابعنا على</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                    <div class="newsletter">
+                        <h4>النشرة البريدية</h4>
+                        <p>اشترك في نشرتنا البريدية واحصل على آخر العروض المميزة والأخبار الحصرية</p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="أدخل بريدك الإلكتروني" required>
+                            <button type="submit" class="btn btn-primary">اشترك الآن</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>جميع الحقوق محفوظة © 2025 نطاق</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script>
+        // تفعيل/إغلاق الأسئلة
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+
+</html> 
