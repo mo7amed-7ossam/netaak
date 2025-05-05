@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طلب خدمة - نطاق</title>
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="images/icon.png">
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <link rel="apple-touch-icon" href="images/icon.png">
+    <meta name="theme-color" content="#6f8051">
+    <style>
+        :root {
+            --primary-color: #6f8051;
+            --secondary-color: #919663;
+            --background-light: #ffffff;
+            --accent-light: #f5f5f5;
+            --accent-dark: #e8e8e8;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --white: #ffffff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s ease;
+        }
+
+        .request-service {
+            background: var(--white);
+            min-height: 100vh;
+            padding: 40px 0;
+        }
+
+        .request-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .request-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .request-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+
+        .request-subtitle {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .request-form {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-section {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1.25rem;
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+            width: 100%;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--accent-light);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(111, 128, 81, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .form-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--accent-light);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-checkbox label {
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .submit-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-1px);
+        }
+
+        .submit-btn i {
+            font-size: 1.2rem;
+        }
+
+        .price-summary {
+            background: var(--accent-light);
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .price-row:last-child {
+            margin-bottom: 0;
+            padding-top: 0.5rem;
+            border-top: 1px solid var(--accent-dark);
+            font-weight: 600;
+        }
+
+        .price-row:first-child {
+            padding-top: 0;
+        }
+
+        .price-label {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .price-value {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        .price-value.total {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .selected-service {
+            background: var(--accent-light);
+            border-radius: 6px;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .selected-service:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-2px);
+        }
+
+        .service-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .service-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: auto;
+        }
+
+        .service-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .service-description {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .service-price {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .location-input-group {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .location-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            padding: 0.75rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            gap: 7px;
+        }
+
+        .location-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        .location-btn i {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem auto;
+                padding: 0 0.75rem;
+            }
+
+            .request-form {
+                padding: 0rem;
+                border-radius: 8px;
+                box-shadow: none;
+            }
+
+            .form-section {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 1rem;
+                display: block;
+            }
+
+            .form-group {
+                width: 100%;
+            }
+
+            .selected-service {
+                padding: 0.75rem;
+                margin-bottom: 1rem;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .service-info {
+                width: 100%;
+            }
+
+            .service-price {
+                width: 100%;
+                text-align: center;
+                padding: 0.5rem;
+                background: var(--accent-light);
+                border-radius: 4px;
+            }
+
+            .price-summary {
+                padding: 1rem;
+                margin-top: 1rem;
+            }
+
+            .location-input-group {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .location-btn {
+                width: 100%;
+                padding: 0.85rem;
+            }
+
+            .location-input-group input{
+                width: 100% !important;
+            }
+
+
+            
+        }
+
+
+        @media (max-width: 480px) {
+            .request-form {
+                padding: 16px;
+            }
+
+            .request-title {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.1rem;
+            }
+
+            .form-input,
+            .form-textarea {
+                padding: 10px 12px;
+            }
+
+            .submit-btn {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
+        }
+
+        
+        .location-input-group input{
+            width: auto ;
+            flex-grow: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">
+                    <img src="images/logo.png" alt="نطاق" class="logo-img">
+                </a>
+
+                <div class="nav-actions">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-comment"></i>
+                                رسالة جديدة
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-heart"></i>
+                                تم الإعجاب بخدمتك
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-star"></i>
+                                تقييم جديد
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="user-menu">
+                        <img src="images/user-avatar.jpg" class="user-avatar">
+                        <div class="dropdown">
+                            <a href="/profile" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                الملف الشخصي
+                            </a>
+                            <a href="/settings" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                الإعدادات
+                            </a>
+                            <a href="/logout" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                تسجيل الخروج
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Request Service Section -->
+    <section class="request-service">
+        <div class="request-container">
+            <div class="request-header">
+                <h1 class="request-title">طلب خدمة جديدة</h1>
+                <p class="request-subtitle">املأ النموذج التالي لطلب الخدمة وسيقوم فريقنا بالتواصل معك في أقرب وقت</p>
+            </div>
+
+            <div class="container">
+                <div class="request-form">
+                    <h1 class="page-title">طلب خدمة</h1>
+
+                    <form>
+                        <!-- معلومات الخدمة -->
+                        <div class="form-section">
+                            <h2 class="section-title">معلومات الخدمة</h2>
+                            <div class="form-group">
+
+                                <div class="selected-service">
+                                    <div class="service-info">
+                                        <div class="service-details">
+                                            <h3 class="service-name">خدمة كهربائية</h3>
+                                            <p class="service-description">تركيب وصيانة الأجهزة الكهربائية</p>
+                                        </div>
+                                    </div>
+                                    <div class="service-price">
+                                        <span class="price">200 ريال</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">وصف الخدمة</label>
+                                <textarea class="form-textarea" placeholder="اشرح تفاصيل الخدمة المطلوبة..." required></textarea>
+                            </div>
+                        </div>
+
+                        <!-- معلومات الموقع -->
+                        <div class="form-section">
+                            <h2 class="section-title">معلومات الموقع</h2>
+                            <div class="form-group">
+                                <label class="form-label">العنوان</label>
+                                <div class="location-input-group">
+                                    <input type="text" class="form-input" placeholder="أدخل عنوانك" id="address-input">
+                                    <button type="button" class="location-btn" onclick="getLocation()">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        استلام الموقع
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- معلومات التواصل -->
+                        <div class="form-section">
+                            <h2 class="section-title">معلومات التواصل</h2>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">الاسم</label>
+                                    <input type="text" class="form-input" placeholder="أدخل اسمك" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">رقم الجوال</label>
+                                    <input type="tel" class="form-input" placeholder="أدخل رقم جوالك" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">البريد الإلكتروني</label>
+                                <input type="email" class="form-input" placeholder="أدخل بريدك الإلكتروني" required>
+                            </div>
+                        </div>
+
+                        <!-- ملخص الطلب -->
+                        <div class="form-section">
+                            <h2 class="section-title">ملخص الطلب</h2>
+                            <div class="price-summary">
+                                <div class="price-row">
+                                    <span class="price-label">تكلفة الخدمة</span>
+                                    <span class="price-value">200 ريال</span>
+                                </div>
+                                <div class="price-row">
+                                    <span class="price-label">رسوم الخدمة</span>
+                                    <span class="price-value">20 ريال</span>
+                                </div>
+                                <div class="price-row">
+                                    <span class="price-label">الضريبة</span>
+                                    <span class="price-value">22 ريال</span>
+                                </div>
+                                <div class="price-row">
+                                    <span class="price-label">الإجمالي</span>
+                                    <span class="price-value total">242 ريال</span>
+                                </div>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-paper-plane"></i>
+                                إرسال الطلب
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('.request-form');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // هنا يمكن إضافة التحقق من صحة البيانات وإرسالها للخادم
+                alert('تم إرسال طلبك بنجاح! سنتواصل معك قريباً.');
+                form.reset();
+            });
+
+            // تحديث السعر عند تغيير نوع الخدمة
+            const serviceSelect = document.querySelector('select[name="service-type"]');
+            const priceValue = document.querySelector('.price-value');
+            
+            if (serviceSelect) {
+                serviceSelect.addEventListener('change', function() {
+                    const prices = {
+                        'electrical': 200,
+                        'plumbing': 150,
+                        'cleaning': 100,
+                        'painting': 250,
+                        'carpentry': 180
+                    };
+                    
+                    const selectedPrice = prices[this.value] || 0;
+                    priceValue.textContent = selectedPrice + ' ريال';
+                });
+            }
+        });
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+                        
+                        // استخدام خدمة Geocoding لتحويل الإحداثيات إلى عنوان
+                        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                document.getElementById('address-input').value = data.display_name;
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('حدث خطأ في استلام العنوان');
+                            });
+                    },
+                    function(error) {
+                        switch(error.code) {
+                            case error.PERMISSION_DENIED:
+                                alert('يرجى السماح بالوصول إلى موقعك');
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                alert('معلومات الموقع غير متوفرة');
+                                break;
+                            case error.TIMEOUT:
+                                alert('انتهت مهلة طلب الموقع');
+                                break;
+                            case error.UNKNOWN_ERROR:
+                                alert('حدث خطأ غير معروف');
+                                break;
+                        }
+                    }
+                );
+            } else {
+                alert('متصفحك لا يدعم خدمة تحديد الموقع');
+            }
+        }
+    </script>
+</body>
+
+</html> 
