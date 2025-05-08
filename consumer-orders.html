@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طلباتي - نطاق</title>
+    <link rel="stylesheet" href="css/libs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/icon.png">
+    <style>
+        .orders-section {
+            padding: 3rem 0;
+            background: #f8f9fa;
+            min-height: calc(100vh - 80px);
+        }
+
+        .orders-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .orders-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .orders-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .orders-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .orders-subtitle {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .orders-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: white;
+            color: var(--text-dark);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            background: rgba(var(--primary-color-rgb), 0.05);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(var(--primary-color-rgb), 0.1);
+        }
+
+        .order-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .order-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .order-id {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .order-id::before {
+            content: '#';
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .order-date {
+            color: var(--text-light);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .order-date i {
+            color: var(--primary-color);
+        }
+
+        .order-status {
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-accepted {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-completed {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-rejected {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .order-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .order-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .detail-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .detail-group:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .detail-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .detail-label i {
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+
+        .detail-value {
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+
+        .detail-value.rejection-reason {
+            color: #dc3545;
+            background: rgba(220, 53, 69, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border-right: 3px solid #dc3545;
+        }
+
+        .provider-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+            background: rgba(var(--primary-color-rgb), 0.05);
+        }
+
+        .provider-link:hover {
+            background: rgba(var(--primary-color-rgb), 0.1);
+            transform: translateX(-3px);
+        }
+
+        .provider-link i {
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .provider-link:hover i {
+            transform: translateX(3px);
+        }
+
+        .provider-response {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            height: 100%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            border-right: 3px solid var(--primary-color);
+        }
+
+        .provider-response-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .provider-response-header i {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            background: rgba(var(--primary-color-rgb), 0.1);
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .provider-response-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        .provider-response-content {
+            color: var(--text-dark);
+            line-height: 1.8;
+            font-size: 1rem;
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .provider-response-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .provider-response-date i {
+            color: var(--primary-color);
+        }
+
+        .provider-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.2rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .provider-action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .provider-action-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            border: none;
+        }
+
+        .btn-whatsapp:hover {
+            background: #128C7E;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-call {
+            background: #007bff;
+            color: white;
+            border: none;
+        }
+
+        .btn-call:hover {
+            background: #0056b3;
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+        }
+
+        .btn-message {
+            background: #6c757d;
+            color: white;
+            border: none;
+        }
+
+        .btn-message:hover {
+            background: #5a6268;
+            box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+        }
+
+        .btn-contact {
+            background: #e3f2fd;
+            color: #1976d2;
+            border: 1px solid #bbdefb;
+        }
+
+        .btn-contact:hover {
+            background: #bbdefb;
+            transform: translateY(-2px);
+        }
+
+        .btn-profile {
+            background: #f3e5f5;
+            color: #7b1fa2;
+            border: 1px solid #e1bee7;
+        }
+
+        .btn-profile:hover {
+            background: #e1bee7;
+            transform: translateY(-2px);
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .action-btn {
+            padding: 0.9rem 1.8rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            min-width: 160px;
+            justify-content: center;
+        }
+
+        .action-btn i {
+            font-size: 1.1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(var(--primary-color-rgb), 0.3);
+        }
+
+        .btn-outline {
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: rgba(var(--primary-color-rgb), 0.05);
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+            border: none;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+            border: none;
+        }
+
+        .btn-warning:hover {
+            background: #e0a800;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .btn-info {
+            background: #6c757d;
+            color: white;
+            border: none;
+        }
+
+        .btn-info:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            opacity: 0.5;
+        }
+
+        .empty-state button {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 4px 15px rgba(var(--primary-color-rgb), 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .empty-state button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .empty-state button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(var(--primary-color-rgb), 0.35);
+            background: var(--primary-color-dark);
+        }
+
+        .empty-state button:hover::before {
+            transform: translateX(100%);
+        }
+
+        .empty-state button:active {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(var(--primary-color-rgb), 0.2);
+        }
+
+        .empty-state button i {
+            font-size: 1.5rem !important;
+            margin: 0;
+            opacity: 1;
+            color: white;            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .empty-state button:hover i {
+            transform: scale(1.1);
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .empty-state p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .orders-container {
+                padding: 0 1rem;
+            }
+
+            .orders-title {
+                font-size: 1.8rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .orders-subtitle {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+
+            .orders-filters {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                justify-content: center;
+                margin-bottom: 1.5rem;
+                padding: 0 0.5rem;
+            }
+
+            .filter-btn {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.85rem;
+                min-width: auto;
+                flex: 0 1 auto;
+                max-width: none;
+                border-radius: 8px;
+                border-width: 1px;
+            }
+
+            .order-card {
+                padding: 1.2rem;
+                margin-bottom: 1.5rem;
+                border-radius: 15px;
+            }
+
+            .order-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
+                margin-bottom: 1.5rem;
+                padding-bottom: 1rem;
+            }
+
+            .order-id {
+                font-size: 1.1rem;
+            }
+
+            .order-date {
+                font-size: 0.9rem;
+            }
+
+            .order-status {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .order-details {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .order-info, .provider-response {
+                padding: 1rem;
+                border-radius: 12px;
+            }
+
+            .detail-group {
+                padding-bottom: 0.8rem;
+                gap: 0.4rem;
+            }
+
+            .detail-label {
+                font-size: 0.85rem;
+            }
+
+            .detail-value {
+                font-size: 1rem;
+            }
+
+            .provider-response-header {
+                gap: 0.5rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .provider-response-title {
+                font-size: 1rem;
+            }
+
+            .provider-response-content {
+                font-size: 0.95rem;
+                padding: 0.8rem;
+                line-height: 1.6;
+            }
+
+            .provider-response-date {
+                font-size: 0.85rem;
+                padding-top: 0.8rem;
+            }
+
+            .provider-actions {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 0.6rem;
+                margin-top: 1rem;
+            }
+
+            .provider-action-btn {
+                flex: 1;
+                min-width: calc(50% - 0.6rem);
+                padding: 0.7rem;
+                font-size: 0.9rem;
+            }
+
+            .order-actions {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 0.6rem;
+                margin-top: 1.5rem;
+            }
+
+            .action-btn {
+                flex: 1;
+                min-width: calc(50% - 0.6rem);
+                padding: 0.8rem;
+                font-size: 0.95rem;
+            }
+
+            .empty-state {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+
+            .empty-state button {
+                width: 100%;
+                padding: 0.9rem;
+                font-size: 1rem;
+            }
+
+            .empty-state button i {
+                font-size: 1.2rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .orders-title {
+                font-size: 1.5rem;
+            }
+
+            .orders-subtitle {
+                font-size: 0.95rem;
+            }
+
+            .orders-filters {
+                gap: 0.4rem;
+                margin-bottom: 1.2rem;
+            }
+
+            .filter-btn {
+                padding: 0.4rem 0.7rem;
+                font-size: 0.8rem;
+                border-radius: 6px;
+            }
+
+            .order-card {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .order-header {
+                gap: 0.6rem;
+            }
+
+            .order-id {
+                font-size: 1rem;
+            }
+
+            .order-date {
+                font-size: 0.85rem;
+            }
+
+            .order-status {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .detail-group {
+                padding-bottom: 0.6rem;
+            }
+
+            .detail-label {
+                font-size: 0.8rem;
+            }
+
+            .detail-value {
+                font-size: 0.95rem;
+            }
+
+            .provider-response-header {
+                gap: 0.4rem;
+            }
+
+            .provider-response-title {
+                font-size: 0.95rem;
+            }
+
+            .provider-response-content {
+                font-size: 0.9rem;
+                padding: 0.7rem;
+            }
+
+            .provider-response-date {
+                font-size: 0.8rem;
+            }
+
+            .provider-action-btn {
+                font-size: 0.85rem;
+                padding: 0.6rem;
+            }
+
+            .action-btn {
+                font-size: 0.9rem;
+                padding: 0.7rem;
+            }
+
+            .empty-state i {
+                font-size: 2.5rem;
+            }
+
+            .empty-state h3 {
+                font-size: 1.2rem;
+            }
+
+            .empty-state p {
+                font-size: 0.95rem;
+            }
+
+            .empty-state button {
+                font-size: 0.95rem;
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="home.html" class="logo">
+                    <img src="images/logo.png" alt="نطاق" class="logo-img">
+                </a>
+                
+                <div class="nav-buttons">
+                    <div class="user-menu">
+                        <a href="profile.html" class="btn btn-outline">
+                            <i class="fas fa-user"></i>
+                            الملف الشخصي
+                        </a>
+                        <a href="orders.html" class="btn btn-outline active">
+                            <i class="fas fa-list"></i>
+                            طلباتي
+                        </a>
+                        <a href="notifications.html" class="btn btn-outline">
+                            <i class="fas fa-bell"></i>
+                            الإشعارات
+                        </a>
+                        <a href="index.html" class="btn btn-primary">
+                            <i class="fas fa-sign-out-alt"></i>
+                            تسجيل خروج
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="orders-section">
+        <div class="orders-container">
+            <div class="orders-header">
+                <h1 class="orders-title">طلباتي</h1>
+                <p class="orders-subtitle">عرض وإدارة جميع الطلبات التي قمت بتقديمها</p>
+            </div>
+
+            <div class="orders-filters">
+                <button class="filter-btn active">الكل</button>
+                <button class="filter-btn">قيد الانتظار</button>
+                <button class="filter-btn">تم القبول</button>
+                <button class="filter-btn">مكتمل</button>
+                <button class="filter-btn">مرفوض</button>
+                <button class="filter-btn">ملغي</button>
+            </div>
+
+            <!-- Orders List -->
+            <div class="orders-list">
+                <!-- Order Card 1 -->
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <span class="order-id">
+                                <i class="fas fa-hashtag"></i>
+                                طلب #12345
+                            </span>
+                            <span class="order-date">
+                                <i class="far fa-calendar-alt"></i>
+                                15 مارس 2024
+                            </span>
+                        </div>
+                        <span class="order-status status-pending">
+                            <i class="fas fa-clock"></i>
+                            قيد الانتظار
+                        </span>
+                    </div>
+
+                    <div class="order-details">
+                        <div class="order-info">
+                            <div class="detail-group">
+                                <span class="detail-label">
+                                    <i class="fas fa-broom"></i>
+                                    الخدمة
+                                </span>
+                                <span class="detail-value">تنظيف منزل</span>
+                            </div>
+                            <div class="detail-group">
+                                <span class="detail-label">
+                                    <i class="fas fa-user-tie"></i>
+                                    مقدم الخدمة
+                                </span>
+                                <a href="#" class="provider-link">
+                                    شركة النظافة المثالية
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                            <div class="detail-group">
+                                <span class="detail-label">
+                                    <i class="far fa-calendar-check"></i>
+                                    التاريخ المطلوب
+                                </span>
+                                <span class="detail-value">20 مارس 2024</span>
+                            </div>
+                            <div class="detail-group">
+                                <span class="detail-label">
+                                    <i class="fas fa-tag"></i>
+                                    السعر
+                                </span>
+                                <span class="detail-value">200 ريال</span>
+                            </div>
+                        </div>
+                        <div class="provider-response">
+                            <div class="provider-response-header">
+                                <i class="fas fa-comment-dots"></i>
+                                <span class="provider-response-title">رد مقدم الخدمة</span>
+                            </div>
+                            <div class="provider-response-content">
+                                نود إعلامكم بأننا نقبل تقديم الخدمة في التاريخ المطلوب. سنقوم بإرسال فريق متخصص مكون من 3 أفراد مجهزين بجميع المعدات اللازمة.
+                            </div>
+                            <div class="provider-response-date">
+                                <i class="far fa-clock"></i>
+                                تم الرد في: 15 مارس 2024 - 10:30 صباحاً
+                            </div>
+                            <div class="provider-actions">
+                                <button class="provider-action-btn btn-whatsapp">
+                                    <i class="fab fa-whatsapp"></i>
+                                    واتساب
+                                </button>
+                                <button class="provider-action-btn btn-call">
+                                    <i class="fas fa-phone-alt"></i>
+                                    اتصال
+                                </button>
+                                <button class="provider-action-btn btn-message">
+                                    <i class="far fa-envelope"></i>
+                                    رسالة
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-actions">
+                        <button class="action-btn btn-info">
+                            <i class="fas fa-eye"></i>
+                            عرض التفاصيل
+                        </button>
+                        <button class="action-btn btn-danger">
+                            <i class="fas fa-times-circle"></i>
+                            إلغاء الطلب
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Order Card 2 -->
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <span class="order-id">
+                                <i class="fas fa-hashtag"></i>
+                                طلب #12344
+                            </span>
+                            <span class="order-date">
+                                <i class="far fa-calendar-alt"></i>
+                                10 مارس 2024
+                            </span>
+                        </div>
+                        <span class="order-status status-accepted">
+                            <i class="fas fa-check-circle"></i>
+                            تم القبول
+                        </span>
+                    </div>
+
+                    <div class="order-details">
+                        <div class="order-info">
+                            <div class="detail-group">
+                                <span class="detail-label">
+                                    <i class="fas fa-snowflake"></i>
+                                    الخدمة
+                                </span>
+                                <span class="detail-value">صيانة تكييف</span>
+                            </div>
+                            <div class="detail-group">
+                                <span class="detail-label">
+                                    <i class="fas fa-user-tie"></i>
+                                    مقدم الخدمة
+                                </span>
+                                <a href="#" class="provider-link">
+                                    مؤسسة الصيانة المتكاملة
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                            <div class="detail-group">
+                                <span class="detail-label">
+                                    <i class="far fa-calendar-check"></i>
+                                    التاريخ المطلوب
+                                </span>
+                                <span class="detail-value">12 مارس 2024</span>
+                            </div>
+                            <div class="detail-group">
+                                <span class="detail-label">
+                                    <i class="fas fa-tag"></i>
+                                    السعر
+                                </span>
+                                <span class="detail-value">350 ريال</span>
+                            </div>
+                        </div>
+                        <div class="provider-response">
+                            <div class="provider-response-header">
+                                <i class="fas fa-comment-dots"></i>
+                                <span class="provider-response-title">رد مقدم الخدمة</span>
+                            </div>
+                            <div class="provider-response-content">
+                                تم قبول طلبكم. سنقوم بإرسال فني متخصص في صيانة التكييف في الموعد المحدد. يرجى التأكد من توفر الكهرباء في وقت الزيارة.
+                            </div>
+                            <div class="provider-response-date">
+                                <i class="far fa-clock"></i>
+                                تم الرد في: 10 مارس 2024 - 02:15 مساءً
+                            </div>
+                            <div class="provider-actions">
+                                <button class="provider-action-btn btn-whatsapp">
+                                    <i class="fab fa-whatsapp"></i>
+                                    واتساب
+                                </button>
+                                <button class="provider-action-btn btn-call">
+                                    <i class="fas fa-phone-alt"></i>
+                                    اتصال
+                                </button>
+                                <button class="provider-action-btn btn-message">
+                                    <i class="far fa-envelope"></i>
+                                    رسالة
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-actions">
+                        <button class="action-btn btn-info">
+                            <i class="fas fa-eye"></i>
+                            عرض التفاصيل
+                        </button>
+                        <button class="action-btn btn-success">
+                            <i class="fas fa-check-circle"></i>
+                            تأكيد الإنجاز
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Order Card 3 -->
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <span class="order-id">
+                                <i class="fas fa-hashtag"></i>
+                                طلب #12343
+                            </span>
+                            <span class="order-date">
+                                <i class="far fa-calendar-alt"></i>
+                                5 مارس 2024
+                            </span>
+                        </div>
+                        <span class="order-status status-completed">
+                            <i class="fas fa-check-double"></i>
+                            مكتمل
+                        </span>
+                    </div>
+
+                    <div class="order-details">
+                        <div class="order-info">
+                            <div class="detail-group">
+                                <span class="detail-label">
+                                    <i class="fas fa-leaf"></i>
+                                    الخدمة
+                                </span>
+                                <span class="detail-value">تنسيق حدائق</span>
+                            </div>
+                            <div class="detail-group">
+                                <span class="detail-label">
+                                    <i class="fas fa-user-tie"></i>
+                                    مقدم الخدمة
+                                </span>
+                                <a href="#" class="provider-link">
+                                    شركة تنسيق الحدائق الخضراء
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                            <div class="detail-group">
+                                <span class="detail-label">
+                                    <i class="far fa-calendar-check"></i>
+                                    التاريخ المطلوب
+                                </span>
+                                <span class="detail-value">7 مارس 2024</span>
+                            </div>
+                            <div class="detail-group">
+                                <span class="detail-label">
+                                    <i class="fas fa-tag"></i>
+                                    السعر
+                                </span>
+                                <span class="detail-value">500 ريال</span>
+                            </div>
+                        </div>
+                        <div class="provider-response">
+                            <div class="provider-response-header">
+                                <i class="fas fa-comment-dots"></i>
+                                <span class="provider-response-title">رد مقدم الخدمة</span>
+                            </div>
+                            <div class="provider-response-content">
+                                تم إنجاز الخدمة بنجاح. شكراً لكم على استحقاقكم.
+                            </div>
+                            <div class="provider-response-date">
+                                <i class="far fa-clock"></i>
+                                تم الرد في: 5 مارس 2024 - 11:45 صباحاً
+                            </div>
+                            <div class="provider-actions">
+                                <button class="provider-action-btn btn-whatsapp">
+                                    <i class="fab fa-whatsapp"></i>
+                                    واتساب
+                                </button>
+                                <button class="provider-action-btn btn-call">
+                                    <i class="fas fa-phone-alt"></i>
+                                    اتصال
+                                </button>
+                                <button class="provider-action-btn btn-message">
+                                    <i class="far fa-envelope"></i>
+                                    رسالة
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-actions">
+                        <button class="action-btn btn-info">
+                            <i class="fas fa-eye"></i>
+                            عرض التفاصيل
+                        </button>
+                        <button class="action-btn btn-warning">
+                            <i class="fas fa-star"></i>
+                            تقييم الخدمة
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Order Card 4 (Rejected) -->
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <span class="order-id">
+                                <i class="fas fa-hashtag"></i>
+                                طلب #12342
+                            </span>
+                            <span class="order-date">
+                                <i class="far fa-calendar-alt"></i>
+                                1 مارس 2024
+                            </span>
+                        </div>
+                        <span class="order-status status-rejected">
+                            <i class="fas fa-times-circle"></i>
+                            مرفوض
+                        </span>
+                    </div>
+
+                    <div class="order-details">
+                        <div class="order-info">
+                            <div class="detail-group">
+                                <span class="detail-label">
+                                    <i class="fas fa-bolt"></i>
+                                    الخدمة
+                                </span>
+                                <span class="detail-value">تصليح كهرباء</span>
+                            </div>
+                            <div class="detail-group">
+                                <span class="detail-label">
+                                    <i class="fas fa-user-tie"></i>
+                                    مقدم الخدمة
+                                </span>
+                                <a href="#" class="provider-link">
+                                    شركة الكهرباء المتخصصة
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                            <div class="detail-group">
+                                <span class="detail-label">
+                                    <i class="far fa-calendar-check"></i>
+                                    التاريخ المطلوب
+                                </span>
+                                <span class="detail-value">3 مارس 2024</span>
+                            </div>
+                            <div class="detail-group">
+                                <span class="detail-label">
+                                    <i class="fas fa-tag"></i>
+                                    السعر
+                                </span>
+                                <span class="detail-value">250 ريال</span>
+                            </div>
+                            <div class="detail-group">
+                                <span class="detail-label">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    سبب الرفض
+                                </span>
+                                <span class="detail-value rejection-reason">غير متوفر في المنطقة المطلوبة</span>
+                            </div>
+                        </div>
+                        <div class="provider-response">
+                            <div class="provider-response-header">
+                                <i class="fas fa-comment-dots"></i>
+                                <span class="provider-response-title">رد مقدم الخدمة</span>
+                            </div>
+                            <div class="provider-response-content">
+                                نود إعلامكم بأننا لم نتمكن من توفير الخدمة في الموعد المطلوب. يرجى التواصل معنا لتحديد موعد جديد.
+                            </div>
+                            <div class="provider-response-date">
+                                <i class="far fa-clock"></i>
+                                تم الرد في: 1 مارس 2024 - 09:30 صباحاً
+                            </div>
+                            <div class="provider-actions">
+                                <button class="provider-action-btn btn-whatsapp">
+                                    <i class="fab fa-whatsapp"></i>
+                                    واتساب
+                                </button>
+                                <button class="provider-action-btn btn-call">
+                                    <i class="fas fa-phone-alt"></i>
+                                    اتصال
+                                </button>
+                                <button class="provider-action-btn btn-message">
+                                    <i class="far fa-envelope"></i>
+                                    رسالة
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-actions">
+                        <button class="action-btn btn-info">
+                            <i class="fas fa-eye"></i>
+                            عرض التفاصيل
+                        </button>
+                        <button class="action-btn btn-primary">
+                            <i class="fas fa-redo"></i>
+                            تقديم طلب جديد
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty State (Hidden by default) -->
+            <div class="empty-state" style="display: none;">
+                <i class="fas fa-clipboard-list"></i>
+                <h3>لا توجد طلبات</h3>
+                <p>لم تقم بتقديم أي طلبات حتى الآن</p>
+                <button class="action-btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    تقديم طلب جديد
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Filter Buttons
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const ordersList = document.querySelector('.orders-list');
+        const orderCards = document.querySelectorAll('.order-card');
+        const emptyState = document.querySelector('.empty-state');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                // Get the selected status
+                const status = btn.textContent.trim();
+                
+                // Filter orders
+                let visibleOrders = 0;
+                orderCards.forEach(card => {
+                    const orderStatus = card.querySelector('.order-status').textContent.trim();
+                    
+                    if (status === 'الكل' || orderStatus === status) {
+                        card.style.display = 'block';
+                        visibleOrders++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Show/hide empty state
+                if (visibleOrders === 0) {
+                    emptyState.style.display = 'block';
+                    ordersList.style.display = 'none';
+                } else {
+                    emptyState.style.display = 'none';
+                    ordersList.style.display = 'block';
+                }
+            });
+        });
+
+        // Order Actions
+        const actionBtns = document.querySelectorAll('.action-btn');
+        
+        actionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const action = btn.textContent.trim();
+                const orderId = btn.closest('.order-card').querySelector('.order-id').textContent;
+                
+                // Handle different actions
+                switch(action) {
+                    case 'عرض التفاصيل':
+                        console.log('View details for:', orderId);
+                        break;
+                    case 'إلغاء الطلب':
+                        if(confirm('هل أنت متأكد من إلغاء هذا الطلب؟')) {
+                            console.log('Cancel order:', orderId);
+                        }
+                        break;
+                    case 'تأكيد الإنجاز':
+                        if(confirm('هل تم إنجاز الخدمة بشكل كامل؟')) {
+                            console.log('Confirm completion:', orderId);
+                        }
+                        break;
+                    case 'تقييم الخدمة':
+                        console.log('Rate service:', orderId);
+                        break;
+                }
+            });
+        });
+
+        // Provider Communication Buttons
+        const providerActionBtns = document.querySelectorAll('.provider-action-btn');
+        
+        providerActionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const action = btn.textContent.trim();
+                const providerName = btn.closest('.order-card').querySelector('.provider-link').textContent.trim();
+                
+                switch(action) {
+                    case 'واتساب':
+                        // Replace with actual WhatsApp number
+                        window.open(`https://wa.me/966500000000?text=مرحباً، أنا مهتم بالخدمة من ${providerName}`, '_blank');
+                        break;
+                    case 'اتصال':
+                        // Replace with actual phone number
+                        window.location.href = 'tel:+966500000000';
+                        break;
+                    case 'رسالة':
+                        // Replace with actual email
+                        window.location.href = 'mailto:provider@example.com';
+                        break;
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

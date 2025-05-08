@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خطأ - نطاق</title>
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="images/icon.png">
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <link rel="apple-touch-icon" href="images/icon.png">
+    <meta name="theme-color" content="#6f8051">
+    <style>
+        :root {
+            --primary-color: #6f8051;
+            --primary-light: #8a9d6a;
+            --primary-dark: #5a6a42;
+            --secondary-color: #919663;
+            --background-light: #f8f9fa;
+            --accent-light: #ffffff;
+            --accent-dark: #e9ecef;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --white: #ffffff;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --info-color: #17a2b8;
+            --border-radius: 12px;
+            --border-radius-lg: 16px;
+            --border-radius-sm: 8px;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--background-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
+
+        .error-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .error-content {
+            background: var(--white);
+            padding: 48px;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-card);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            border: 1px solid var(--accent-dark);
+        }
+
+        .error-icon {
+            font-size: 6rem;
+            color: var(--danger-color);
+            margin-bottom: 24px;
+            animation: bounce 2s infinite;
+        }
+
+        .error-code {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+
+        .error-title {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+
+        .error-message {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .error-btn {
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+            text-decoration: none;
+        }
+
+        .error-btn.primary {
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+        }
+
+        .error-btn.primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        .error-btn.secondary {
+            background: var(--white);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .error-btn.secondary:hover {
+            background: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-1px);
+        }
+
+        .error-details {
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid var(--accent-dark);
+            text-align: right;
+        }
+
+        .error-details-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+
+        .error-details-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 12px;
+        }
+
+        .error-details-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .error-details-item i {
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .error-content {
+                padding: 32px 24px;
+            }
+
+            .error-icon {
+                font-size: 4rem;
+            }
+
+            .error-code {
+                font-size: 2.5rem;
+            }
+
+            .error-title {
+                font-size: 1.25rem;
+            }
+
+            .error-message {
+                font-size: 1rem;
+            }
+
+            .error-actions {
+                flex-direction: column;
+            }
+
+            .error-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Error Section -->
+    <section class="error-container">
+        <div class="error-content">
+            <div class="error-icon">
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <h1 class="error-code">404</h1>
+            <h2 class="error-title">الصفحة غير موجودة</h2>
+            <p class="error-message">عذراً، الصفحة التي تبحث عنها غير موجودة أو تم نقلها. يرجى التحقق من الرابط أو العودة للصفحة الرئيسية.</p>
+            
+            <div class="error-actions">
+                <a href="/" class="error-btn primary">
+                    <i class="fas fa-home"></i>
+                    العودة للصفحة الرئيسية
+                </a>
+                <a href="/contact" class="error-btn secondary">
+                    <i class="fas fa-envelope"></i>
+                    تواصل معنا
+                </a>
+            </div>
+
+            <div class="error-details">
+                <h3 class="error-details-title">اقتراحات قد تساعدك:</h3>
+                <ul class="error-details-list">
+                    <li class="error-details-item">
+                        <i class="fas fa-check-circle"></i>
+                        تأكد من صحة الرابط في شريط العنوان
+                    </li>
+                    <li class="error-details-item">
+                        <i class="fas fa-check-circle"></i>
+                        استخدم شريط البحث للعثور على ما تريد
+                    </li>
+                    <li class="error-details-item">
+                        <i class="fas fa-check-circle"></i>
+                        تصفح الخدمات المتاحة من القائمة الرئيسية
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // تحديد نوع الخطأ من الرابط
+        const errorType = window.location.pathname.split('/').pop().replace('.html', '');
+        const errorContent = document.querySelector('.error-content');
+        
+        // تحديث المحتوى حسب نوع الخطأ
+        switch(errorType) {
+            case '403':
+                document.title = 'غير مصرح - نطاق';
+                document.querySelector('.error-code').textContent = '403';
+                document.querySelector('.error-title').textContent = 'غير مصرح بالوصول';
+                document.querySelector('.error-message').textContent = 'عذراً، ليس لديك صلاحية للوصول إلى هذه الصفحة. يرجى تسجيل الدخول أو التواصل مع الدعم الفني.';
+                document.querySelector('.error-icon i').className = 'fas fa-lock';
+                break;
+                
+            case '500':
+                document.title = 'خطأ في الخادم - نطاق';
+                document.querySelector('.error-code').textContent = '500';
+                document.querySelector('.error-title').textContent = 'خطأ في الخادم';
+                document.querySelector('.error-message').textContent = 'عذراً، حدث خطأ في الخادم. يرجى المحاولة مرة أخرى لاحقاً أو التواصل مع الدعم الفني.';
+                document.querySelector('.error-icon i').className = 'fas fa-server';
+                break;
+                
+            case '503':
+                document.title = 'الخدمة غير متاحة - نطاق';
+                document.querySelector('.error-code').textContent = '503';
+                document.querySelector('.error-title').textContent = 'الخدمة غير متاحة';
+                document.querySelector('.error-message').textContent = 'عذراً، الخدمة غير متاحة حالياً. نحن نقوم بإجراء صيانة دورية. يرجى المحاولة مرة أخرى لاحقاً.';
+                document.querySelector('.error-icon i').className = 'fas fa-tools';
+                break;
+                
+            default:
+                document.title = 'خطأ - نطاق';
+                document.querySelector('.error-code').textContent = '404';
+                document.querySelector('.error-title').textContent = 'الصفحة غير موجودة';
+                document.querySelector('.error-message').textContent = 'عذراً، الصفحة التي تبحث عنها غير موجودة أو تم نقلها. يرجى التحقق من الرابط أو العودة للصفحة الرئيسية.';
+                document.querySelector('.error-icon i').className = 'fas fa-exclamation-circle';
+        }
+    </script>
+</body>
+
+</html> 
