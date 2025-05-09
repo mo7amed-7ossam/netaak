@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة العروض - نطاق</title>
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="images/icon.png">
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <link rel="apple-touch-icon" href="images/icon.png">
+    <meta name="theme-color" content="#6f8051">
+    <style>
+        :root {
+            --primary-color: #6f8051;
+            --primary-light: #8a9d6a;
+            --primary-dark: #5a6a42;
+            --secondary-color: #919663;
+            --background-light: #f8f9fa;
+            --accent-light: #ffffff;
+            --accent-dark: #e9ecef;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --white: #ffffff;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --info-color: #17a2b8;
+            --border-radius: 12px;
+            --border-radius-lg: 16px;
+            --border-radius-sm: 8px;
+        }
+
+        .offers-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 32px;
+            background: var(--background-light);
+            min-height: calc(100vh - 80px);
+            display: grid;
+            gap: 32px;
+        }
+
+        .offers-header {
+            background: var(--accent-light);
+            padding: 32px;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-card);
+            display: grid;
+            gap: 24px;
+            border: 1px solid var(--accent-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .offers-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            opacity: 0.05;
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+
+        .offers-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            opacity: 0.05;
+            border-radius: 50%;
+            transform: translate(-30%, 30%);
+        }
+
+        .offers-stats {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 24px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--accent-dark);
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary-light);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            position: relative;
+            z-index: 1;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover .stat-icon {
+            transform: scale(1.1);
+        }
+
+        .stat-icon.active {
+            background: #e8f5e9;
+            color: #1b5e20;
+        }
+
+        .stat-icon.pending {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .stat-icon.expired {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .stat-info {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover .stat-value {
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover .stat-label {
+            color: var(--primary-dark);
+        }
+
+        .offers-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 8px;
+        }
+
+        .offers-title i {
+            color: var(--primary-color);
+            font-size: 1.75rem;
+            background: var(--background-light);
+            padding: 12px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .offers-filters {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .filter-btn {
+            padding: 12px 24px;
+            border: 2px solid var(--accent-dark);
+            border-radius: 30px;
+            background: var(--accent-light);
+            color: var(--text-light);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn i {
+            font-size: 1rem;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary-light);
+            color: var(--primary-color);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(111, 128, 81, 0.1);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(111, 128, 81, 0.2);
+        }
+
+        .filter-btn.active:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .offers-grid {
+            display: grid;
+            gap: 32px;
+        }
+
+        .offer-card {
+            background: var(--accent-light);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-card);
+            transition: var(--transition);
+            border: 1px solid var(--accent-dark);
+            overflow: hidden;
+        }
+
+        .offer-header {
+            padding: 24px 32px;
+            background: var(--accent-light);
+            border-bottom: 1px solid var(--accent-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .offer-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .offer-content {
+            padding: 24px 32px;
+            display: grid;
+            gap: 16px;
+        }
+
+        .offer-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .detail-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .detail-value {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .offer-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            padding: 16px 32px;
+            background: var(--background-light);
+            border-top: 1px solid var(--accent-dark);
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            border-radius: var(--border-radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            font-size: 0.9rem;
+        }
+
+        .action-btn.edit {
+            background: var(--primary-light);
+            color: var(--white);
+            border: 1px solid var(--primary-color);
+        }
+
+        .action-btn.edit:hover {
+            background: var(--primary-color);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .action-btn.delete {
+            background: var(--white);
+            color: var(--danger-color);
+            border: 1px solid var(--danger-color);
+        }
+
+        .action-btn.delete:hover {
+            background: var(--danger-color);
+            color: var(--white);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .action-btn.toggle {
+            background: linear-gradient(45deg, var(--success-color), #34d058);
+            color: var(--white);
+            border: none;
+            font-weight: 700;
+            padding: 12px 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .action-btn.toggle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .action-btn.toggle:hover::before {
+            left: 100%;
+        }
+
+        .action-btn.toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
+            background: linear-gradient(45deg, #34d058, var(--success-color));
+        }
+
+        .action-btn.toggle.inactive {
+            background: linear-gradient(45deg, var(--warning-color), #ffd54f);
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.2);
+        }
+
+        .action-btn.toggle.inactive:hover {
+            background: linear-gradient(45deg, #ffd54f, var(--warning-color));
+            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.3);
+        }
+
+        .action-btn.toggle i {
+            font-size: 1.1rem;
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .action-btn.toggle:hover i {
+            transform: scale(1.2) rotate(360deg);
+        }
+
+        .action-btn.toggle span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .action-btn.toggle::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+
+        .action-btn.toggle:active::after {
+            width: 150px;
+            height: 150px;
+        }
+
+        .action-btn i {
+            font-size: 1rem;
+        }
+
+        /* نموذج إضافة/تعديل العرض */
+        .offer-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .offer-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--accent-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 8px;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--danger-color);
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--accent-dark);
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--accent-dark);
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+            background: var(--white);
+            cursor: pointer;
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .modal-footer {
+            padding: 24px;
+            border-top: 1px solid var(--accent-dark);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: var(--border-radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-secondary {
+            background: var(--accent-dark);
+            color: var(--text-dark);
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .offer-status {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .offer-status i {
+            font-size: 0.9rem;
+        }
+
+        .offer-status.active {
+            background: linear-gradient(45deg, #e8f5e9, #c8e6c9);
+            color: #1b5e20;
+            box-shadow: 0 2px 8px rgba(40, 167, 69, 0.1);
+        }
+
+        .offer-status.inactive {
+            background: linear-gradient(45deg, #fff3e0, #ffe0b2);
+            color: #e65100;
+            box-shadow: 0 2px 8px rgba(255, 193, 7, 0.1);
+        }
+
+        .search-box {
+            margin-bottom: 0px;
+            position: relative;
+            max-width: 100%;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 48px 16px 24px;
+            border: 2px solid var(--accent-dark);
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            transition: var(--transition);
+            background: var(--white);
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 4px 12px rgba(111, 128, 81, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 1.2rem;
+        }
+
+        /* قسم الخدمات */
+        .services-section {
+            background: var(--accent-light);
+            padding: 32px;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--accent-dark);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: var(--primary-color);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--accent-dark);
+            padding: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary-light);
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--background-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 16px;
+        }
+
+        .service-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .service-price {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* نافذة تأكيد الحذف */
+        .confirm-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .confirm-modal.active {
+            display: flex;
+        }
+
+        .confirm-content {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            width: 90%;
+            max-width: 400px;
+            padding: 32px;
+            text-align: center;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .confirm-icon {
+            width: 64px;
+            height: 64px;
+            background: #fee2e2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            color: var(--danger-color);
+            font-size: 1.8rem;
+        }
+
+        .confirm-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+
+        .confirm-message {
+            color: var(--text-light);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .confirm-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .confirm-btn {
+            padding: 12px 24px;
+            border-radius: var(--border-radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            min-width: 120px;
+        }
+
+        .confirm-btn.cancel {
+            background: var(--accent-dark);
+            color: var(--text-dark);
+        }
+
+        .confirm-btn.cancel:hover {
+            background: #e2e6ea;
+            transform: translateY(-1px);
+        }
+
+        .confirm-btn.delete {
+            background: var(--danger-color);
+            color: var(--white);
+        }
+
+        .confirm-btn.delete:hover {
+            background: #dc3545;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="offers-container">
+        <div class="offers-header">
+            <h1 class="offers-title">
+                <i class="fas fa-percent"></i>
+                العروض والخصومات
+            </h1>
+            <div class="offers-stats">
+                <div class="stat-card">
+                    <div class="stat-icon active">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">عروض نشطة</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon pending">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">عروض قيد الانتظار</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon expired">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value">5</div>
+                        <div class="stat-label">عروض منتهية</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم البحث -->
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="ابحث عن خدمة...">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+
+        <!-- قسم الخدمات -->
+        <div class="services-section">
+            <h2 class="section-title">
+                <i class="fas fa-list"></i>
+                الخدمات المتاحة
+            </h2>
+            <div class="services-grid">
+                <!-- نموذج لخدمة -->
+                <div class="service-card" data-service-id="1">
+                    <div class="service-icon">
+                        <i class="fas fa-broom"></i>
+                    </div>
+                    <h3 class="service-name">تنظيف المنزل</h3>
+                    <p class="service-price">200 ريال</p>
+                </div>
+                <div class="service-card" data-service-id="2">
+                    <div class="service-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3 class="service-name">غسيل السيارات</h3>
+                    <p class="service-price">100 ريال</p>
+                </div>
+                <div class="service-card" data-service-id="3">
+                    <div class="service-icon">
+                        <i class="fas fa-paint-roller"></i>
+                    </div>
+                    <h3 class="service-name">دهان المنازل</h3>
+                    <p class="service-price">500 ريال</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- أزرار التصفية -->
+        <div class="offers-filters">
+            <button class="filter-btn active">
+                <i class="fas fa-th-large"></i>
+                كل العروض
+            </button>
+            <button class="filter-btn">
+                <i class="fas fa-check-circle"></i>
+                العروض النشطة
+            </button>
+            <button class="filter-btn">
+                <i class="fas fa-pause-circle"></i>
+                العروض المتوقفة
+            </button>
+        </div>
+
+        <div class="offers-grid">
+            <!-- نموذج لعرض -->
+            <div class="offer-card">
+                <div class="offer-header">
+                    <h2 class="offer-title">
+                        <i class="fas fa-percent"></i>
+                        عرض خاص على خدمات التنظيف
+                    </h2>
+                    <span class="offer-status active">
+                        <i class="fas fa-check-circle"></i>
+                        نشط
+                    </span>
+                </div>
+                <div class="offer-content">
+                    <div class="offer-details">
+                        <div class="detail-item">
+                            <span class="detail-label">تاريخ البداية</span>
+                            <span class="detail-value">2024/03/01</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">تاريخ النهاية</span>
+                            <span class="detail-value">2024/03/31</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">السعر قبل الخصم</span>
+                            <span class="detail-value">200 ريال</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">نسبة الخصم</span>
+                            <span class="detail-value">20%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">السعر بعد الخصم</span>
+                            <span class="detail-value">160 ريال</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="offer-actions">
+                    <button class="action-btn toggle active">
+                        <i class="fas fa-power-off"></i>
+                        <span>تفعيل العرض</span>
+                    </button>
+                    <button class="action-btn edit">
+                        <i class="fas fa-edit"></i>
+                        تعديل
+                    </button>
+                    <button class="action-btn delete">
+                        <i class="fas fa-trash"></i>
+                        حذف
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نموذج إضافة عرض -->
+    <div class="offer-modal" id="offerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">إضافة عرض جديد</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="offerForm">
+                    <div class="form-group">
+                        <label class="form-label">نوع العرض</label>
+                        <select class="form-control" id="offerType" required>
+                            <option value="">اختر نوع العرض</option>
+                            <option value="discount">خصم نسبة مئوية</option>
+                            <option value="price">سعر خاص</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="discountGroup" style="display: none;">
+                        <label class="form-label">نسبة الخصم (%)</label>
+                        <input type="number" class="form-control" id="discount" min="0" max="100">
+                    </div>
+                    <div class="form-group" id="priceGroup" style="display: none;">
+                        <label class="form-label">السعر الجديد</label>
+                        <input type="number" class="form-control" id="newPrice" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">مدة العرض (بالأيام)</label>
+                        <input type="number" class="form-control" id="duration" min="1" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelBtn">إلغاء</button>
+                <button class="btn btn-primary" id="saveBtn">حفظ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- إضافة نافذة تأكيد الحذف -->
+    <div class="confirm-modal" id="confirmModal">
+        <div class="confirm-content">
+            <div class="confirm-icon">
+                <i class="fas fa-trash-alt"></i>
+            </div>
+            <h3 class="confirm-title">تأكيد الحذف</h3>
+            <p class="confirm-message">هل أنت متأكد من حذف هذا العرض؟ لا يمكن التراجع عن هذه العملية.</p>
+            <div class="confirm-actions">
+                <button class="confirm-btn cancel" id="cancelDelete">إلغاء</button>
+                <button class="confirm-btn delete" id="confirmDelete">حذف</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script>
+        // إضافة مستمعي الأحداث للأزرار
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const filterType = this.textContent.trim();
+                filterOffers(filterType);
+            });
+        });
+
+        // البحث في العروض
+        const searchInput = document.querySelector('.search-input');
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            const services = document.querySelectorAll('.service-card');
+            
+            services.forEach(service => {
+                const serviceName = service.querySelector('.service-name').textContent.toLowerCase();
+                const servicePrice = service.querySelector('.service-price').textContent.toLowerCase();
+                
+                if (serviceName.includes(query) || servicePrice.includes(query)) {
+                    service.style.display = '';
+                    service.style.opacity = '1';
+                    service.style.transform = 'scale(1)';
+                } else {
+                    service.style.opacity = '0';
+                    service.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        service.style.display = 'none';
+                    }, 300);
+                }
+            });
+        });
+
+        // تصفية العروض
+        function filterOffers(status) {
+            const offers = document.querySelectorAll('.offer-card');
+            offers.forEach(offer => {
+                const offerStatus = offer.querySelector('.offer-status').textContent.trim();
+                if (status === 'كل العروض') {
+                    offer.style.display = '';
+                } else if (status === 'العروض النشطة' && offerStatus === 'نشط') {
+                    offer.style.display = '';
+                } else if (status === 'العروض المتوقفة' && offerStatus === 'متوقف') {
+                    offer.style.display = '';
+                } else {
+                    offer.style.display = 'none';
+                }
+            });
+        }
+
+        // إضافة مستمعي أحداث لأزرار التعديل والحذف
+        document.querySelectorAll('.action-btn.toggle').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const isActive = this.classList.contains('active');
+                const offerCard = this.closest('.offer-card');
+                const statusElement = offerCard.querySelector('.offer-status');
+                
+                if (isActive) {
+                    this.classList.remove('active');
+                    this.classList.add('inactive');
+                    this.innerHTML = '<i class="fas fa-power-off"></i><span>إيقاف العرض</span>';
+                    statusElement.classList.remove('active');
+                    statusElement.classList.add('inactive');
+                    statusElement.innerHTML = '<i class="fas fa-pause-circle"></i> متوقف';
+                } else {
+                    this.classList.remove('inactive');
+                    this.classList.add('active');
+                    this.innerHTML = '<i class="fas fa-power-off"></i><span>تفعيل العرض</span>';
+                    statusElement.classList.remove('inactive');
+                    statusElement.classList.add('active');
+                    statusElement.innerHTML = '<i class="fas fa-check-circle"></i> نشط';
+                }
+                // هنا يمكن إضافة منطق تفعيل/إيقاف العرض
+                console.log('تغيير حالة العرض');
+            });
+        });
+
+        document.querySelectorAll('.action-btn.edit').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const offerCard = this.closest('.offer-card');
+                const title = offerCard.querySelector('.offer-title').textContent.trim();
+                const startDate = offerCard.querySelector('.detail-item:nth-child(1) .detail-value').textContent;
+                const endDate = offerCard.querySelector('.detail-item:nth-child(2) .detail-value').textContent;
+                const originalPrice = offerCard.querySelector('.detail-item:nth-child(3) .detail-value').textContent;
+                const discount = offerCard.querySelector('.detail-item:nth-child(4) .detail-value').textContent;
+                const finalPrice = offerCard.querySelector('.detail-item:nth-child(5) .detail-value').textContent;
+
+                // تحديث عنوان النافذة
+                document.querySelector('.modal-title').textContent = 'تعديل العرض';
+                
+                // تعبئة البيانات في النموذج
+                document.getElementById('offerType').value = 'discount';
+                document.getElementById('discount').value = parseInt(discount);
+                document.getElementById('duration').value = calculateDuration(startDate, endDate);
+                
+                // إظهار النافذة
+                const modal = document.getElementById('offerModal');
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // دالة لحساب المدة بين تاريخين
+        function calculateDuration(startDate, endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            const diffTime = Math.abs(end - start);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays;
+        }
+
+        // تحديث النموذج عند تغيير نوع العرض
+        document.getElementById('offerType').addEventListener('change', function() {
+            const discountGroup = document.getElementById('discountGroup');
+            const priceGroup = document.getElementById('priceGroup');
+            
+            if (this.value === 'discount') {
+                discountGroup.style.display = 'block';
+                priceGroup.style.display = 'none';
+            } else if (this.value === 'price') {
+                discountGroup.style.display = 'none';
+                priceGroup.style.display = 'block';
+            } else {
+                discountGroup.style.display = 'none';
+                priceGroup.style.display = 'none';
+            }
+        });
+
+        // حفظ التعديلات
+        document.getElementById('saveBtn').addEventListener('click', function() {
+            const form = document.getElementById('offerForm');
+            if (form.checkValidity()) {
+                const offerType = document.getElementById('offerType').value;
+                const discount = document.getElementById('discount').value;
+                const duration = document.getElementById('duration').value;
+                
+                // هنا يمكن إضافة منطق حفظ التعديلات
+                console.log('حفظ التعديلات:', {
+                    offerType,
+                    discount,
+                    duration
+                });
+                
+                // إغلاق النافذة
+                closeModal();
+            } else {
+                form.reportValidity();
+            }
+        });
+
+        // إغلاق النموذج
+        function closeModal() {
+            const modal = document.getElementById('offerModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            document.getElementById('offerForm').reset();
+            const discountGroup = document.getElementById('discountGroup');
+            const priceGroup = document.getElementById('priceGroup');
+            discountGroup.style.display = 'none';
+            priceGroup.style.display = 'none';
+        }
+
+        // إضافة مستمعي أحداث لأزرار الإلغاء
+        const closeModalBtn = document.querySelector('.close-modal');
+        closeModalBtn.addEventListener('click', closeModal);
+        const cancelBtn = document.getElementById('cancelBtn');
+        cancelBtn.addEventListener('click', closeModal);
+
+        // إضافة مستمعي أحداث للخدمات
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const serviceId = this.dataset.serviceId;
+                const serviceName = this.querySelector('.service-name').textContent;
+                const servicePrice = this.querySelector('.service-price').textContent;
+                document.querySelector('.modal-title').textContent = `إضافة عرض لـ ${serviceName}`;
+                const modal = document.getElementById('offerModal');
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // إضافة مستمعي أحداث لزر الحذف
+        document.querySelectorAll('.action-btn.delete').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const offerCard = this.closest('.offer-card');
+                const offerTitle = offerCard.querySelector('.offer-title').textContent.trim();
+                
+                // تحديث رسالة التأكيد
+                document.querySelector('.confirm-message').textContent = 
+                    `هل أنت متأكد من حذف عرض "${offerTitle}"؟ لا يمكن التراجع عن هذه العملية.`;
+                
+                // إظهار نافذة التأكيد
+                const confirmModal = document.getElementById('confirmModal');
+                confirmModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+                // إضافة مستمعي أحداث لأزرار التأكيد والإلغاء
+                const confirmDelete = document.getElementById('confirmDelete');
+                const cancelDelete = document.getElementById('cancelDelete');
+
+                const handleConfirm = () => {
+                    // هنا يمكن إضافة منطق حذف العرض
+                    console.log('حذف العرض:', offerTitle);
+                    
+                    // إخفاء نافذة التأكيد
+                    confirmModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    
+                    // إزالة البطاقة من الصفحة
+                    offerCard.style.opacity = '0';
+                    offerCard.style.transform = 'translateX(20px)';
+                    setTimeout(() => {
+                        offerCard.remove();
+                    }, 300);
+                    
+                    // إزالة مستمعي الأحداث
+                    confirmDelete.removeEventListener('click', handleConfirm);
+                    cancelDelete.removeEventListener('click', handleCancel);
+                };
+
+                const handleCancel = () => {
+                    confirmModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    confirmDelete.removeEventListener('click', handleConfirm);
+                    cancelDelete.removeEventListener('click', handleCancel);
+                };
+
+                confirmDelete.addEventListener('click', handleConfirm);
+                cancelDelete.addEventListener('click', handleCancel);
+            });
+        });
+    </script>
+</body>
+
+</html> 

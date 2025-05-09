@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة الخدمات - نطاق</title>
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="images/icon.png">
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <link rel="apple-touch-icon" href="images/icon.png">
+    <meta name="theme-color" content="#6f8051">
+    <style>
+        :root {
+            --primary-color: #6f8051;
+            --primary-light: #8a9d6a;
+            --primary-dark: #5a6a42;
+            --secondary-color: #919663;
+            --background-light: #f8f9fa;
+            --accent-light: #ffffff;
+            --accent-dark: #e9ecef;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --white: #ffffff;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --info-color: #17a2b8;
+            --border-radius: 12px;
+            --border-radius-lg: 16px;
+            --border-radius-sm: 8px;
+        }
+
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 32px;
+            background: var(--background-light);
+            min-height: calc(100vh - 80px);
+            display: grid;
+            gap: 32px;
+        }
+
+        .services-header {
+            background: var(--accent-light);
+            padding: 32px;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-card);
+            display: grid;
+            gap: 24px;
+            border: 1px solid var(--accent-dark);
+        }
+
+        .services-stats {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--accent-dark);
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-icon.active {
+            background: #e8f5e9;
+            color: #1b5e20;
+        }
+
+        .stat-icon.inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .stat-icon.earnings {
+            background: #e3f2fd;
+            color: #0d47a1;
+        }
+
+        .stat-info {
+            flex: 1;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .services-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .services-title i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .services-filters {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 12px 24px;
+            border: 2px solid var(--accent-dark);
+            border-radius: 30px;
+            background: var(--accent-light);
+            color: var(--text-light);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary-light);
+            color: var(--primary-color);
+            transform: translateY(-1px);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        .services-grid {
+            display: grid;
+            gap: 32px;
+        }
+
+        .service-card {
+            background: var(--accent-light);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-card);
+            transition: var(--transition);
+            border: 1px solid var(--accent-dark);
+            overflow: hidden;
+        }
+
+        .service-header {
+            padding: 24px 32px;
+            background: var(--accent-light);
+            border-bottom: 1px solid var(--accent-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .service-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .service-title i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .service-status {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .service-content {
+            padding: 32px;
+            display: grid;
+            gap: 24px;
+        }
+
+        .service-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .service-info {
+            background: var(--background-light);
+            padding: 24px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--accent-dark);
+        }
+
+        .info-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-title i {
+            color: var(--primary-color);
+        }
+
+        .info-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .info-item i {
+            color: var(--primary-color);
+            width: 20px;
+        }
+
+        .service-description {
+            background: var(--background-light);
+            padding: 24px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--accent-dark);
+        }
+
+        .description-text {
+            color: var(--text-dark);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .service-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .image-preview {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-actions {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .image-action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .image-action-btn:hover {
+            background: var(--danger-color);
+            color: var(--white);
+        }
+
+        .service-actions {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .action-btn {
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: none;
+            font-size: 0.95rem;
+        }
+
+        .edit-btn {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .edit-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .delete-btn {
+            background: var(--white);
+            color: var(--danger-color);
+            border: 2px solid var(--danger-color);
+        }
+
+        .delete-btn:hover {
+            background: var(--danger-color);
+            color: var(--white);
+            transform: translateY(-1px);
+        }
+
+        .toggle-btn {
+            background: var(--info-color);
+            color: var(--white);
+        }
+
+        .toggle-btn:hover {
+            background: #138496;
+            transform: translateY(-1px);
+        }
+
+        .add-service-btn {
+            position: fixed;
+            bottom: 32px;
+            left: 32px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-card);
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .add-service-btn:hover {
+            transform: translateY(-2px);
+            background: var(--primary-dark);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 32px;
+            border-radius: var(--border-radius-lg);
+            width: 95%;
+            max-width: 800px;
+            position: relative;
+            box-shadow: var(--shadow-card);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 4px;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--danger-color);
+        }
+
+        .service-form {
+            display: grid;
+            gap: 24px;
+        }
+
+        .form-group {
+            display: grid;
+            gap: 8px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-input {
+            padding: 12px;
+            border: 1px solid var(--accent-dark);
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .image-upload {
+            border: 2px dashed var(--accent-dark);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .image-upload:hover {
+            border-color: var(--primary-color);
+        }
+
+        .image-upload i {
+            font-size: 2rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+
+        .image-upload-text {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .submit-btn {
+            padding: 12px 24px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 768px) {
+            .services-container {
+                padding: 24px 16px;
+            }
+
+            .services-header {
+                padding: 24px;
+            }
+
+            .service-details {
+                grid-template-columns: 1fr;
+            }
+
+            .service-actions {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">
+                    <img src="images/logo.png" alt="نطاق" class="logo-img">
+                </a>
+
+                <div class="nav-actions">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+
+                    <div class="user-menu">
+                        <img src="images/user-avatar.jpg" class="user-avatar">
+                        <div class="dropdown">
+                            <a href="/profile" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                الملف الشخصي
+                            </a>
+                            <a href="/settings" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                الإعدادات
+                            </a>
+                            <a href="/logout" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                تسجيل الخروج
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section class="services-container">
+        <div class="services-header">
+            <h1 class="services-title">
+                <i class="fas fa-tools"></i>
+                إدارة الخدمات
+            </h1>
+            <div class="services-stats">
+                <div class="stat-card">
+                    <div class="stat-icon active">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">خدمات نشطة</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon inactive">
+                        <i class="fas fa-pause-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value">2</div>
+                        <div class="stat-label">خدمات متوقفة</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon earnings">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value">3,500 ريال</div>
+                        <div class="stat-label">إجمالي الأرباح</div>
+                    </div>
+                </div>
+            </div>
+            <div class="services-filters">
+                <button class="filter-btn active" data-filter="all">الكل</button>
+                <button class="filter-btn" data-filter="active">نشطة</button>
+                <button class="filter-btn" data-filter="inactive">متوقفة</button>
+            </div>
+        </div>
+
+        <div class="services-grid">
+            <!-- خدمة إصلاح الأعطال الكهربائية -->
+            <div class="service-card" data-status="active">
+                <div class="service-header">
+                    <div class="service-title">
+                        <i class="fas fa-bolt"></i>
+                        إصلاح الأعطال الكهربائية
+                    </div>
+                    <div class="service-status status-active">
+                        <i class="fas fa-check-circle"></i>
+                        نشطة
+                    </div>
+                </div>
+                <div class="service-content">
+                    <div class="service-details">
+                        <div class="service-info">
+                            <div class="info-title">
+                                <i class="fas fa-info-circle"></i>
+                                معلومات الخدمة
+                            </div>
+                            <div class="info-list">
+                                <div class="info-item">
+                                    <i class="fas fa-tag"></i>
+                                    <span>السعر الأساسي: 100 ريال</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>مدة الخدمة: 60 دقيقة</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>نطاق الخدمة: الرياض</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-star"></i>
+                                    <span>التقييم: 4.8 (120 تقييم)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-description">
+                            <div class="info-title">
+                                <i class="fas fa-align-left"></i>
+                                وصف الخدمة
+                            </div>
+                            <p class="description-text">
+                                إصلاح جميع أنواع الأعطال الكهربائية المنزلية والتجارية باحترافية عالية. تشمل الخدمة فحص وتشخيص الأعطال، إصلاح الدوائر الكهربائية، تركيب وتغيير القواطع، وإصلاح التوصيلات الكهربائية.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="service-images">
+                        <div class="image-preview">
+                            <img src="images/service1.jpg" alt="صورة الخدمة">
+                            <div class="image-actions">
+                                <button class="image-action-btn" onclick="editImage(this)">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="image-action-btn" onclick="deleteImage(this)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-actions">
+                        <button class="action-btn edit-btn" onclick="editService(this)">
+                            <i class="fas fa-edit"></i>
+                            تعديل الخدمة
+                        </button>
+                        <button class="action-btn toggle-btn" onclick="toggleService(this)">
+                            <i class="fas fa-pause-circle"></i>
+                            إيقاف الخدمة
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deleteService(this)">
+                            <i class="fas fa-trash"></i>
+                            حذف الخدمة
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- خدمة صيانة المكيفات -->
+            <div class="service-card" data-status="active">
+                <div class="service-header">
+                    <div class="service-title">
+                        <i class="fas fa-snowflake"></i>
+                        صيانة المكيفات
+                    </div>
+                    <div class="service-status status-active">
+                        <i class="fas fa-check-circle"></i>
+                        نشطة
+                    </div>
+                </div>
+                <div class="service-content">
+                    <div class="service-details">
+                        <div class="service-info">
+                            <div class="info-title">
+                                <i class="fas fa-info-circle"></i>
+                                معلومات الخدمة
+                            </div>
+                            <div class="info-list">
+                                <div class="info-item">
+                                    <i class="fas fa-tag"></i>
+                                    <span>السعر الأساسي: 150 ريال</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>مدة الخدمة: 90 دقيقة</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>نطاق الخدمة: الرياض</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-star"></i>
+                                    <span>التقييم: 4.7 (95 تقييم)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-description">
+                            <div class="info-title">
+                                <i class="fas fa-align-left"></i>
+                                وصف الخدمة
+                            </div>
+                            <p class="description-text">
+                                خدمة صيانة المكيفات المنزلية والمكتبية. تشمل تنظيف المكيف، إصلاح الأعطال، تغيير القطع التالفة، وفحص كفاءة التشغيل. نستخدم أحدث المعدات والأدوات لضمان جودة الخدمة.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="service-images">
+                        <div class="image-preview">
+                            <img src="images/service-1.jpg" alt="صورة الخدمة">
+                            <div class="image-actions">
+                                <button class="image-action-btn" onclick="editImage(this)">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="image-action-btn" onclick="deleteImage(this)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-actions">
+                        <button class="action-btn edit-btn" onclick="editService(this)">
+                            <i class="fas fa-edit"></i>
+                            تعديل الخدمة
+                        </button>
+                        <button class="action-btn toggle-btn" onclick="toggleService(this)">
+                            <i class="fas fa-pause-circle"></i>
+                            إيقاف الخدمة
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deleteService(this)">
+                            <i class="fas fa-trash"></i>
+                            حذف الخدمة
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- خدمة تنظيف المنازل -->
+            <div class="service-card" data-status="inactive">
+                <div class="service-header">
+                    <div class="service-title">
+                        <i class="fas fa-broom"></i>
+                        تنظيف المنازل
+                    </div>
+                    <div class="service-status status-inactive">
+                        <i class="fas fa-pause-circle"></i>
+                        متوقفة
+                    </div>
+                </div>
+                <div class="service-content">
+                    <div class="service-details">
+                        <div class="service-info">
+                            <div class="info-title">
+                                <i class="fas fa-info-circle"></i>
+                                معلومات الخدمة
+                            </div>
+                            <div class="info-list">
+                                <div class="info-item">
+                                    <i class="fas fa-tag"></i>
+                                    <span>السعر الأساسي: 200 ريال</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>مدة الخدمة: 4-5 ساعات</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>نطاق الخدمة: جدة</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-star"></i>
+                                    <span>التقييم: 4.5 (85 تقييم)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-description">
+                            <div class="info-title">
+                                <i class="fas fa-align-left"></i>
+                                وصف الخدمة
+                            </div>
+                            <p class="description-text">
+                                خدمة تنظيف المنازل الشاملة. تشمل تنظيف جميع الغرف، المطبخ، الحمامات، وتنظيف النوافذ. نستخدم مواد تنظيف آمنة وفعالة. الخدمة تشمل فريق عمل محترف ومدرب.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="service-images">
+                        <div class="image-preview">
+                            <img src="images/service-3.jpg" alt="صورة الخدمة">
+                            <div class="image-actions">
+                                <button class="image-action-btn" onclick="editImage(this)">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="image-action-btn" onclick="deleteImage(this)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-actions">
+                        <button class="action-btn edit-btn" onclick="editService(this)">
+                            <i class="fas fa-edit"></i>
+                            تعديل الخدمة
+                        </button>
+                        <button class="action-btn toggle-btn" onclick="toggleService(this)">
+                            <i class="fas fa-play-circle"></i>
+                            تفعيل الخدمة
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deleteService(this)">
+                            <i class="fas fa-trash"></i>
+                            حذف الخدمة
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- زر إضافة خدمة -->
+    <button class="add-service-btn" onclick="openAddServiceModal()">
+        <i class="fas fa-plus"></i>
+    </button>
+
+    <!-- Modal إضافة خدمة -->
+    <div class="modal" id="addServiceModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">إضافة خدمة جديدة</h3>
+                <button class="close-modal" onclick="closeAddServiceModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form class="service-form" onsubmit="submitService(event)">
+                <div class="form-group">
+                    <label class="form-label">اسم الخدمة</label>
+                    <input type="text" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">السعر الأساسي</label>
+                    <input type="number" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">مدة الخدمة</label>
+                    <input type="text" class="form-input" placeholder="مثال: 2-3 ساعات" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">نطاق الخدمة</label>
+                    <input type="text" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">وصف الخدمة</label>
+                    <textarea class="form-input form-textarea" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">صور الخدمة</label>
+                    <div class="image-upload" onclick="triggerImageUpload()">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="image-upload-text">
+                            انقر لاختيار الصور أو اسحبها هنا
+                        </div>
+                        <input type="file" multiple accept="image/*" style="display: none" id="imageUpload">
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-plus"></i>
+                    إضافة الخدمة
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // نظام فلتر الخدمات
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const serviceCards = document.querySelectorAll('.service-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+
+                serviceCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-status') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Modal إضافة خدمة
+        function openAddServiceModal() {
+            const modal = document.getElementById('addServiceModal');
+            modal.classList.add('active');
+        }
+
+        function closeAddServiceModal() {
+            const modal = document.getElementById('addServiceModal');
+            modal.classList.remove('active');
+        }
+
+        // إغلاق Modal عند النقر خارجه
+        document.getElementById('addServiceModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeAddServiceModal();
+            }
+        });
+
+        // رفع الصور
+        function triggerImageUpload() {
+            document.getElementById('imageUpload').click();
+        }
+
+        document.getElementById('imageUpload').addEventListener('change', function(event) {
+            const files = event.target.files;
+            const imageUpload = document.querySelector('.image-upload');
+            
+            // عرض معاينة الصور المختارة
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imagePreview = document.createElement('div');
+                    imagePreview.className = 'image-preview';
+                    imagePreview.innerHTML = `
+                        <img src="${e.target.result}" alt="صورة الخدمة">
+                        <div class="image-actions">
+                            <button class="image-action-btn" onclick="editImage(this)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="image-action-btn" onclick="deleteImage(this)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    imageUpload.appendChild(imagePreview);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        // إضافة خدمة
+        function submitService(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            // محاكاة إرسال البيانات للخادم
+            setTimeout(() => {
+                showNotification('تم إضافة الخدمة بنجاح');
+                closeAddServiceModal();
+                form.reset();
+                
+                // إضافة الخدمة الجديدة للصفحة
+                const newService = createServiceCard({
+                    title: formData.get('title'),
+                    price: formData.get('price'),
+                    duration: formData.get('duration'),
+                    location: formData.get('location'),
+                    description: formData.get('description')
+                });
+                
+                document.querySelector('.services-grid').prepend(newService);
+            }, 1000);
+        }
+
+        // تعديل خدمة
+        function editService(button) {
+            const card = button.closest('.service-card');
+            const title = card.querySelector('.service-title').textContent.trim();
+            const price = card.querySelector('.info-item:first-child span').textContent.split(': ')[1];
+            const duration = card.querySelector('.info-item:nth-child(2) span').textContent.split(': ')[1];
+            const location = card.querySelector('.info-item:nth-child(3) span').textContent.split(': ')[1];
+            const description = card.querySelector('.description-text').textContent.trim();
+            
+            // فتح modal التعديل
+            const modal = document.getElementById('addServiceModal');
+            modal.classList.add('active');
+            
+            // ملء البيانات في النموذج
+            const form = modal.querySelector('form');
+            form.querySelector('input[type="text"]').value = title;
+            form.querySelector('input[type="number"]').value = price.replace(' ريال', '');
+            form.querySelector('input[placeholder="مثال: 2-3 ساعات"]').value = duration;
+            form.querySelector('input[type="text"]:last-of-type').value = location;
+            form.querySelector('textarea').value = description;
+            
+            // تغيير عنوان النموذج
+            modal.querySelector('.modal-title').textContent = 'تعديل الخدمة';
+            
+            // تغيير زر الإرسال
+            const submitBtn = form.querySelector('.submit-btn');
+            submitBtn.innerHTML = '<i class="fas fa-save"></i> حفظ التعديلات';
+            
+            // تغيير وظيفة النموذج
+            form.onsubmit = function(event) {
+                event.preventDefault();
+                updateService(card, new FormData(form));
+            };
+        }
+
+        // تحديث الخدمة
+        function updateService(card, formData) {
+            // محاكاة إرسال البيانات للخادم
+            setTimeout(() => {
+                // تحديث بيانات البطاقة
+                card.querySelector('.service-title').textContent = formData.get('title');
+                card.querySelector('.info-item:first-child span').textContent = `السعر الأساسي: ${formData.get('price')} ريال`;
+                card.querySelector('.info-item:nth-child(2) span').textContent = `مدة الخدمة: ${formData.get('duration')}`;
+                card.querySelector('.info-item:nth-child(3) span').textContent = `نطاق الخدمة: ${formData.get('location')}`;
+                card.querySelector('.description-text').textContent = formData.get('description');
+                
+                showNotification('تم تحديث الخدمة بنجاح');
+                closeAddServiceModal();
+            }, 1000);
+        }
+
+        // تفعيل/إيقاف خدمة
+        function toggleService(button) {
+            const card = button.closest('.service-card');
+            const status = card.getAttribute('data-status');
+            const statusElement = card.querySelector('.service-status');
+            const icon = button.querySelector('i');
+            
+            // محاكاة إرسال الطلب للخادم
+            setTimeout(() => {
+                if (status === 'active') {
+                    card.setAttribute('data-status', 'inactive');
+                    statusElement.innerHTML = '<i class="fas fa-pause-circle"></i> متوقفة';
+                    statusElement.className = 'service-status status-inactive';
+                    icon.className = 'fas fa-play-circle';
+                    button.innerHTML = '<i class="fas fa-play-circle"></i> تفعيل الخدمة';
+                    showNotification('تم إيقاف الخدمة');
+                } else {
+                    card.setAttribute('data-status', 'active');
+                    statusElement.innerHTML = '<i class="fas fa-check-circle"></i> نشطة';
+                    statusElement.className = 'service-status status-active';
+                    icon.className = 'fas fa-pause-circle';
+                    button.innerHTML = '<i class="fas fa-pause-circle"></i> إيقاف الخدمة';
+                    showNotification('تم تفعيل الخدمة');
+                }
+            }, 500);
+        }
+
+        // حذف خدمة
+        function deleteService(button) {
+            if (confirm('هل أنت متأكد من حذف هذه الخدمة؟')) {
+                const card = button.closest('.service-card');
+                
+                // محاكاة إرسال الطلب للخادم
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    
+                    setTimeout(() => {
+                        card.remove();
+                        showNotification('تم حذف الخدمة بنجاح');
+                    }, 300);
+                }, 500);
+            }
+        }
+
+        // تعديل صورة
+        function editImage(button) {
+            const imagePreview = button.closest('.image-preview');
+            const image = imagePreview.querySelector('img');
+            
+            // فتح نافذة اختيار الصورة
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            
+            input.onchange = function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        image.src = e.target.result;
+                        showNotification('تم تحديث الصورة بنجاح');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+            
+            input.click();
+        }
+
+        // حذف صورة
+        function deleteImage(button) {
+            if (confirm('هل أنت متأكد من حذف هذه الصورة؟')) {
+                const imagePreview = button.closest('.image-preview');
+                
+                // محاكاة إرسال الطلب للخادم
+                setTimeout(() => {
+                    imagePreview.style.opacity = '0';
+                    imagePreview.style.transform = 'scale(0.8)';
+                    
+                    setTimeout(() => {
+                        imagePreview.remove();
+                        showNotification('تم حذف الصورة بنجاح');
+                    }, 300);
+                }, 500);
+            }
+        }
+
+        // إنشاء بطاقة خدمة جديدة
+        function createServiceCard(service) {
+            const card = document.createElement('div');
+            card.className = 'service-card';
+            card.setAttribute('data-status', 'active');
+            
+            card.innerHTML = `
+                <div class="service-header">
+                    <div class="service-title">
+                        <i class="fas fa-tools"></i>
+                        ${service.title}
+                    </div>
+                    <div class="service-status status-active">
+                        <i class="fas fa-check-circle"></i>
+                        نشطة
+                    </div>
+                </div>
+                <div class="service-content">
+                    <div class="service-details">
+                        <div class="service-info">
+                            <div class="info-title">
+                                <i class="fas fa-info-circle"></i>
+                                معلومات الخدمة
+                            </div>
+                            <div class="info-list">
+                                <div class="info-item">
+                                    <i class="fas fa-tag"></i>
+                                    <span>السعر الأساسي: ${service.price} ريال</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>مدة الخدمة: ${service.duration}</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>نطاق الخدمة: ${service.location}</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-star"></i>
+                                    <span>التقييم: 0 (0 تقييم)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-description">
+                            <div class="info-title">
+                                <i class="fas fa-align-left"></i>
+                                وصف الخدمة
+                            </div>
+                            <p class="description-text">
+                                ${service.description}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="service-images">
+                        <div class="image-preview">
+                            <img src="images/default-service.jpg" alt="صورة الخدمة">
+                            <div class="image-actions">
+                                <button class="image-action-btn" onclick="editImage(this)">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="image-action-btn" onclick="deleteImage(this)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-actions">
+                        <button class="action-btn edit-btn" onclick="editService(this)">
+                            <i class="fas fa-edit"></i>
+                            تعديل الخدمة
+                        </button>
+                        <button class="action-btn toggle-btn" onclick="toggleService(this)">
+                            <i class="fas fa-pause-circle"></i>
+                            إيقاف الخدمة
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deleteService(this)">
+                            <i class="fas fa-trash"></i>
+                            حذف الخدمة
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // إظهار إشعار
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            
+            const colors = {
+                success: '#4CAF50',
+                warning: '#FFC107',
+                error: '#F44336',
+                info: '#2196F3'
+            };
+            
+            notification.style.backgroundColor = colors[type];
+            notification.style.position = 'fixed';
+            notification.style.bottom = '24px';
+            notification.style.left = '24px';
+            notification.style.padding = '16px 24px';
+            notification.style.borderRadius = 'var(--border-radius)';
+            notification.style.color = 'white';
+            notification.style.fontWeight = '600';
+            notification.style.boxShadow = 'var(--shadow)';
+            notification.style.zIndex = '1000';
+            notification.style.animation = 'slideIn 0.5s ease-out';
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.5s ease-out';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
+            }, 3000);
+        }
+
+        // إضافة أنماط CSS للحركات
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateY(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes slideOut {
+                from {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateY(100%);
+                    opacity: 0;
+                }
+            }
+
+            .service-card {
+                transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+
+            .image-preview {
+                transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html> 

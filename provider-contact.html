@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعديل معلومات التواصل - نطاق</title>
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="images/icon.png">
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <link rel="apple-touch-icon" href="images/icon.png">
+    <meta name="theme-color" content="#6f8051">
+    <style>
+        :root {
+            --primary-color: #6f8051;
+            --primary-light: #8a9d6a;
+            --primary-dark: #5a6a42;
+            --secondary-color: #919663;
+            --background-light: #f8f9fa;
+            --accent-light: #ffffff;
+            --accent-dark: #e9ecef;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --white: #ffffff;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --info-color: #17a2b8;
+            --border-radius: 12px;
+            --border-radius-lg: 16px;
+            --border-radius-sm: 8px;
+        }
+
+        body {
+            background: var(--background-light);
+            font-family: 'Cairo', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .contact-header {
+            background: var(--accent-light);
+            padding: 32px;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-card);
+            margin-bottom: 32px;
+            border: 1px solid var(--accent-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            opacity: 0.05;
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+
+        .contact-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-title i {
+            color: var(--primary-color);
+            font-size: 1.75rem;
+            background: var(--background-light);
+            padding: 12px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-description {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-form {
+            background: var(--accent-light);
+            padding: 32px;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--accent-dark);
+        }
+
+        .form-section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: var(--primary-color);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--accent-dark);
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--white);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(111, 128, 81, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--accent-dark);
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+            background: var(--white);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .form-select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(111, 128, 81, 0.1);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: flex-end;
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid var(--accent-dark);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: var(--border-radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(111, 128, 81, 0.2);
+        }
+
+        .btn-secondary {
+            background: var(--accent-dark);
+            color: var(--text-dark);
+        }
+
+        .btn-secondary:hover {
+            background: #e2e6ea;
+            transform: translateY(-1px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--background-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dark);
+            transition: var(--transition);
+            border: 1px solid var(--accent-dark);
+        }
+
+        .social-link:hover {
+            background: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .form-hint {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 8px;
+        }
+
+        .required-mark {
+            color: var(--danger-color);
+            margin-right: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                margin: 20px auto;
+            }
+
+            .contact-header,
+            .contact-form {
+                padding: 24px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contact-container">
+        <div class="contact-header">
+            <h1 class="contact-title">
+                <i class="fas fa-address-card"></i>
+                تعديل معلومات التواصل
+            </h1>
+            <p class="contact-description">
+                قم بتحديث معلومات التواصل الخاصة بك لتسهيل التواصل مع العملاء
+            </p>
+        </div>
+
+        <form class="contact-form" id="contactForm">
+            <!-- معلومات الاتصال الأساسية -->
+            <div class="form-section">
+                <h2 class="section-title">
+                    <i class="fas fa-phone"></i>
+                    معلومات الاتصال الأساسية
+                </h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span class="required-mark">*</span>
+                            رقم الجوال
+                        </label>
+                        <input type="tel" class="form-control" id="phone" required
+                            placeholder="05xxxxxxxx">
+                        <p class="form-hint">أدخل رقم الجوال مع رمز الدولة</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span class="required-mark">*</span>
+                            البريد الإلكتروني
+                        </label>
+                        <input type="email" class="form-control" id="email" required
+                            placeholder="example@domain.com">
+                    </div>
+                </div>
+            </div>
+
+            <!-- وسائل التواصل الاجتماعي -->
+            <div class="form-section">
+                <h2 class="section-title">
+                    <i class="fas fa-share-alt"></i>
+                    وسائل التواصل الاجتماعي
+                </h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">حساب تويتر</label>
+                        <input type="url" class="form-control" id="twitter"
+                            placeholder="https://twitter.com/username">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">حساب انستغرام</label>
+                        <input type="url" class="form-control" id="instagram"
+                            placeholder="https://instagram.com/username">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">حساب سناب شات</label>
+                        <input type="text" class="form-control" id="snapchat"
+                            placeholder="username">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">حساب تيك توك</label>
+                        <input type="url" class="form-control" id="tiktok"
+                            placeholder="https://tiktok.com/@username">
+                    </div>
+                </div>
+            </div>
+
+            <!-- معلومات العنوان -->
+            <div class="form-section">
+                <h2 class="section-title">
+                    <i class="fas fa-map-marker-alt"></i>
+                    معلومات العنوان
+                </h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span class="required-mark">*</span>
+                            المدينة
+                        </label>
+                        <select class="form-select" id="city" required>
+                            <option value="">اختر المدينة</option>
+                            <option value="riyadh">الرياض</option>
+                            <option value="jeddah">جدة</option>
+                            <option value="dammam">الدمام</option>
+                            <option value="makkah">مكة المكرمة</option>
+                            <option value="madinah">المدينة المنورة</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span class="required-mark">*</span>
+                            الحي
+                        </label>
+                        <input type="text" class="form-control" id="district" required
+                            placeholder="اسم الحي">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">الشارع</label>
+                        <input type="text" class="form-control" id="street"
+                            placeholder="اسم الشارع">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">الرمز البريدي</label>
+                        <input type="text" class="form-control" id="postalCode"
+                            placeholder="xxxxx">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">تفاصيل إضافية</label>
+                    <textarea class="form-control form-textarea" id="addressDetails"
+                        placeholder="أدخل أي تفاصيل إضافية عن العنوان"></textarea>
+                </div>
+            </div>
+
+            <!-- أوقات العمل -->
+            <div class="form-section">
+                <h2 class="section-title">
+                    <i class="fas fa-clock"></i>
+                    أوقات العمل
+                </h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span class="required-mark">*</span>
+                            وقت بدء العمل
+                        </label>
+                        <input type="time" class="form-control" id="workStart" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span class="required-mark">*</span>
+                            وقت انتهاء العمل
+                        </label>
+                        <input type="time" class="form-control" id="workEnd" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">ملاحظات إضافية</label>
+                    <textarea class="form-control form-textarea" id="workNotes"
+                        placeholder="أدخل أي ملاحظات إضافية عن أوقات العمل"></textarea>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary">
+                    <i class="fas fa-times"></i>
+                    إلغاء
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    حفظ التغييرات
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // التحقق من صحة النموذج
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // التحقق من صحة رقم الجوال
+            const phone = document.getElementById('phone').value;
+            const phoneRegex = /^05\d{8}$/;
+            if (!phoneRegex.test(phone)) {
+                alert('الرجاء إدخال رقم جوال صحيح');
+                return;
+            }
+
+            // التحقق من صحة البريد الإلكتروني
+            const email = document.getElementById('email').value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('الرجاء إدخال بريد إلكتروني صحيح');
+                return;
+            }
+
+            // التحقق من أوقات العمل
+            const workStart = document.getElementById('workStart').value;
+            const workEnd = document.getElementById('workEnd').value;
+            if (workStart >= workEnd) {
+                alert('وقت انتهاء العمل يجب أن يكون بعد وقت بدء العمل');
+                return;
+            }
+
+            // إذا تم اجتياز جميع التحققات، يمكن إرسال النموذج
+            console.log('تم حفظ المعلومات بنجاح');
+            // هنا يمكن إضافة كود لإرسال البيانات إلى الخادم
+        });
+
+        // تحديث قائمة الأحياء حسب المدينة المختارة
+        document.getElementById('city').addEventListener('change', function() {
+            const city = this.value;
+            const districtInput = document.getElementById('district');
+            
+            // هنا يمكن إضافة منطق لتحديث قائمة الأحياء حسب المدينة المختارة
+            console.log('تم اختيار المدينة:', city);
+        });
+    </script>
+</body>
+
+</html> 

@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تاريخ المعاملات - نطاق</title>
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="images/icon.png">
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <link rel="apple-touch-icon" href="images/icon.png">
+    <meta name="theme-color" content="#6f8051">
+    <style>
+        :root {
+            --primary-color: #6f8051;
+            --primary-light: #8a9d6a;
+            --primary-dark: #5a6a42;
+            --secondary-color: #919663;
+            --background-light: #f8f9fa;
+            --accent-light: #ffffff;
+            --accent-dark: #e9ecef;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --white: #ffffff;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --info-color: #17a2b8;
+            --border-radius: 12px;
+            --border-radius-lg: 16px;
+            --border-radius-sm: 8px;
+        }
+
+        body {
+            background: var(--background-light);
+            font-family: 'Cairo', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            text-align: right;
+        }
+
+        .transactions-container {
+            max-width: 1400px;
+            margin: 32px auto;
+            padding: 0 24px;
+            direction: rtl;
+            overflow-x: hidden;
+        }
+
+        .transactions-header {
+            background: var(--accent-light);
+            padding: 28px 32px;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-card);
+            margin-bottom: 24px;
+            border: 1px solid var(--accent-dark);
+        }
+
+        .transactions-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 0;
+            text-align: right;
+        }
+
+        .transactions-title i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            background: var(--background-light);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        /* قسم البحث والتصفية */
+        .search-filters {
+            background: var(--accent-light);
+            padding: 24px 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-card);
+            margin-bottom: 24px;
+            border: 1px solid var(--accent-dark);
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 600;
+            margin-bottom: 2px;
+            text-align: right;
+        }
+
+        .filter-input {
+            padding: 12px 16px;
+            border: 2px solid var(--accent-dark);
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+            transition: var(--transition);
+            height: 48px;
+            text-align: right;
+            direction: rtl;
+        }
+
+        .filter-input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(111, 128, 81, 0.1);
+        }
+
+        .filter-select {
+            padding: 12px 16px;
+            border: 2px solid var(--accent-dark);
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--white);
+            cursor: pointer;
+            height: 48px;
+            text-align: right;
+            direction: rtl;
+        }
+
+        .filter-select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(111, 128, 81, 0.1);
+        }
+
+        .search-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: flex-start;
+            margin-top: 8px;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: var(--border-radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            height: 48px;
+            text-align: right;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .btn:hover::before {
+            transform: translateX(100%);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(111, 128, 81, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(111, 128, 81, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(111, 128, 81, 0.2);
+        }
+
+        .btn-secondary {
+            background: var(--background-light);
+            color: var(--text-dark);
+            border: 2px solid var(--accent-dark);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-secondary:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        /* جدول المعاملات */
+        .transactions-table {
+            width: 100%;
+            min-width: 1000px;
+            background: var(--accent-light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--accent-dark);
+            overflow: hidden;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-color) var(--accent-dark);
+            margin: 0;
+            padding: 0;
+        }
+
+        .table-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-container::-webkit-scrollbar-track {
+            background: var(--accent-dark);
+            border-radius: 4px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        .table-header {
+            background: var(--background-light);
+            padding: 16px 24px;
+            display: grid;
+            grid-template-columns: 80px minmax(150px, 1fr) minmax(120px, 1fr) minmax(120px, 1fr) minmax(100px, 1fr) minmax(150px, 1fr) 80px;
+            gap: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            border-bottom: 2px solid var(--accent-dark);
+            align-items: center;
+        }
+
+        .table-header > div {
+            text-align: center;
+        }
+
+        .table-header > div:nth-child(2) {
+            text-align: right;
+        }
+
+        .table-row {
+            padding: 16px 24px;
+            display: grid;
+            grid-template-columns: 80px minmax(150px, 1fr) minmax(120px, 1fr) minmax(120px, 1fr) minmax(100px, 1fr) minmax(150px, 1fr) 80px;
+            gap: 16px;
+            align-items: center;
+            border-bottom: 1px solid var(--accent-dark);
+            transition: var(--transition);
+            text-align: right;
+        }
+
+        .table-row:hover {
+            background: var(--background-light);
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .transaction-id {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        .transaction-customer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: right;
+            min-width: 0;
+        }
+
+        .customer-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.95rem;
+            flex-shrink: 0;
+        }
+
+        .customer-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            text-align: right;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .transaction-phone {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .transaction-date {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .transaction-amount {
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .transaction-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            white-space: nowrap;
+            text-align: center;
+            justify-content: center;
+            margin: auto;
+            display: block;
+            width: fit-content;
+        }
+
+        .status-completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success-color);
+        }
+
+        .status-rejected-provider {
+            background: rgba(220, 53, 69, 0.1);
+            color: var(--danger-color);
+        }
+
+        .status-cancelled-customer {
+            background: rgba(108, 117, 125, 0.1);
+            color: var(--text-light);
+        }
+
+        .transaction-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .action-btn {
+            padding: 10px;
+            border-radius: var(--border-radius-sm);
+            color: var(--text-light);
+            transition: var(--transition);
+            cursor: pointer;
+            background: var(--accent-light);
+            border: 1px solid var(--accent-dark);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-btn i {
+            font-size: 1rem;
+        }
+
+        .action-btn:hover {
+            background: var(--background-light);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-btn:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        /* الترقيم */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 32px;
+            direction: rtl;
+            background: var(--accent-light);
+            padding: 16px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--accent-dark);
+        }
+
+        .page-numbers {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .page-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--accent-dark);
+            border-radius: var(--border-radius-sm);
+            background: var(--accent-light);
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            min-width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background: var(--background-light);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(111, 128, 81, 0.1);
+        }
+
+        .page-btn.active {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(111, 128, 81, 0.2);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: var(--accent-dark);
+            border-color: var(--accent-dark);
+            color: var(--text-light);
+        }
+
+        .page-btn.prev-btn,
+        .page-btn.next-btn {
+            padding: 8px;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            background: var(--white);
+        }
+
+        .page-btn.prev-btn:hover:not(:disabled),
+        .page-btn.next-btn:hover:not(:disabled) {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .page-btn.prev-btn:disabled,
+        .page-btn.next-btn:disabled {
+            border-color: var(--accent-dark);
+            color: var(--text-light);
+        }
+
+        @media (max-width: 768px) {
+            .pagination {
+                padding: 12px;
+                gap: 8px;
+            }
+
+            .page-numbers {
+                gap: 4px;
+            }
+
+            .page-btn {
+                padding: 6px 12px;
+                min-width: 36px;
+                height: 36px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* تنسيقات النافذة المنبثقة */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--accent-light);
+            border-radius: var(--border-radius-lg);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--accent-dark);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal-title i {
+            color: var(--primary-color);
+            font-size: 1.25rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: var(--border-radius-sm);
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: var(--background-light);
+            color: var(--primary-color);
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .transaction-details {
+            display: grid;
+            gap: 20px;
+        }
+
+        .detail-group {
+            display: grid;
+            gap: 8px;
+        }
+
+        .detail-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .detail-value {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            padding: 12px;
+            background: var(--background-light);
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--accent-dark);
+        }
+
+        .detail-value.status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .customer-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--background-light);
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--accent-dark);
+        }
+
+        .customer-avatar-large {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .customer-details {
+            display: grid;
+            gap: 4px;
+        }
+
+        .customer-name-large {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .customer-contact {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .customer-contact i {
+            color: var(--primary-color);
+        }
+
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--accent-dark);
+        }
+
+        .invoice-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .invoice-id {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .invoice-date, .invoice-time, .invoice-address {
+            color: var(--text-light);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .invoice-date i, .invoice-time i, .invoice-address i {
+            color: var(--primary-color);
+        }
+
+        .orders-table {
+            background: var(--background-light);
+            border-radius: var(--border-radius-sm);
+            overflow: hidden;
+        }
+
+        .orders-header {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 16px;
+            padding: 16px;
+            background: var(--accent-dark);
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .orders-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .order-row {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 16px;
+            padding: 16px;
+            border-bottom: 1px solid var(--accent-dark);
+        }
+
+        .order-row:last-child {
+            border-bottom: none;
+        }
+
+        .order-col {
+            color: var(--text-dark);
+        }
+
+        .invoice-summary {
+            margin-top: 24px;
+            padding: 16px;
+            background: var(--background-light);
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--accent-dark);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            color: var(--text-dark);
+        }
+
+        .summary-row.total {
+            margin-top: 8px;
+            padding-top: 16px;
+            border-top: 2px solid var(--accent-dark);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- إضافة النافذة المنبثقة -->
+    <div class="modal-overlay" id="transactionModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <i class="fas fa-file-invoice"></i>
+                    تفاصيل الفاتورة
+                </h2>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="transaction-details">
+                    <div class="invoice-header">
+                        <div class="invoice-info">
+                            <div class="invoice-id" id="modalInvoiceId">#12345</div>
+                            <div class="invoice-date" id="modalInvoiceDate">15 مارس 2024</div>
+                            <div class="invoice-time" id="modalInvoiceTime">10:30 صباحاً</div>
+                            <div class="invoice-address" id="modalInvoiceAddress">
+                                <i class="fas fa-map-marker-alt"></i>
+                                الرياض، حي النخيل، شارع الملك فهد
+                            </div>
+                        </div>
+                        <div class="invoice-status" id="modalInvoiceStatus">
+                            <span class="transaction-status status-completed">منتهية</span>
+                        </div>
+                    </div>
+                    <div class="detail-group">
+                        <div class="detail-label">معلومات العميل</div>
+                        <div class="customer-info">
+                            <div class="customer-avatar-large" id="modalCustomerAvatar">أ</div>
+                            <div class="customer-details">
+                                <div class="customer-name-large" id="modalCustomerName">أحمد محمد</div>
+                                <div class="customer-contact">
+                                    <i class="fas fa-phone"></i>
+                                    <span id="modalCustomerPhone">0501234567</span>
+                                </div>
+                                <div class="customer-contact">
+                                    <i class="fas fa-envelope"></i>
+                                    <span id="modalCustomerEmail">ahmed@example.com</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail-group">
+                        <div class="detail-label">قائمة الطلبات</div>
+                        <div class="orders-table">
+                            <div class="orders-header">
+                                <div class="order-col">نوع الخدمة</div>
+                                <div class="order-col">المبلغ</div>
+                            </div>
+                            <div class="orders-list" id="modalOrdersList">
+                                <!-- سيتم إضافة الطلبات هنا ديناميكياً -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="invoice-summary">
+                        <div class="summary-row">
+                            <span>إجمالي الطلبات:</span>
+                            <span id="modalSubtotal">430 ريال</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>الضريبة (15%):</span>
+                            <span id="modalTax">64.5 ريال</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>الإجمالي النهائي:</span>
+                            <span id="modalTotal">494.5 ريال</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="transactions-container">
+        <div class="transactions-header">
+            <h1 class="transactions-title">
+                <i class="fas fa-history"></i>
+                تاريخ المعاملات
+            </h1>
+        </div>
+
+        <!-- قسم البحث والتصفية -->
+        <div class="search-filters">
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label class="filter-label">رقم الطلب</label>
+                    <input type="text" class="filter-input" placeholder="ابحث برقم الطلب...">
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">اسم العميل</label>
+                    <input type="text" class="filter-input" placeholder="ابحث باسم العميل...">
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">رقم الجوال</label>
+                    <input type="text" class="filter-input" placeholder="ابحث برقم الجوال...">
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">من تاريخ</label>
+                    <input type="date" class="filter-input">
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">إلى تاريخ</label>
+                    <input type="date" class="filter-input">
+                </div>
+            </div>
+            <div class="search-actions">
+                <button class="btn btn-secondary">
+                    <i class="fas fa-redo"></i>
+                    إعادة تعيين
+                </button>
+                <button class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                    بحث
+                </button>
+            </div>
+        </div>
+
+        <!-- جدول المعاملات -->
+        <div class="table-container">
+            <div class="transactions-table">
+                <div class="table-header">
+                    <div>رقم الطلب</div>
+                    <div>العميل</div>
+                    <div>رقم الجوال</div>
+                    <div>التاريخ</div>
+                    <div>المبلغ</div>
+                    <div>الحالة</div>
+                    <div>الإجراءات</div>
+                </div>
+
+                <script>
+                    // إنشاء مصفوفة من الأسماء العربية
+                    const names = [
+                        'أحمد محمد', 'سارة أحمد', 'محمد علي', 'فاطمة حسن', 'عمر خالد',
+                        'نورا محمود', 'عبدالله سعيد', 'ليلى كريم', 'يوسف رضا', 'سلمى وليد'
+                    ];
+
+                    // إنشاء مصفوفة من أنواع الخدمات
+                    const services = [
+                        'تنظيف منزل', 'صيانة مكيف', 'تنظيف سجاد', 'صيانة كهرباء',
+                        'تنظيف خزانات', 'صيانة سباكة', 'تنظيف حدائق', 'صيانة أجهزة'
+                    ];
+
+                    // إنشاء مصفوفة من العناوين
+                    const addresses = [
+                        'الرياض، حي النخيل، شارع الملك فهد',
+                        'الرياض، حي الروضة، شارع الأمير محمد',
+                        'الرياض، حي العليا، شارع التحلية',
+                        'الرياض، حي السفارات، شارع العليا'
+                    ];
+
+                    // إنشاء مصفوفة من الحالات
+                    const statuses = [
+                        { class: 'status-completed', text: 'منتهية' },
+                        { class: 'status-cancelled-customer', text: 'ملغية من طالب الخدمة' },
+                        { class: 'status-rejected-provider', text: 'مرفوضة من مقدم الخدمة' }
+                    ];
+
+                    // إنشاء مصفوفة من المبالغ
+                    const amounts = [180, 250, 300, 350, 400, 450, 500];
+
+                    // إنشاء مصفوفة من التواريخ
+                    const dates = [
+                        '15 مارس 2024', '14 مارس 2024', '13 مارس 2024', '12 مارس 2024',
+                        '11 مارس 2024', '10 مارس 2024', '9 مارس 2024', '8 مارس 2024'
+                    ];
+
+                    // إنشاء مصفوفة من أرقام الجوال
+                    const phones = [
+                        '0501234567', '0559876543', '0567891234', '0574567890',
+                        '0582345678', '0598765432', '0509876543', '0512345678'
+                    ];
+
+                    // إنشاء مصفوفة من الأوقات
+                    const times = [
+                        '10:30 صباحاً', '02:30 مساءً', '04:45 مساءً', '08:15 مساءً',
+                        '11:00 صباحاً', '01:30 مساءً', '03:45 مساءً', '07:30 مساءً'
+                    ];
+
+                    // دالة لإنشاء صف معاملة
+                    function createTransactionRow(index) {
+                        const name = names[Math.floor(Math.random() * names.length)];
+                        const service = services[Math.floor(Math.random() * services.length)];
+                        const address = addresses[Math.floor(Math.random() * addresses.length)];
+                        const status = statuses[Math.floor(Math.random() * statuses.length)];
+                        const amount = amounts[Math.floor(Math.random() * amounts.length)];
+                        const date = dates[Math.floor(Math.random() * dates.length)];
+                        const phone = phones[Math.floor(Math.random() * phones.length)];
+                        const time = times[Math.floor(Math.random() * times.length)];
+                        const orderId = 12345 - index;
+
+                        return `
+                            <div class="table-row">
+                                <div class="transaction-id">#${orderId}</div>
+                                <div class="transaction-customer">
+                                    <div class="customer-avatar">${name.charAt(0)}</div>
+                                    <div class="customer-name">${name}</div>
+                                </div>
+                                <div class="transaction-phone">${phone}</div>
+                                <div class="transaction-date">${date}</div>
+                                <div class="transaction-amount">${amount} ريال</div>
+                                <div>
+                                    <span class="transaction-status ${status.class}">${status.text}</span>
+                                </div>
+                                <div class="transaction-actions">
+                                    <button class="action-btn" title="عرض التفاصيل" data-order-id="${orderId}" data-service="${service}" data-address="${address}" data-time="${time}">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    // إنشاء 100 صف معاملة
+                    const table = document.querySelector('.transactions-table');
+                    for (let i = 0; i < 100; i++) {
+                        table.insertAdjacentHTML('beforeend', createTransactionRow(i));
+                    }
+
+                    // تحديث دالة عرض التفاصيل
+                    function showTransactionDetails(row) {
+                        showLoadingMessage('جاري تحميل التفاصيل...');
+                        
+                        setTimeout(() => {
+                            hideLoadingMessage();
+                            
+                            const button = row.querySelector('.action-btn');
+                            const orderId = button.dataset.orderId;
+                            const service = button.dataset.service;
+                            const address = button.dataset.address;
+                            const time = button.dataset.time;
+                            
+                            // تحديث معلومات الفاتورة
+                            document.getElementById('modalInvoiceId').textContent = `#${orderId}`;
+                            document.getElementById('modalInvoiceDate').innerHTML = `<i class="fas fa-calendar"></i> ${row.querySelector('.transaction-date').textContent}`;
+                            document.getElementById('modalInvoiceTime').innerHTML = `<i class="fas fa-clock"></i> ${time}`;
+                            document.getElementById('modalInvoiceAddress').innerHTML = `<i class="fas fa-map-marker-alt"></i> ${address}`;
+                            
+                            const statusElement = row.querySelector('.transaction-status');
+                            const modalStatus = document.getElementById('modalInvoiceStatus');
+                            modalStatus.innerHTML = statusElement.outerHTML;
+                            
+                            // تحديث معلومات العميل
+                            const customerName = row.querySelector('.customer-name').textContent;
+                            const customerAvatar = row.querySelector('.customer-avatar').textContent;
+                            document.getElementById('modalCustomerName').textContent = customerName;
+                            document.getElementById('modalCustomerAvatar').textContent = customerAvatar;
+                            document.getElementById('modalCustomerPhone').textContent = row.querySelector('.transaction-phone').textContent;
+                            document.getElementById('modalCustomerEmail').textContent = `${customerName.replace(/\s+/g, '').toLowerCase()}@example.com`;
+                            
+                            // إنشاء قائمة الطلبات
+                            const ordersList = document.getElementById('modalOrdersList');
+                            const amount = row.querySelector('.transaction-amount').textContent;
+                            ordersList.innerHTML = `
+                                <div class="order-row">
+                                    <div class="order-col">${service}</div>
+                                    <div class="order-col">${amount}</div>
+                                </div>
+                            `;
+                            
+                            const modal = document.getElementById('transactionModal');
+                            modal.classList.add('active');
+                        }, 500);
+                    }
+
+                    // إضافة مستمعي الأحداث لأزرار عرض التفاصيل
+                    document.querySelectorAll('.action-btn[title="عرض التفاصيل"]').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const row = this.closest('.table-row');
+                            showTransactionDetails(row);
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+
+        <!-- الترقيم -->
+        <div class="pagination">
+            <button class="page-btn prev-btn" disabled>
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="page-numbers"></div>
+            <button class="page-btn next-btn">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // البحث والتصفية
+        document.querySelector('.btn-primary').addEventListener('click', function() {
+            const searchData = {
+                orderId: document.querySelector('input[placeholder="ابحث برقم الطلب..."]').value,
+                customerName: document.querySelector('input[placeholder="ابحث باسم العميل..."]').value,
+                phoneNumber: document.querySelector('input[placeholder="ابحث برقم الجوال..."]').value,
+                startDate: document.querySelectorAll('input[type="date"]')[0].value,
+                endDate: document.querySelectorAll('input[type="date"]')[1].value
+            };
+            
+            // إظهار رسالة تحميل
+            showLoadingMessage('جاري البحث...');
+            
+            // محاكاة عملية البحث
+            setTimeout(() => {
+                // هنا يمكن إضافة كود للبحث في المعاملات
+                console.log('بيانات البحث:', searchData);
+                hideLoadingMessage();
+                showSuccessMessage('تم العثور على النتائج');
+            }, 1000);
+        });
+
+        // إعادة تعيين الفلاتر
+        document.querySelector('.btn-secondary').addEventListener('click', function() {
+            document.querySelectorAll('.filter-input, .filter-select').forEach(input => {
+                input.value = '';
+            });
+            showSuccessMessage('تم إعادة تعيين الفلاتر');
+        });
+
+        // دالة لعرض الصفحات
+        function setupPagination() {
+            const rowsPerPage = 10;
+            const rows = document.querySelectorAll('.table-row');
+            const totalPages = Math.ceil(rows.length / rowsPerPage);
+            const pageNumbers = document.querySelector('.page-numbers');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            let currentPage = 1;
+
+            // دالة لعرض الصفحة المحددة
+            function showPage(page) {
+                const start = (page - 1) * rowsPerPage;
+                const end = start + rowsPerPage;
+
+                // إخفاء جميع الصفوف
+                rows.forEach(row => row.style.display = 'none');
+
+                // عرض الصفوف الخاصة بالصفحة الحالية
+                for (let i = start; i < end && i < rows.length; i++) {
+                    rows[i].style.display = 'grid';
+                }
+
+                // تحديث حالة الأزرار
+                prevBtn.disabled = page === 1;
+                nextBtn.disabled = page === totalPages;
+
+                // تحديث الأزرار النشطة
+                document.querySelectorAll('.page-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelector(`.page-btn[data-page="${page}"]`)?.classList.add('active');
+            }
+
+            // إنشاء أزرار الصفحات
+            function createPageButtons() {
+                pageNumbers.innerHTML = '';
+                for (let i = 1; i <= totalPages; i++) {
+                    const button = document.createElement('button');
+                    button.className = 'page-btn';
+                    button.textContent = i;
+                    button.dataset.page = i;
+                    if (i === 1) button.classList.add('active');
+                    button.addEventListener('click', () => {
+                        currentPage = i;
+                        showPage(currentPage);
+                    });
+                    pageNumbers.appendChild(button);
+                }
+            }
+
+            // إضافة مستمعي الأحداث لأزرار التنقل
+            prevBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    showPage(currentPage);
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    showPage(currentPage);
+                }
+            });
+
+            // تهيئة الصفحات
+            createPageButtons();
+            showPage(1);
+        }
+
+        // تشغيل الترقيم بعد إنشاء الصفوف
+        document.addEventListener('DOMContentLoaded', () => {
+            setupPagination();
+        });
+
+        // دالة لعرض رسالة التحميل
+        function showLoadingMessage(message) {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'loading-message';
+            loadingDiv.innerHTML = `
+                <div class="loading-spinner"></div>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(loadingDiv);
+        }
+
+        // دالة لإخفاء رسالة التحميل
+        function hideLoadingMessage() {
+            const loadingDiv = document.querySelector('.loading-message');
+            if (loadingDiv) {
+                loadingDiv.remove();
+            }
+        }
+
+        // دالة لعرض رسالة نجاح
+        function showSuccessMessage(message) {
+            const successDiv = document.createElement('div');
+            successDiv.className = 'success-message';
+            successDiv.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(successDiv);
+            setTimeout(() => {
+                successDiv.remove();
+            }, 3000);
+        }
+
+        // إضافة الأنماط للرسائل
+        const style = document.createElement('style');
+        style.textContent = `
+            .loading-message {
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: var(--primary-color);
+                color: white;
+                padding: 12px 24px;
+                border-radius: var(--border-radius);
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+
+            .loading-spinner {
+                width: 20px;
+                height: 20px;
+                border: 3px solid rgba(255, 255, 255, 0.3);
+                border-radius: 50%;
+                border-top-color: white;
+                animation: spin 1s linear infinite;
+            }
+
+            .success-message {
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: var(--success-color);
+                color: white;
+                padding: 12px 24px;
+                border-radius: var(--border-radius);
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+                animation: slideIn 0.3s ease-out;
+            }
+
+            @keyframes spin {
+                to { transform: rotate(360deg); }
+            }
+
+            @keyframes slideIn {
+                from { transform: translate(-50%, -100%); }
+                to { transform: translate(-50%, 0); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // إغلاق النافذة المنبثقة
+        function closeModal() {
+            const modal = document.getElementById('transactionModal');
+            modal.classList.remove('active');
+        }
+
+        // إضافة مستمعي الأحداث للنافذة المنبثقة
+        document.querySelector('.modal-close').addEventListener('click', closeModal);
+    </script>
+</body>
+
+</html> 
