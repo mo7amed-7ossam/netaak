@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - نطاق</title>
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="icon" type="image/svg+xml" href="../images/icon.png">
+    <link rel="icon" type="image/png" href="../images/icon.png">
+    <link rel="apple-touch-icon" href="../images/icon.png">
+    <meta name="theme-color" content="#6f8051">
+</head>
+
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <img src="../images/icon.png" alt="نطاق" class="logo">
+                <h1>لوحة التحكم</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="index.html">
+                            <i class="fas fa-home"></i>
+                            الرئيسية
+                        </a>
+                    </li>
+                    <li>
+                        <a href="users.html">
+                            <i class="fas fa-users"></i>
+                            المستخدمين
+                        </a>
+                    </li>
+                    <li>
+                        <a href="providers.html">
+                            <i class="fas fa-user-tie"></i>
+                            مقدمي الخدمات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="requests.html">
+                            <i class="fas fa-tasks"></i>
+                            الطلبات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="regions.html">
+                            <i class="fas fa-map-marked-alt"></i>
+                            المناطق
+                        </a>
+                    </li>
+                    <li>
+                        <a href="reports.html">
+                            <i class="fas fa-flag"></i>
+                            البلاغات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="analytics.html">
+                            <i class="fas fa-chart-line"></i>
+                            التحليلات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            الإعدادات
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Top Bar -->
+            <header class="admin-header">
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="بحث...">
+                </div>
+                <div class="header-actions">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <div class="admin-profile">
+                        <img src="../images/admin-avatar.jpg" alt="Admin">
+                        <span>مدير النظام</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Time Period Selector -->
+                <div class="time-period-selector">
+                    <button class="active" data-period="daily">يومي</button>
+                    <button data-period="monthly">شهري</button>
+                    <button data-period="yearly">سنوي</button>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>إجمالي المستخدمين</h3>
+                            <p class="stat-number">2,500</p>
+                            <p class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                12% هذا الشهر
+                            </p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>مقدمو الخدمات</h3>
+                            <p class="stat-number">850</p>
+                            <p class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                8% هذا الشهر
+                            </p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>المستخدمين العاديين</h3>
+                            <p class="stat-number">1,650</p>
+                            <p class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                15% هذا الشهر
+                            </p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>التصنيفات</h3>
+                            <p class="stat-number">12</p>
+                            <p class="stat-change">
+                                <i class="fas fa-plus"></i>
+                                تصنيف جديد
+                            </p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-list"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>إجمالي الخدمات</h3>
+                            <p class="stat-number">450</p>
+                            <p class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                10% هذا الشهر
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Geographic Analytics -->
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2>التحليلات الجغرافية</h2>
+                    </div>
+                    <div class="regions-table-container">
+                        <table class="data-table regions-table" style="text-align: center;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">المحافظة</th>
+                                    <th style="text-align: center;">عدد المناطق</th>
+                                    <th style="text-align: center;">عدد المستخدمين</th>
+                                    <th style="text-align: center;">مقدمو الخدمات</th>
+                                    <th style="text-align: center;">الطلبات</th>
+                                    <th style="text-align: center;">التقييم</th>
+                                    <th style="text-align: center;">الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: center;">القاهرة</td>
+                                    <td style="text-align: center;">15</td>
+                                    <td style="text-align: center;">2500</td>
+                                    <td style="text-align: center;">850</td>
+                                    <td style="text-align: center;">1200</td>
+                                    <td style="text-align: center;">4.5</td>
+                                    <td style="text-align: center;">
+                                        <button class="btn btn-sm btn-primary">
+                                            <i class="fas fa-eye"></i>
+                                            عرض التفاصيل
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">الإسكندرية</td>
+                                    <td style="text-align: center;">12</td>
+                                    <td style="text-align: center;">1800</td>
+                                    <td style="text-align: center;">650</td>
+                                    <td style="text-align: center;">950</td>
+                                    <td style="text-align: center;">4.3</td>
+                                    <td style="text-align: center;">
+                                        <button class="btn btn-sm btn-primary">
+                                            <i class="fas fa-eye"></i>
+                                            عرض التفاصيل
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">الجيزة</td>
+                                    <td style="text-align: center;">10</td>
+                                    <td style="text-align: center;">1500</td>
+                                    <td style="text-align: center;">500</td>
+                                    <td style="text-align: center;">800</td>
+                                    <td style="text-align: center;">4.4</td>
+                                    <td style="text-align: center;">
+                                        <button class="btn btn-sm btn-primary">
+                                            <i class="fas fa-eye"></i>
+                                            عرض التفاصيل
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">المنوفية</td>
+                                    <td style="text-align: center;">8</td>
+                                    <td style="text-align: center;">1200</td>
+                                    <td style="text-align: center;">400</td>
+                                    <td style="text-align: center;">600</td>
+                                    <td style="text-align: center;">4.2</td>
+                                    <td style="text-align: center;">
+                                        <button class="btn btn-sm btn-primary">
+                                            <i class="fas fa-eye"></i>
+                                            عرض التفاصيل
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">الغربية</td>
+                                    <td style="text-align: center;">7</td>
+                                    <td style="text-align: center;">1000</td>
+                                    <td style="text-align: center;">350</td>
+                                    <td style="text-align: center;">500</td>
+                                    <td style="text-align: center;">4.1</td>
+                                    <td style="text-align: center;">
+                                        <button class="btn btn-sm btn-primary">
+                                            <i class="fas fa-eye"></i>
+                                            عرض التفاصيل
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Performance Insights -->
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h2>إحصائيات المستخدمين</h2>
+                            <div class="card-actions">
+                                <select class="form-select">
+                                    <option value="daily">يومي</option>
+                                    <option value="weekly">أسبوعي</option>
+                                    <option value="monthly" selected>شهري</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="siteDistributionChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h2>إحصائيات مقدمي الخدمات</h2>
+                            <div class="card-actions">
+                                <select class="form-select">
+                                    <option value="daily">يومي</option>
+                                    <option value="weekly">أسبوعي</option>
+                                    <option value="monthly" selected>شهري</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="providersGrowthChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h2>إحصائيات المناطق</h2>
+                            <div class="card-actions">
+                                <select class="form-select">
+                                    <option value="daily">يومي</option>
+                                    <option value="weekly">أسبوعي</option>
+                                    <option value="monthly" selected>شهري</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="regionsActivityChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h2>إحصائيات التصنيفات</h2>
+                            <div class="card-actions">
+                                <select class="form-select">
+                                    <option value="daily">يومي</option>
+                                    <option value="weekly">أسبوعي</option>
+                                    <option value="monthly" selected>شهري</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="categoriesActivityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    // إعداد الرسوم البيانية
+                    document.addEventListener('DOMContentLoaded', function() {
+                        // رسم بياني المستخدمين
+                        const siteDistributionCtx = document.getElementById('siteDistributionChart').getContext('2d');
+                        new Chart(siteDistributionCtx, {
+                            type: 'line',
+                            data: {
+                                labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو'],
+                                datasets: [{
+                                    label: 'المستخدمين الجدد',
+                                    data: [150, 220, 180, 250, 300, 280],
+                                    borderColor: '#6f8051',
+                                    backgroundColor: 'rgba(111, 128, 81, 0.1)',
+                                    tension: 0.4,
+                                    fill: true
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
+                                        labels: {
+                                            font: {
+                                                family: 'Cairo',
+                                                size: 14
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+
+                        // رسم بياني مقدمي الخدمات
+                        const providersGrowthCtx = document.getElementById('providersGrowthChart').getContext('2d');
+                        new Chart(providersGrowthCtx, {
+                            type: 'bar',
+                            data: {
+                                labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو'],
+                                datasets: [{
+                                    label: 'مقدمو الخدمات الجدد',
+                                    data: [45, 60, 55, 70, 85, 75],
+                                    backgroundColor: '#6f8051'
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
+                                        labels: {
+                                            font: {
+                                                family: 'Cairo',
+                                                size: 14
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+
+                        // رسم بياني المناطق
+                        const regionsActivityCtx = document.getElementById('regionsActivityChart').getContext('2d');
+                        new Chart(regionsActivityCtx, {
+                            type: 'doughnut',
+                            data: {
+                                labels: ['القاهرة', 'الإسكندرية', 'الجيزة', 'المنوفية', 'الغربية'],
+                                datasets: [{
+                                    data: [35, 25, 20, 12, 8],
+                                    backgroundColor: ['#6f8051', '#8a9a6f', '#a5b48d', '#c0ceab', '#dbe8c9']
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        position: 'right',
+                                        labels: {
+                                            font: {
+                                                family: 'Cairo',
+                                                size: 14
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+
+                        // رسم بياني التصنيفات
+                        const categoriesActivityCtx = document.getElementById('categoriesActivityChart').getContext('2d');
+                        new Chart(categoriesActivityCtx, {
+                            type: 'pie',
+                            data: {
+                                labels: ['تنظيف', 'صيانة', 'كهرباء', 'سباكة', 'دهان', 'أخرى'],
+                                datasets: [{
+                                    data: [30, 25, 15, 15, 10, 5],
+                                    backgroundColor: ['#6f8051', '#8a9a6f', '#a5b48d', '#c0ceab', '#dbe8c9', '#f0f5e6']
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        position: 'right',
+                                        labels: {
+                                            font: {
+                                                family: 'Cairo',
+                                                size: 14
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    });
+                </script>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+
+</html> 

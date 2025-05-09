@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة المستخدمين - نطاق</title>
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <style>
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .data-table {
+            width: 100%;
+            min-width: 1000px;
+            border-collapse: collapse;
+            background-color: white;
+        }
+        .data-table th,
+        .data-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        .data-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+            white-space: nowrap;
+        }
+        .data-table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            text-align: left;
+        }
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            display: inline-block;
+        }
+        .status-badge.active {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        .status-badge.blocked {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        .request-count {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        .request-count.has-requests {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+        .request-count.no-requests {
+            background-color: #f5f5f5;
+            color: #757575;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+        }
+        .btn-icon {
+            padding: 5px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s;
+        }
+        .btn-icon:hover {
+            color: #333;
+        }
+        .btn-icon.text-danger:hover {
+            color: #c62828;
+        }
+        .btn-icon.text-success:hover {
+            color: #2e7d32;
+        }
+        .deleted-accounts-section {
+            margin-top: 40px;
+        }
+        .section-title {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        .deletion-reason {
+            max-width: 300px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            gap: 10px;
+        }
+        .page-numbers {
+            display: flex;
+            gap: 5px;
+        }
+        .page-numbers button {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .page-numbers button.active {
+            background: #6f8051;
+            color: white;
+            border-color: #6f8051;
+        }
+        .btn-outline {
+            padding: 5px 15px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .btn-outline:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+    <link rel="icon" type="image/svg+xml" href="../images/icon.png">
+    <link rel="icon" type="image/png" href="../images/icon.png">
+    <link rel="apple-touch-icon" href="../images/icon.png">
+    <meta name="theme-color" content="#6f8051">
+</head>
+
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <img src="../images/icon.png" alt="نطاق" class="logo">
+                <h1>لوحة التحكم</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="index.html">
+                            <i class="fas fa-home"></i>
+                            الرئيسية
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="users.html">
+                            <i class="fas fa-users"></i>
+                            المستخدمين
+                        </a>
+                    </li>
+                    <li>
+                        <a href="providers.html">
+                            <i class="fas fa-user-tie"></i>
+                            مقدمي الخدمات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="requests.html">
+                            <i class="fas fa-tasks"></i>
+                            الطلبات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="regions.html">
+                            <i class="fas fa-map-marked-alt"></i>
+                            المناطق
+                        </a>
+                    </li>
+                    <li>
+                        <a href="reports.html">
+                            <i class="fas fa-flag"></i>
+                            البلاغات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="analytics.html">
+                            <i class="fas fa-chart-line"></i>
+                            التحليلات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            الإعدادات
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Top Bar -->
+            <header class="admin-header">
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="بحث عن مستخدم...">
+                </div>
+                <div class="header-actions">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <div class="admin-profile">
+                        <img src="../images/admin-avatar.jpg" alt="Admin">
+                        <span>مدير النظام</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Users Content -->
+            <div class="users-content">
+                <!-- Filters Section -->
+                <div class="filters-section">
+                    <div class="filter-group">
+                        <label for="statusFilter">الحالة</label>
+                        <select id="statusFilter" class="form-select">
+                            <option value="all">الكل</option>
+                            <option value="active">فعال</option>
+                            <option value="blocked">محظور</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="governorateFilter">المحافظة</label>
+                        <select id="governorateFilter" class="form-select" onchange="updateCenters()">
+                            <option value="all">الكل</option>
+                            <option value="cairo">القاهرة</option>
+                            <option value="giza">الجيزة</option>
+                            <option value="alexandria">الإسكندرية</option>
+                            <option value="monufia">المنوفية</option>
+                            <option value="gharbia">الغربية</option>
+                            <option value="sharqia">الشرقية</option>
+                            <option value="beheira">البحيرة</option>
+                            <option value="kafr_el_sheikh">كفر الشيخ</option>
+                            <option value="damietta">دمياط</option>
+                            <option value="portsaid">بورسعيد</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="centerFilter">المركز</label>
+                        <select id="centerFilter" class="form-select" onchange="updateRegions()">
+                            <option value="all">الكل</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="regionFilter">المنطقة</label>
+                        <select id="regionFilter" class="form-select">
+                            <option value="all">الكل</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="applyFilters()">
+                        <i class="fas fa-filter"></i>
+                        تطبيق الفلتر
+                    </button>
+                </div>
+
+                <!-- Users Table -->
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>المستخدم</th>
+                                <th>البريد الإلكتروني</th>
+                                <th>رقم التليفون</th>
+                                <th>نوع المستخدم</th>
+                                <th>المنطقة</th>
+                                <th>تاريخ التسجيل</th>
+                                <th>الحالة</th>
+                                <th>عدد الطلبات</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- سيتم إضافة البيانات ديناميكياً -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Active Users Pagination -->
+                <div class="pagination active-users-pagination">
+                    <button class="btn btn-outline" disabled>
+                        <i class="fas fa-chevron-right"></i>
+                        السابق
+                    </button>
+                    <div class="page-numbers">
+                        <button class="active">1</button>
+                        <button>2</button>
+                        <button>3</button>
+                        <span>...</span>
+                        <button>10</button>
+                    </div>
+                    <button class="btn btn-outline">
+                        التالي
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                </div>
+
+                <!-- Deleted Accounts Table -->
+                <div class="deleted-accounts-section">
+                    <h2 class="section-title">الحسابات المحذوفة</h2>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>المستخدم</th>
+                                    <th>البريد الإلكتروني</th>
+                                    <th>رقم التليفون</th>
+                                    <th>تاريخ الحذف</th>
+                                    <th>سبب الحذف</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- سيتم إضافة البيانات ديناميكياً -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Deleted Users Pagination -->
+                    <div class="pagination deleted-users-pagination">
+                        <button class="btn btn-outline" disabled>
+                            <i class="fas fa-chevron-right"></i>
+                            السابق
+                        </button>
+                        <div class="page-numbers">
+                            <button class="active">1</button>
+                            <button>2</button>
+                            <button>3</button>
+                        </div>
+                        <button class="btn btn-outline">
+                            التالي
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/admin.js"></script>
+    <script src="js/users.js"></script>
+</body>
+
+</html> 
