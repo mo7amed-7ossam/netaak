@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة مقدم خدمة جديد - نطاق</title>
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <style>
+        .add-provider-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .form-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #6f8051;
+        }
+
+        .basic-info-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .profile-image-upload {
+            width: 150px;
+            height: 150px;
+            border: 2px dashed #ddd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .profile-image-upload:hover {
+            border-color: #6f8051;
+            background: #f8f9fa;
+        }
+
+        .profile-image-preview {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #666;
+        }
+
+        .profile-image-preview i {
+            font-size: 3em;
+            margin-bottom: 10px;
+            color: #6f8051;
+        }
+
+        .profile-image-preview p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        .profile-image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .info-fields {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 1em;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.2s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #6f8051;
+            box-shadow: 0 0 0 2px rgba(111, 128, 81, 0.1);
+            outline: none;
+        }
+
+        .required {
+            color: #dc3545;
+            margin-right: 4px;
+        }
+
+        .form-hint {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.9em;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .form-group .required {
+            color: #f44336;
+            margin-right: 4px;
+        }
+
+        .documents-upload {
+            border: 2px dashed #ddd;
+            padding: 20px;
+            text-align: center;
+            border-radius: 6px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .documents-upload:hover {
+            border-color: #6f8051;
+            background: #f8f9fa;
+        }
+
+        .documents-upload i {
+            font-size: 2em;
+            color: #6f8051;
+            margin-bottom: 10px;
+        }
+
+        .documents-upload p {
+            color: #666;
+            margin: 0;
+        }
+
+        .uploaded-documents {
+            margin-top: 15px;
+        }
+
+        .document-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .document-item .document-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .document-item .document-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #6f8051;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .specialization-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .specialization-tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .specialization-tag i {
+            cursor: pointer;
+            color: #f44336;
+        }
+
+        .regions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .region-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .region-checkbox input[type="checkbox"] {
+            width: auto;
+        }
+
+        /* إضافة الأنماط الجديدة للمواعيد */
+        .working-hours-container {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .working-hours-header {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 20px;
+            padding: 10px;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 15px;
+        }
+
+        .working-hours-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .working-hours-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 20px;
+            align-items: center;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .working-hours-row:hover {
+            background: #f0f0f0;
+        }
+
+        .day-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .time-inputs {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .time-input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* تنسيق زر التبديل */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: #6f8051;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .slider.round {
+            border-radius: 24px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        /* إضافة الأنماط الجديدة لطرق التواصل */
+        .communication-preferences {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .preference-group {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .preference-group h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 1.1em;
+        }
+
+        .preference-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .preference-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .preference-option:hover {
+            background: #e9ecef;
+        }
+
+        .preference-option i {
+            font-size: 1.2em;
+            width: 24px;
+            text-align: center;
+        }
+
+        .preference-option i.fa-globe {
+            color: #6f8051;
+        }
+
+        .preference-option i.fa-whatsapp {
+            color: #25D366;
+        }
+
+        .preference-option i.fa-phone {
+            color: #6f8051;
+        }
+
+        .preference-option i.fa-sms {
+            color: #2196F3;
+        }
+
+        .preference-option i.fa-envelope {
+            color: #F44336;
+        }
+
+        .time-preferences {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .time-range {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .time-range input[type="time"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .time-zone select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* إضافة الأنماط الجديدة للخدمات */
+        .services-container {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .services-header {
+            margin-bottom: 20px;
+        }
+
+        .services-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .service-item {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+        }
+
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .service-title input {
+            font-size: 1.2em;
+            font-weight: 600;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 350px;
+            transition: all 0.2s ease;
+        }
+
+        .service-title input:focus {
+            border-color: #6f8051;
+            box-shadow: 0 0 0 2px rgba(111, 128, 81, 0.1);
+        }
+
+        .service-content {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .service-main-info {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .service-image {
+            width: 200px;
+        }
+
+        .image-preview {
+            width: 200px;
+            height: 200px;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: white;
+            transition: all 0.2s ease;
+        }
+
+        .image-preview:hover {
+            border-color: #6f8051;
+            background: #f8f9fa;
+        }
+
+        .image-preview i {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #6f8051;
+        }
+
+        .image-preview span {
+            font-size: 0.9em;
+            color: #666;
+            text-align: center;
+        }
+
+        .service-basic-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1em;
+        }
+
+        .form-group textarea {
+            height: 100px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            resize: vertical;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.2s ease;
+        }
+
+        .form-group textarea:focus {
+            border-color: #6f8051;
+            box-shadow: 0 0 0 2px rgba(111, 128, 81, 0.1);
+        }
+
+        .price-info {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        .price-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .price-input input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .price-input input:focus {
+            border-color: #6f8051;
+            box-shadow: 0 0 0 2px rgba(111, 128, 81, 0.1);
+        }
+
+        .currency {
+            padding: 10px 15px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .price-type select,
+        .price-unit select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            transition: all 0.2s ease;
+        }
+
+        .price-type select:focus,
+        .price-unit select:focus {
+            border-color: #6f8051;
+            box-shadow: 0 0 0 2px rgba(111, 128, 81, 0.1);
+        }
+
+        .service-details {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .details-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .details-section h3 {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .requirement-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .requirement-item label {
+            font-weight: 500;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .time-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .time-input input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .time-input select {
+            width: 120px;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .btn-icon {
+            padding: 8px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: #666;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-icon:hover {
+            background: #f8f9fa;
+        }
+
+        .btn-icon.text-danger {
+            color: #dc3545;
+        }
+
+        .btn-icon.text-danger:hover {
+            background: #fff5f5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <img src="../images/icon.png" alt="نطاق" class="logo">
+                <h1>لوحة التحكم</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="index.html">
+                            <i class="fas fa-home"></i>
+                            الرئيسية
+                        </a>
+                    </li>
+                    <li>
+                        <a href="users.html">
+                            <i class="fas fa-users"></i>
+                            المستخدمين
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="providers.html">
+                            <i class="fas fa-user-tie"></i>
+                            مقدمي الخدمات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="requests.html">
+                            <i class="fas fa-tasks"></i>
+                            الطلبات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="regions.html">
+                            <i class="fas fa-map-marked-alt"></i>
+                            المناطق
+                        </a>
+                    </li>
+                    <li>
+                        <a href="reports.html">
+                            <i class="fas fa-flag"></i>
+                            البلاغات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="analytics.html">
+                            <i class="fas fa-chart-line"></i>
+                            التحليلات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            الإعدادات
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Top Bar -->
+            <header class="admin-header">
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="بحث...">
+                </div>
+                <div class="header-actions">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <div class="admin-profile">
+                        <img src="../images/admin-avatar.jpg" alt="Admin">
+                        <span>مدير النظام</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Add Provider Content -->
+            <div class="add-provider-container">
+                <div class="providers-header">
+                    <h1>إضافة مقدم خدمة جديد</h1>
+                </div>
+
+                <form id="addProviderForm" onsubmit="return handleSubmit(event)">
+                    <!-- البيانات الأساسية -->
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-user"></i>
+                            البيانات الأساسية
+                        </h2>
+                        <div class="basic-info-grid">
+                            <div class="profile-section">
+                                <div class="profile-image-upload" onclick="document.getElementById('profileImageInput').click()">
+                                    <div id="profileImagePreview" class="profile-image-preview">
+                                        <i class="fas fa-user-circle"></i>
+                                        <p>اضغط لإضافة صورة</p>
+                                    </div>
+                                    <input type="file" id="profileImageInput" accept="image/*" style="display: none" onchange="handleProfileImageUpload(this.files)">
+                                </div>
+                                <p class="form-hint">يفضل أن تكون الصورة واضحة وحديثة</p>
+                            </div>
+
+                            <div class="info-fields">
+                                <div class="form-group">
+                                    <label>
+                                        <span class="required">*</span>
+                                        الاسم الكامل
+                                    </label>
+                                    <input type="text" name="fullName" required placeholder="أدخل الاسم الكامل">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>
+                                        <span class="required">*</span>
+                                        رقم الهوية
+                                    </label>
+                                    <input type="text" name="idNumber" required placeholder="أدخل رقم الهوية">
+                                    <p class="form-hint">يجب أن يكون رقم الهوية صحيحاً ومطابقاً للوثائق الرسمية</p>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>
+                                        <span class="required">*</span>
+                                        رقم الجوال
+                                    </label>
+                                    <input type="tel" name="phone" required placeholder="05xxxxxxxx">
+                                    <p class="form-hint">سيتم استخدام هذا الرقم للتواصل معك</p>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>
+                                        <span class="required">*</span>
+                                        البريد الإلكتروني
+                                    </label>
+                                    <input type="email" name="email" required placeholder="example@domain.com">
+                                    <p class="form-hint">سيتم استخدام هذا البريد لإرسال التحديثات والإشعارات</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- التخصصات -->
+                    <div class="form-section">
+                        <h2 class="section-title">التخصصات</h2>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>
+                                    <span class="required">*</span>
+                                    التخصص الرئيسي
+                                </label>
+                                <select name="mainSpecialization" required onchange="updateSubSpecializations(this.value)">
+                                    <option value="">اختر التخصص الرئيسي</option>
+                                    <option value="cleaning">تنظيف</option>
+                                    <option value="maintenance">صيانة</option>
+                                    <option value="moving">نقل</option>
+                                    <option value="cooking">طبخ</option>
+                                    <option value="gardening">حدائق</option>
+                                    <option value="electrical">كهرباء</option>
+                                    <option value="plumbing">سباكة</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <span class="required">*</span>
+                                    التخصص الفرعي
+                                </label>
+                                <select name="subSpecialization" required>
+                                    <option value="">اختر التخصص الفرعي</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- الخدمات -->
+                    <div class="form-section">
+                        <h2 class="section-title">الخدمات</h2>
+                        <div class="services-container">
+                            <div class="services-header">
+                                <button type="button" class="btn btn-secondary" onclick="addNewService()">
+                                    <i class="fas fa-plus"></i>
+                                    إضافة خدمة جديدة
+                                </button>
+                            </div>
+                            <div id="servicesList" class="services-list">
+                                <!-- سيتم إضافة الخدمات هنا -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- المناطق -->
+                    <div class="form-section">
+                        <h2 class="section-title">المناطق</h2>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>
+                                    <span class="required">*</span>
+                                    المحافظة
+                                </label>
+                                <select name="governorate" required onchange="updateCenters(this.value)">
+                                    <option value="">اختر المحافظة</option>
+                                    <option value="riyadh">الرياض</option>
+                                    <option value="makkah">مكة المكرمة</option>
+                                    <option value="madinah">المدينة المنورة</option>
+                                    <option value="eastern">المنطقة الشرقية</option>
+                                    <option value="asir">عسير</option>
+                                    <option value="tabuk">تبوك</option>
+                                    <option value="hail">حائل</option>
+                                    <option value="northern">المنطقة الشمالية</option>
+                                    <option value="jazan">جازان</option>
+                                    <option value="najran">نجران</option>
+                                    <option value="bahah">الباحة</option>
+                                    <option value="jawf">الجوف</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <span class="required">*</span>
+                                    المركز
+                                </label>
+                                <select name="center" required onchange="updateDistricts(this.value)" disabled>
+                                    <option value="">اختر المركز</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <span class="required">*</span>
+                                    المنطقة
+                                </label>
+                                <select name="district" required disabled>
+                                    <option value="">اختر المنطقة</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label>
+                                <span class="required">*</span>
+                                العنوان التفصيلي
+                            </label>
+                            <textarea 
+                                name="detailedAddress" 
+                                required 
+                                placeholder="اكتب العنوان التفصيلي (اسم الشارع، رقم المبنى، رقم الشقة، أقرب نقطة دالة...)"
+                                style="height: 100px;"
+                            ></textarea>
+                            <small style="color: #666; margin-top: 5px; display: block;">
+                                يرجى كتابة العنوان بشكل تفصيلي لتسهيل الوصول إليك
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- طرق التواصل -->
+                    <div class="form-section">
+                        <h2 class="section-title">طرق التواصل</h2>
+                        <div class="communication-preferences">
+                            <div class="preference-group">
+                                <h3>الطرق المفضلة للتواصل</h3>
+                                <div class="preference-options">
+                                    <label class="preference-option">
+                                        <input type="checkbox" name="contact_methods" value="website" checked>
+                                        <i class="fas fa-globe"></i>
+                                        <span>تواصل من خلال الموقع</span>
+                                    </label>
+                                    <label class="preference-option">
+                                        <input type="checkbox" name="contact_methods" value="whatsapp" checked>
+                                        <i class="fab fa-whatsapp"></i>
+                                        <span>واتساب</span>
+                                    </label>
+                                    <label class="preference-option">
+                                        <input type="checkbox" name="contact_methods" value="phone" checked>
+                                        <i class="fas fa-phone"></i>
+                                        <span>اتصال مباشر</span>
+                                    </label>
+                                    <label class="preference-option">
+                                        <input type="checkbox" name="contact_methods" value="sms">
+                                        <i class="fas fa-sms"></i>
+                                        <span>رسائل نصية</span>
+                                    </label>
+                                    <label class="preference-option">
+                                        <input type="checkbox" name="contact_methods" value="email">
+                                        <i class="fas fa-envelope"></i>
+                                        <span>بريد إلكتروني</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="preference-group">
+                                <h3>أوقات التواصل المفضلة</h3>
+                                <div class="time-preferences">
+                                    <div class="time-range">
+                                        <label>من</label>
+                                        <input type="time" name="contact_start" value="09:00">
+                                        <label>إلى</label>
+                                        <input type="time" name="contact_end" value="17:00">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="preference-group">
+                                <h3>ملاحظات إضافية</h3>
+                                <div class="form-group">
+                                    <textarea 
+                                        name="contact_notes" 
+                                        placeholder="أي ملاحظات إضافية حول طرق التواصل المفضلة..."
+                                        style="height: 80px;"
+                                    ></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- المواعيد المتاحة -->
+                    <div class="form-section">
+                        <h2 class="section-title">المواعيد المتاحة</h2>
+                        <div class="working-hours-container">
+                            <div class="working-hours-header">
+                                <div>اليوم</div>
+                                <div>من</div>
+                                <div>إلى</div>
+                                <div>الحالة</div>
+                            </div>
+                            <div class="working-hours-grid">
+                                <div class="working-hours-row">
+                                    <div class="day-label">الأحد</div>
+                                    <div class="time-inputs">
+                                        <input type="time" name="sunday_start" class="time-input">
+                                        <input type="time" name="sunday_end" class="time-input">
+                                    </div>
+                                    <div class="availability-toggle">
+                                        <label class="switch">
+                                            <input type="checkbox" name="sunday_available" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="working-hours-row">
+                                    <div class="day-label">الإثنين</div>
+                                    <div class="time-inputs">
+                                        <input type="time" name="monday_start" class="time-input">
+                                        <input type="time" name="monday_end" class="time-input">
+                                    </div>
+                                    <div class="availability-toggle">
+                                        <label class="switch">
+                                            <input type="checkbox" name="monday_available" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="working-hours-row">
+                                    <div class="day-label">الثلاثاء</div>
+                                    <div class="time-inputs">
+                                        <input type="time" name="tuesday_start" class="time-input">
+                                        <input type="time" name="tuesday_end" class="time-input">
+                                    </div>
+                                    <div class="availability-toggle">
+                                        <label class="switch">
+                                            <input type="checkbox" name="tuesday_available" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="working-hours-row">
+                                    <div class="day-label">الأربعاء</div>
+                                    <div class="time-inputs">
+                                        <input type="time" name="wednesday_start" class="time-input">
+                                        <input type="time" name="wednesday_end" class="time-input">
+                                    </div>
+                                    <div class="availability-toggle">
+                                        <label class="switch">
+                                            <input type="checkbox" name="wednesday_available" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="working-hours-row">
+                                    <div class="day-label">الخميس</div>
+                                    <div class="time-inputs">
+                                        <input type="time" name="thursday_start" class="time-input">
+                                        <input type="time" name="thursday_end" class="time-input">
+                                    </div>
+                                    <div class="availability-toggle">
+                                        <label class="switch">
+                                            <input type="checkbox" name="thursday_available" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="working-hours-row">
+                                    <div class="day-label">الجمعة</div>
+                                    <div class="time-inputs">
+                                        <input type="time" name="friday_start" class="time-input">
+                                        <input type="time" name="friday_end" class="time-input">
+                                    </div>
+                                    <div class="availability-toggle">
+                                        <label class="switch">
+                                            <input type="checkbox" name="friday_available">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="working-hours-row">
+                                    <div class="day-label">السبت</div>
+                                    <div class="time-inputs">
+                                        <input type="time" name="saturday_start" class="time-input">
+                                        <input type="time" name="saturday_end" class="time-input">
+                                    </div>
+                                    <div class="availability-toggle">
+                                        <label class="switch">
+                                            <input type="checkbox" name="saturday_available">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- الوثائق -->
+                    <div class="form-section">
+                        <h2 class="section-title">الوثائق والشهادات</h2>
+                        <div class="form-group">
+                            <label>الوثائق المطلوبة</label>
+                            <div class="documents-upload" onclick="document.getElementById('documentsInput').click()">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>اضغط هنا لرفع الوثائق</p>
+                                <input type="file" id="documentsInput" multiple style="display: none" onchange="handleFileUpload(this.files)">
+                            </div>
+                            <div class="uploaded-documents" id="uploadedDocuments">
+                                <!-- سيتم إضافة الوثائق المرفوعة هنا -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- أزرار التحكم -->
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="window.location.href='providers.html'">
+                            إلغاء
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            إضافة مقدم الخدمة
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/admin.js"></script>
+    <script>
+        // تحديث التخصصات الفرعية
+        function updateSubSpecializations(mainSpecialization) {
+            const subSpecializationSelect = document.querySelector('select[name="subSpecialization"]');
+            subSpecializationSelect.innerHTML = '<option value="">اختر التخصص الفرعي</option>';
+
+            const subSpecializations = {
+                cleaning: [
+                    { value: 'home', label: 'تنظيف منازل' },
+                    { value: 'office', label: 'تنظيف مكاتب' },
+                    { value: 'car', label: 'تنظيف سيارات' }
+                ],
+                maintenance: [
+                    { value: 'ac', label: 'صيانة تكييف' },
+                    { value: 'electrical', label: 'صيانة كهربائية' },
+                    { value: 'plumbing', label: 'صيانة سباكة' }
+                ],
+                moving: [
+                    { value: 'furniture', label: 'نقل أثاث' },
+                    { value: 'office', label: 'نقل مكاتب' },
+                    { value: 'heavy', label: 'نقل ثقيل' }
+                ],
+                cooking: [
+                    { value: 'home', label: 'طبخ منزلي' },
+                    { value: 'events', label: 'طبخ مناسبات' },
+                    { value: 'catering', label: 'خدمات طعام' }
+                ],
+                gardening: [
+                    { value: 'design', label: 'تصميم حدائق' },
+                    { value: 'maintenance', label: 'صيانة حدائق' },
+                    { value: 'irrigation', label: 'ري حدائق' }
+                ],
+                electrical: [
+                    { value: 'installation', label: 'تركيب كهرباء' },
+                    { value: 'maintenance', label: 'صيانة كهرباء' },
+                    { value: 'emergency', label: 'خدمات طوارئ' }
+                ],
+                plumbing: [
+                    { value: 'installation', label: 'تركيب سباكة' },
+                    { value: 'maintenance', label: 'صيانة سباكة' },
+                    { value: 'emergency', label: 'خدمات طوارئ' }
+                ]
+            };
+
+            if (mainSpecialization && subSpecializations[mainSpecialization]) {
+                subSpecializations[mainSpecialization].forEach(sub => {
+                    const option = document.createElement('option');
+                    option.value = sub.value;
+                    option.textContent = sub.label;
+                    subSpecializationSelect.appendChild(option);
+                });
+            }
+        }
+
+        // معالجة رفع الملفات
+        function handleFileUpload(files) {
+            const uploadedDocuments = document.getElementById('uploadedDocuments');
+            
+            Array.from(files).forEach(file => {
+                const documentItem = document.createElement('div');
+                documentItem.className = 'document-item';
+                documentItem.innerHTML = `
+                    <div class="document-info">
+                        <i class="fas fa-file-alt"></i>
+                        <span>${file.name}</span>
+                    </div>
+                    <div class="document-actions">
+                        <button class="btn-icon text-danger" onclick="removeDocument(this)">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                uploadedDocuments.appendChild(documentItem);
+            });
+        }
+
+        // حذف وثيقة
+        function removeDocument(button) {
+            const documentItem = button.closest('.document-item');
+            documentItem.remove();
+        }
+
+        // بيانات المناطق
+        const regionsData = {
+            riyadh: {
+                centers: {
+                    'riyadh-center': {
+                        name: 'مركز الرياض',
+                        districts: ['المرقب', 'الروضة', 'النسيم', 'الشفا', 'الدرعية', 'الرمال']
+                    },
+                    'diriyah': {
+                        name: 'الدرعية',
+                        districts: ['حي البجيري', 'حي السريحة', 'حي العمارية', 'حي البليدة']
+                    },
+                    'banban': {
+                        name: 'بنيان',
+                        districts: ['حي الياسمين', 'حي النرجس', 'حي الورود', 'حي الربيع']
+                    }
+                }
+            },
+            makkah: {
+                centers: {
+                    'makkah-center': {
+                        name: 'مركز مكة المكرمة',
+                        districts: ['العزيزية', 'الزاهر', 'النسيم', 'الرصيفة', 'الشبيكة']
+                    },
+                    'jeddah': {
+                        name: 'جدة',
+                        districts: ['البغدادية', 'الروضة', 'الزمالك', 'السلامة', 'الندوة']
+                    },
+                    'taif': {
+                        name: 'الطائف',
+                        districts: ['شبرا', 'الشفا', 'الهدا', 'الروضة', 'النسيم']
+                    }
+                }
+            },
+            // يمكن إضافة باقي المحافظات هنا
+        };
+
+        // تحديث المراكز
+        function updateCenters(governorate) {
+            const centerSelect = document.querySelector('select[name="center"]');
+            const districtSelect = document.querySelector('select[name="district"]');
+            
+            // إعادة تعيين المراكز والمناطق
+            centerSelect.innerHTML = '<option value="">اختر المركز</option>';
+            districtSelect.innerHTML = '<option value="">اختر المنطقة</option>';
+            
+            if (governorate && regionsData[governorate]) {
+                centerSelect.disabled = false;
+                Object.entries(regionsData[governorate].centers).forEach(([value, data]) => {
+                    const option = document.createElement('option');
+                    option.value = value;
+                    option.textContent = data.name;
+                    centerSelect.appendChild(option);
+                });
+            } else {
+                centerSelect.disabled = true;
+                districtSelect.disabled = true;
+            }
+        }
+
+        // تحديث المناطق
+        function updateDistricts(center) {
+            const districtSelect = document.querySelector('select[name="district"]');
+            const governorate = document.querySelector('select[name="governorate"]').value;
+            
+            // إعادة تعيين المناطق
+            districtSelect.innerHTML = '<option value="">اختر المنطقة</option>';
+            
+            if (center && regionsData[governorate] && regionsData[governorate].centers[center]) {
+                districtSelect.disabled = false;
+                regionsData[governorate].centers[center].districts.forEach(district => {
+                    const option = document.createElement('option');
+                    option.value = district;
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+            } else {
+                districtSelect.disabled = true;
+            }
+        }
+
+        // إضافة الدالة الجديدة
+        function handleProfileImageUpload(files) {
+            if (files.length > 0) {
+                const file = files[0];
+                const reader = new FileReader();
+                const preview = document.getElementById('profileImagePreview');
+
+                reader.onload = function(e) {
+                    preview.innerHTML = `<img src="${e.target.result}" alt="صورة الملف الشخصي">`;
+                }
+
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // إضافة الدوال الجديدة للمواعيد
+        function initializeWorkingHours() {
+            const timeInputs = document.querySelectorAll('.time-input');
+            const availabilityToggles = document.querySelectorAll('.availability-toggle input');
+
+            // تعيين القيم الافتراضية
+            timeInputs.forEach(input => {
+                if (input.name.includes('_start')) {
+                    input.value = '09:00';
+                } else {
+                    input.value = '17:00';
+                }
+            });
+
+            // تعطيل حقول الوقت عندما يكون اليوم غير متاح
+            availabilityToggles.forEach(toggle => {
+                toggle.addEventListener('change', function() {
+                    const row = this.closest('.working-hours-row');
+                    const timeInputs = row.querySelectorAll('.time-input');
+                    timeInputs.forEach(input => {
+                        input.disabled = !this.checked;
+                    });
+                });
+            });
+        }
+
+        // إضافة دالة جديدة للخدمات
+        function addNewService() {
+            const servicesList = document.getElementById('servicesList');
+            const serviceId = Date.now();
+
+            const serviceItem = document.createElement('div');
+            serviceItem.className = 'service-item';
+            serviceItem.innerHTML = `
+                <div class="service-header">
+                    <div class="service-title">
+                        <input type="text" name="services[${serviceId}][title]" placeholder="اسم الخدمة" required>
+                    </div>
+                    <button type="button" class="btn-icon text-danger" onclick="removeService(this)">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+
+                <div class="service-content">
+                    <div class="service-main-info">
+                        <div class="service-image">
+                            <div class="image-preview" onclick="document.getElementById('serviceImage-${serviceId}').click()">
+                                <i class="fas fa-image"></i>
+                                <span>اضغط لإضافة صورة</span>
+                            </div>
+                            <input type="file" id="serviceImage-${serviceId}" accept="image/*" style="display: none" 
+                                   onchange="handleServiceImageUpload(this, ${serviceId})">
+                        </div>
+
+                        <div class="service-basic-info">
+                            <div class="form-group">
+                                <label>وصف الخدمة</label>
+                                <textarea name="services[${serviceId}][description]" placeholder="وصف تفصيلي للخدمة..." required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>السعر</label>
+                                <div class="price-info">
+                                    <div class="price-input">
+                                        <input type="number" name="services[${serviceId}][price]" placeholder="السعر" required>
+                                        <span class="currency">جنيه مصري</span>
+                                    </div>
+                                    <div class="price-type">
+                                        <select name="services[${serviceId}][price_type]">
+                                            <option value="fixed">سعر ثابت</option>
+                                            <option value="approximate">سعر تقريبي</option>
+                                        </select>
+                                    </div>
+                                    <div class="price-unit">
+                                        <select name="services[${serviceId}][price_unit]">
+                                            <option value="hour">ساعة</option>
+                                            <option value="day">يوم</option>
+                                            <option value="service">خدمة</option>
+                                            <option value="meter">متر</option>
+                                            <option value="piece">قطعة</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>الوقت المقدر</label>
+                                <div class="time-input">
+                                    <input type="number" name="services[${serviceId}][estimated_time]" min="1" placeholder="الوقت">
+                                    <select name="services[${serviceId}][time_unit]">
+                                        <option value="hour">ساعة</option>
+                                        <option value="day">يوم</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            servicesList.appendChild(serviceItem);
+        }
+
+        // إضافة دالة لمعالجة رفع صورة الخدمة
+        function handleServiceImageUpload(input, serviceId) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                const preview = document.getElementById(`serviceImagePreview-${serviceId}`);
+                const placeholder = preview.previousElementSibling;
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    placeholder.style.display = 'none';
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // تحديث معالجة تقديم النموذج
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const providerData = {
+                name: formData.get('fullName'),
+                idNumber: formData.get('idNumber'),
+                phone: formData.get('phone'),
+                email: formData.get('email'),
+                mainSpecialization: formData.get('mainSpecialization'),
+                subSpecialization: formData.get('subSpecialization'),
+                services: Array.from(document.querySelectorAll('.service-item')).map(item => {
+                    const serviceId = item.querySelector('input[name^="services["]').name.match(/\[(\d+)\]/)[1];
+                    return {
+                        title: formData.get(`services[${serviceId}][title]`),
+                        options: formData.getAll(`services[${serviceId}][options][]`),
+                        image: document.getElementById(`serviceImage-${serviceId}`).files[0],
+                        price: formData.get(`services[${serviceId}][price]`),
+                        price_type: formData.get(`services[${serviceId}][price_type]`),
+                        price_unit: formData.get(`services[${serviceId}][price_unit]`),
+                        description: formData.get(`services[${serviceId}][description]`),
+                        features: formData.getAll(`services[${serviceId}][features][]`),
+                        estimated_time: formData.get(`services[${serviceId}][estimated_time]`),
+                        time_unit: formData.get(`services[${serviceId}][time_unit]`),
+                        min_order: formData.get(`services[${serviceId}][min_order]`),
+                        max_order: formData.get(`services[${serviceId}][max_order]`)
+                    };
+                }),
+                location: {
+                    governorate: formData.get('governorate'),
+                    center: formData.get('center'),
+                    district: formData.get('district'),
+                    detailedAddress: formData.get('detailedAddress')
+                },
+                workingHours: {
+                    sunday: {
+                        available: formData.get('sunday_available') === 'on',
+                        start: formData.get('sunday_start'),
+                        end: formData.get('sunday_end')
+                    },
+                    monday: {
+                        available: formData.get('monday_available') === 'on',
+                        start: formData.get('monday_start'),
+                        end: formData.get('monday_end')
+                    },
+                    tuesday: {
+                        available: formData.get('tuesday_available') === 'on',
+                        start: formData.get('tuesday_start'),
+                        end: formData.get('tuesday_end')
+                    },
+                    wednesday: {
+                        available: formData.get('wednesday_available') === 'on',
+                        start: formData.get('wednesday_start'),
+                        end: formData.get('wednesday_end')
+                    },
+                    thursday: {
+                        available: formData.get('thursday_available') === 'on',
+                        start: formData.get('thursday_start'),
+                        end: formData.get('thursday_end')
+                    },
+                    friday: {
+                        available: formData.get('friday_available') === 'on',
+                        start: formData.get('friday_start'),
+                        end: formData.get('friday_end')
+                    },
+                    saturday: {
+                        available: formData.get('saturday_available') === 'on',
+                        start: formData.get('saturday_start'),
+                        end: formData.get('saturday_end')
+                    }
+                },
+                contactPreferences: {
+                    methods: Array.from(formData.getAll('contact_methods')),
+                    hours: {
+                        start: formData.get('contact_start'),
+                        end: formData.get('contact_end')
+                    },
+                    notes: formData.get('contact_notes')
+                }
+            };
+
+            console.log('بيانات مقدم الخدمة:', providerData);
+            alert('تم إضافة مقدم الخدمة بنجاح');
+            window.location.href = 'providers.html';
+        }
+
+        // تهيئة المواعيد عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeWorkingHours();
+        });
+    </script>
+</body>
+
+</html> 

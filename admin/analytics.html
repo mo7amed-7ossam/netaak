@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التحليلات والإحصائيات - نطاق</title>
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <style>
+        :root {
+            --primary-color: #6f8051;
+            --primary-light: #f0f4e8;
+            --text-dark: #2c3e50;
+            --text-light: #666;
+            --border-color: #e9ecef;
+            --card-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            --hover-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --border-radius: 0.75rem;
+        }
+
+        .analytics-container {
+            padding: var(--spacing-md);
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .analytics-header {
+            background: white;
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: var(--card-shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .analytics-header h1 {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .date-filter select {
+            padding: 0.75rem 1.25rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background: white;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            min-width: 180px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .date-filter select:hover {
+            border-color: var(--primary-color);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .stat-card {
+            background: white;
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-icon i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .stat-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        .stat-value {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: var(--spacing-xs) 0;
+            line-height: 1.2;
+        }
+
+        .stat-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .stat-change.positive {
+            background: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .stat-change.negative {
+            background: #fff5f5;
+            color: #dc3545;
+        }
+
+        .stat-details {
+            margin-top: var(--spacing-sm);
+            padding-top: var(--spacing-sm);
+            border-top: 1px solid var(--border-color);
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .chart-container {
+            background: white;
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .chart-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .chart-title i {
+            color: var(--primary-color);
+        }
+
+        .chart-filters {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chart-filter {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: white;
+        }
+
+        .chart-filter:hover {
+            border-color: var(--primary-color);
+            background: var(--primary-light);
+        }
+
+        .chart-filter.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .top-items {
+            background: white;
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+        }
+
+        .top-items-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .top-items-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .top-items-title i {
+            color: var(--primary-color);
+        }
+
+        .top-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-sm);
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+        .top-item:hover {
+            background: var(--primary-light);
+        }
+
+        .top-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-rank {
+            width: 32px;
+            height: 32px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+            font-size: 0.95rem;
+        }
+
+        .item-meta {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .item-value {
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            background: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 1200px) {
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .analytics-container {
+                padding: var(--spacing-sm);
+            }
+
+            .analytics-header {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+                text-align: center;
+            }
+
+            .date-filter {
+                width: 100%;
+            }
+
+            .date-filter select {
+                width: 100%;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-header {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+            }
+
+            .chart-filters {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .chart-filter {
+                flex: 1;
+                text-align: center;
+                min-width: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stat-card {
+                padding: var(--spacing-sm);
+            }
+
+            .stat-value {
+                font-size: 1.75rem;
+            }
+
+            .stat-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .item-rank {
+                width: 28px;
+                height: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <img src="../images/icon.png" alt="نطاق" class="logo">
+                <h1>لوحة التحكم</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="index.html">
+                            <i class="fas fa-home"></i>
+                            الرئيسية
+                        </a>
+                    </li>
+                    <li>
+                        <a href="users.html">
+                            <i class="fas fa-users"></i>
+                            المستخدمين
+                        </a>
+                    </li>
+                    <li>
+                        <a href="providers.html">
+                            <i class="fas fa-user-tie"></i>
+                            مقدمي الخدمات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="requests.html">
+                            <i class="fas fa-tasks"></i>
+                            الطلبات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="regions.html">
+                            <i class="fas fa-map-marked-alt"></i>
+                            المناطق
+                        </a>
+                    </li>
+                    <li>
+                        <a href="reports.html">
+                            <i class="fas fa-flag"></i>
+                            البلاغات
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="analytics.html">
+                            <i class="fas fa-chart-line"></i>
+                            التحليلات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            الإعدادات
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Top Bar -->
+            <header class="admin-header">
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="بحث...">
+                </div>
+                <div class="header-actions">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <div class="admin-profile">
+                        <img src="../images/admin-avatar.jpg" alt="Admin">
+                        <span>مدير النظام</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Analytics Content -->
+            <div class="analytics-container">
+                <div class="analytics-header">
+                    <h1>التحليلات والإحصائيات</h1>
+                    <div class="date-filter">
+                        <select>
+                            <option>اليوم</option>
+                            <option>الأسبوع</option>
+                            <option selected>الشهر</option>
+                            <option>السنة</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <span class="stat-title">إجمالي المستخدمين</span>
+                        </div>
+                        <div class="stat-value">5,250</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            +15% هذا الشهر
+                        </div>
+                        <div class="stat-details" style="margin-top: 10px; font-size: 0.9em; color: #666;">
+                            <div>المستخدمين النشطين: 3,800</div>
+                            <div>المستخدمين الجدد: 450</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <span class="stat-title">مقدمي الخدمات</span>
+                        </div>
+                        <div class="stat-value">320</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            +8% هذا الشهر
+                        </div>
+                        <div class="stat-details" style="margin-top: 10px; font-size: 0.9em; color: #666;">
+                            <div>النشطين: 280</div>
+                            <div>الجدد: 25</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <span class="stat-title">طلبات الخدمة</span>
+                        </div>
+                        <div class="stat-value">1,250</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            +12% هذا الشهر
+                        </div>
+                        <div class="stat-details" style="margin-top: 10px; font-size: 0.9em; color: #666;">
+                            <div>مكتملة: 1,100</div>
+                            <div>قيد التنفيذ: 150</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="stat-title">متوسط التقييم</span>
+                        </div>
+                        <div class="stat-value">4.5</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            +0.2 هذا الشهر
+                        </div>
+                        <div class="stat-details" style="margin-top: 10px; font-size: 0.9em; color: #666;">
+                            <div>التقييمات الإيجابية: 85%</div>
+                            <div>عدد التقييمات: 950</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- إحصائيات العجز والطلب -->
+                <div class="analytics-grid" style="margin-bottom: 30px;">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                تحليل العجز والطلب
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 20px;">
+                            <div style="background: #fff3cd; padding: 15px; border-radius: 10px; border: 1px solid #ffeeba;">
+                                <div style="font-weight: 600; color: #856404; margin-bottom: 10px;">المناطق الأكثر طلباً</div>
+                                <div style="color: #666;">
+                                    <div>الرياض: 150 طلب/يوم</div>
+                                    <div>جدة: 120 طلب/يوم</div>
+                                    <div>الدمام: 100 طلب/يوم</div>
+                                </div>
+                            </div>
+                            <div style="background: #f8d7da; padding: 15px; border-radius: 10px; border: 1px solid #f5c6cb;">
+                                <div style="font-weight: 600; color: #721c24; margin-bottom: 10px;">المناطق الأقل تغطية</div>
+                                <div style="color: #666;">
+                                    <div>تبوك: 5 مقدمي خدمات</div>
+                                    <div>حائل: 4 مقدمي خدمات</div>
+                                    <div>الجوف: 3 مقدمي خدمات</div>
+                                </div>
+                            </div>
+                            <div style="background: #d4edda; padding: 15px; border-radius: 10px; border: 1px solid #c3e6cb;">
+                                <div style="font-weight: 600; color: #155724; margin-bottom: 10px;">الخدمات الأكثر طلباً</div>
+                                <div style="color: #666;">
+                                    <div>تنظيف المنازل: 35%</div>
+                                    <div>الصيانة: 25%</div>
+                                    <div>الكهرباء: 20%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="top-items">
+                    <div class="top-items-header">
+                        <div class="top-items-title">
+                            <i class="fas fa-bell"></i>
+                            تنبيهات العجز
+                        </div>
+                    </div>
+                    <div class="top-items-list">
+                        <div class="top-item" style="background: #fff3cd; border-radius: 8px;">
+                            <div class="item-rank" style="background: #ffeeba;">!</div>
+                            <div class="item-info">
+                                <div class="item-name">نقص في مقدمي الخدمات</div>
+                                <div class="item-meta">تبوك تحتاج 10 مقدمي خدمات</div>
+                            </div>
+                            <div class="item-value" style="color: #856404;">عاجل</div>
+                        </div>
+                        <div class="top-item" style="background: #f8d7da; border-radius: 8px;">
+                            <div class="item-rank" style="background: #f5c6cb;">!</div>
+                            <div class="item-info">
+                                <div class="item-name">ارتفاع وقت الانتظار</div>
+                                <div class="item-meta">متوسط 45 دقيقة في الرياض</div>
+                            </div>
+                            <div class="item-value" style="color: #721c24;">متوسط</div>
+                        </div>
+                        <div class="top-item" style="background: #d4edda; border-radius: 8px;">
+                            <div class="item-rank" style="background: #c3e6cb;">!</div>
+                            <div class="item-info">
+                                <div class="item-name">تحسن في التغطية</div>
+                                <div class="item-meta">جدة: +15 مقدم خدمة جديد</div>
+                            </div>
+                            <div class="item-value" style="color: #155724;">جيد</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="top-items">
+                    <div class="top-items-header">
+                        <div class="top-items-title">
+                            <i class="fas fa-trophy"></i>
+                            أفضل المناطق نشاطاً
+                        </div>
+                    </div>
+                    <div class="top-items-list">
+                        <div class="top-item">
+                            <div class="item-rank">1</div>
+                            <div class="item-info">
+                                <div class="item-name">الرياض</div>
+                                <div class="item-meta">1,250 طلب خدمة</div>
+                            </div>
+                            <div class="item-value">+15%</div>
+                        </div>
+                        <div class="top-item">
+                            <div class="item-rank">2</div>
+                            <div class="item-info">
+                                <div class="item-name">جدة</div>
+                                <div class="item-meta">980 طلب خدمة</div>
+                            </div>
+                            <div class="item-value">+12%</div>
+                        </div>
+                        <div class="top-item">
+                            <div class="item-rank">3</div>
+                            <div class="item-info">
+                                <div class="item-name">الدمام</div>
+                                <div class="item-meta">850 طلب خدمة</div>
+                            </div>
+                            <div class="item-value">+8%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- إحصائيات متقدمة -->
+                <div class="analytics-grid" style="margin-bottom: 30px;">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">
+                                <i class="fas fa-chart-line"></i>
+                                تحليل الأداء المتقدم
+                            </div>
+                            <div class="chart-filters">
+                                <span class="chart-filter active">يومي</span>
+                                <span class="chart-filter">أسبوعي</span>
+                                <span class="chart-filter">شهري</span>
+                            </div>
+                        </div>
+                        <div style="padding: 20px;">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                                <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #eee;">
+                                    <div style="font-weight: 600; color: #333; margin-bottom: 15px;">تحليل المستخدمين</div>
+                                    <div style="color: #666; font-size: 0.9em;">
+                                        <div style="margin-bottom: 10px;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>المستخدمين النشطين</span>
+                                                <span style="color: #6f8051;">3,800</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 75%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-bottom: 10px;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>المستخدمين الجدد</span>
+                                                <span style="color: #6f8051;">450</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 25%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>معدل النمو</span>
+                                                <span style="color: #6f8051;">+15%</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 15%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #eee;">
+                                    <div style="font-weight: 600; color: #333; margin-bottom: 15px;">تحليل الخدمات</div>
+                                    <div style="color: #666; font-size: 0.9em;">
+                                        <div style="margin-bottom: 10px;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>الطلبات المكتملة</span>
+                                                <span style="color: #6f8051;">1,100</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 88%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-bottom: 10px;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>الطلبات قيد التنفيذ</span>
+                                                <span style="color: #6f8051;">150</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 12%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>معدل الإنجاز</span>
+                                                <span style="color: #6f8051;">92%</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 92%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #eee;">
+                                    <div style="font-weight: 600; color: #333; margin-bottom: 15px;">تحليل التقييمات</div>
+                                    <div style="color: #666; font-size: 0.9em;">
+                                        <div style="margin-bottom: 10px;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>التقييمات الإيجابية</span>
+                                                <span style="color: #6f8051;">85%</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 85%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-bottom: 10px;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>التقييمات المحايدة</span>
+                                                <span style="color: #6f8051;">10%</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 10%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>التقييمات السلبية</span>
+                                                <span style="color: #dc3545;">5%</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 5%; height: 100%; background: #dc3545; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="top-items">
+                        <div class="top-items-header">
+                            <div class="top-items-title">
+                                <i class="fas fa-chart-bar"></i>
+                                مؤشرات الأداء الرئيسية
+                            </div>
+                        </div>
+                        <div class="top-items-list">
+                            <div class="top-item">
+                                <div class="item-rank">1</div>
+                                <div class="item-info">
+                                    <div class="item-name">معدل رضا المستخدمين</div>
+                                    <div class="item-meta">85% من المستخدمين راضون</div>
+                                </div>
+                                <div class="item-value" style="color: #6f8051;">ممتاز</div>
+                            </div>
+                            <div class="top-item">
+                                <div class="item-rank">2</div>
+                                <div class="item-info">
+                                    <div class="item-name">سرعة الاستجابة</div>
+                                    <div class="item-meta">متوسط 30 دقيقة</div>
+                                </div>
+                                <div class="item-value" style="color: #6f8051;">جيد</div>
+                            </div>
+                            <div class="top-item">
+                                <div class="item-rank">3</div>
+                                <div class="item-info">
+                                    <div class="item-name">نسبة إنجاز الطلبات</div>
+                                    <div class="item-meta">95% من الطلبات مكتملة</div>
+                                </div>
+                                <div class="item-value" style="color: #6f8051;">ممتاز</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- تحليل المناطق -->
+                <div class="analytics-grid" style="margin-bottom: 30px;">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">
+                                <i class="fas fa-map-marked-alt"></i>
+                                تحليل المناطق
+                            </div>
+                        </div>
+                        <div style="padding: 20px;">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                                <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #eee;">
+                                    <div style="font-weight: 600; color: #333; margin-bottom: 15px;">المناطق الأكثر نشاطاً</div>
+                                    <div style="color: #666; font-size: 0.9em;">
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                            <span>الرياض</span>
+                                            <span style="color: #6f8051;">1,250 طلب</span>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                            <span>جدة</span>
+                                            <span style="color: #6f8051;">980 طلب</span>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <span>الدمام</span>
+                                            <span style="color: #6f8051;">850 طلب</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #eee;">
+                                    <div style="font-weight: 600; color: #333; margin-bottom: 15px;">نمو المناطق</div>
+                                    <div style="color: #666; font-size: 0.9em;">
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                            <span>الرياض</span>
+                                            <span style="color: #6f8051;">+15%</span>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                            <span>جدة</span>
+                                            <span style="color: #6f8051;">+12%</span>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <span>الدمام</span>
+                                            <span style="color: #6f8051;">+8%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #eee;">
+                                    <div style="font-weight: 600; color: #333; margin-bottom: 15px;">تغطية الخدمات</div>
+                                    <div style="color: #666; font-size: 0.9em;">
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                            <span>الرياض</span>
+                                            <span style="color: #6f8051;">95%</span>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                            <span>جدة</span>
+                                            <span style="color: #6f8051;">90%</span>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <span>الدمام</span>
+                                            <span style="color: #6f8051;">85%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="top-items">
+                        <div class="top-items-header">
+                            <div class="top-items-title">
+                                <i class="fas fa-exclamation-circle"></i>
+                                تنبيهات المناطق
+                            </div>
+                        </div>
+                        <div class="top-items-list">
+                            <div class="top-item" style="background: #fff3cd; border-radius: 8px;">
+                                <div class="item-rank" style="background: #ffeeba;">!</div>
+                                <div class="item-info">
+                                    <div class="item-name">نقص في التغطية</div>
+                                    <div class="item-meta">تبوك تحتاج 10 مقدمي خدمات</div>
+                                </div>
+                                <div class="item-value" style="color: #856404;">عاجل</div>
+                            </div>
+                            <div class="top-item" style="background: #f8d7da; border-radius: 8px;">
+                                <div class="item-rank" style="background: #f5c6cb;">!</div>
+                                <div class="item-info">
+                                    <div class="item-name">ارتفاع وقت الانتظار</div>
+                                    <div class="item-meta">متوسط 45 دقيقة في الرياض</div>
+                                </div>
+                                <div class="item-value" style="color: #721c24;">متوسط</div>
+                            </div>
+                            <div class="top-item" style="background: #d4edda; border-radius: 8px;">
+                                <div class="item-rank" style="background: #c3e6cb;">!</div>
+                                <div class="item-info">
+                                    <div class="item-name">تحسن في التغطية</div>
+                                    <div class="item-meta">جدة: +15 مقدم خدمة جديد</div>
+                                </div>
+                                <div class="item-value" style="color: #155724;">جيد</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- تحليل تفصيلي للخدمات -->
+                <div class="analytics-grid" style="margin-bottom: 30px;">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">
+                                <i class="fas fa-tools"></i>
+                                تحليل تفصيلي للخدمات
+                            </div>
+                        </div>
+                        <div style="padding: 20px;">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                                <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #eee;">
+                                    <div style="font-weight: 600; color: #333; margin-bottom: 15px;">توزيع الخدمات</div>
+                                    <div style="color: #666; font-size: 0.9em;">
+                                        <div style="margin-bottom: 15px;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>تنظيف المنازل</span>
+                                                <span style="color: #6f8051;">35%</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 35%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-bottom: 15px;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>الصيانة العامة</span>
+                                                <span style="color: #6f8051;">25%</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 25%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-bottom: 15px;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>الكهرباء</span>
+                                                <span style="color: #6f8051;">20%</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 20%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>خدمات أخرى</span>
+                                                <span style="color: #6f8051;">20%</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 20%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #eee;">
+                                    <div style="font-weight: 600; color: #333; margin-bottom: 15px;">أوقات الذروة</div>
+                                    <div style="color: #666; font-size: 0.9em;">
+                                        <div style="margin-bottom: 15px;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>صباحاً (8-12)</span>
+                                                <span style="color: #6f8051;">40%</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 40%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-bottom: 15px;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>مساءً (4-8)</span>
+                                                <span style="color: #6f8051;">35%</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 35%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>فترات أخرى</span>
+                                                <span style="color: #6f8051;">25%</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 25%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #eee;">
+                                    <div style="font-weight: 600; color: #333; margin-bottom: 15px;">متوسط وقت الخدمة</div>
+                                    <div style="color: #666; font-size: 0.9em;">
+                                        <div style="margin-bottom: 15px;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>تنظيف المنازل</span>
+                                                <span style="color: #6f8051;">2.5 ساعة</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 50%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-bottom: 15px;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>الصيانة العامة</span>
+                                                <span style="color: #6f8051;">1.5 ساعة</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 30%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>الكهرباء</span>
+                                                <span style="color: #6f8051;">1 ساعة</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 20%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="top-items">
+                        <div class="top-items-header">
+                            <div class="top-items-title">
+                                <i class="fas fa-money-bill-wave"></i>
+                                المؤشرات المالية
+                            </div>
+                        </div>
+                        <div class="top-items-list">
+                            <div class="top-item">
+                                <div class="item-rank" style="background: #6f8051; color: white;">$</div>
+                                <div class="item-info">
+                                    <div class="item-name">إجمالي الإيرادات</div>
+                                    <div class="item-meta">250,000 ريال هذا الشهر</div>
+                                </div>
+                                <div class="item-value" style="color: #6f8051;">+18%</div>
+                            </div>
+                            <div class="top-item">
+                                <div class="item-rank" style="background: #6f8051; color: white;">$</div>
+                                <div class="item-info">
+                                    <div class="item-name">متوسط قيمة الطلب</div>
+                                    <div class="item-meta">200 ريال للطلب الواحد</div>
+                                </div>
+                                <div class="item-value" style="color: #6f8051;">+5%</div>
+                            </div>
+                            <div class="top-item">
+                                <div class="item-rank" style="background: #6f8051; color: white;">$</div>
+                                <div class="item-info">
+                                    <div class="item-name">نمو الإيرادات</div>
+                                    <div class="item-meta">38,000 ريال زيادة</div>
+                                </div>
+                                <div class="item-value" style="color: #6f8051;">+15%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- تحليل سلوك المستخدمين -->
+                <div class="analytics-grid" style="margin-bottom: 30px;">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">
+                                <i class="fas fa-user-clock"></i>
+                                تحليل سلوك المستخدمين
+                            </div>
+                        </div>
+                        <div style="padding: 20px;">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                                <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #eee;">
+                                    <div style="font-weight: 600; color: #333; margin-bottom: 15px;">نشاط المستخدمين</div>
+                                    <div style="color: #666; font-size: 0.9em;">
+                                        <div style="margin-bottom: 15px;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>مستخدمين نشطين يومياً</span>
+                                                <span style="color: #6f8051;">1,200</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 60%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-bottom: 15px;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>طلبات متكررة</span>
+                                                <span style="color: #6f8051;">68%</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 68%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>معدل التفاعل</span>
+                                                <span style="color: #6f8051;">4.2</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 84%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #eee;">
+                                    <div style="font-weight: 600; color: #333; margin-bottom: 15px;">تقييم الخدمة</div>
+                                    <div style="color: #666; font-size: 0.9em;">
+                                        <div style="margin-bottom: 15px;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>سرعة الاستجابة</span>
+                                                <span style="color: #6f8051;">4.7/5</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 94%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-bottom: 15px;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>جودة الخدمة</span>
+                                                <span style="color: #6f8051;">4.5/5</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 90%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>رضا المستخدمين</span>
+                                                <span style="color: #6f8051;">4.6/5</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 92%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #eee;">
+                                    <div style="font-weight: 600; color: #333; margin-bottom: 15px;">تحليل التفاعل</div>
+                                    <div style="color: #666; font-size: 0.9em;">
+                                        <div style="margin-bottom: 15px;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>متوسط وقت التصفح</span>
+                                                <span style="color: #6f8051;">8.5 دقيقة</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 85%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-bottom: 15px;">
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>نسبة التحويل</span>
+                                                <span style="color: #6f8051;">45%</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 45%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                <span>معدل العودة</span>
+                                                <span style="color: #6f8051;">72%</span>
+                                            </div>
+                                            <div style="height: 8px; background: #f0f4e8; border-radius: 4px;">
+                                                <div style="width: 72%; height: 100%; background: #6f8051; border-radius: 4px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="top-items">
+                        <div class="top-items-header">
+                            <div class="top-items-title">
+                                <i class="fas fa-chart-pie"></i>
+                                تحليل التوزيع
+                            </div>
+                        </div>
+                        <div class="top-items-list">
+                            <div class="top-item">
+                                <div class="item-rank" style="background: #6f8051; color: white;">1</div>
+                                <div class="item-info">
+                                    <div class="item-name">توزيع المستخدمين</div>
+                                    <div class="item-meta">60% ذكور، 40% إناث</div>
+                                </div>
+                                <div class="item-value" style="color: #6f8051;">متوازن</div>
+                            </div>
+                            <div class="top-item">
+                                <div class="item-rank" style="background: #6f8051; color: white;">2</div>
+                                <div class="item-info">
+                                    <div class="item-name">الفئات العمرية</div>
+                                    <div class="item-meta">25-35: 45%، 36-45: 35%</div>
+                                </div>
+                                <div class="item-value" style="color: #6f8051;">شباب</div>
+                            </div>
+                            <div class="top-item">
+                                <div class="item-rank" style="background: #6f8051; color: white;">3</div>
+                                <div class="item-info">
+                                    <div class="item-name">نوع الخدمات</div>
+                                    <div class="item-meta">منزلية: 65%، تجارية: 35%</div>
+                                </div>
+                                <div class="item-value" style="color: #6f8051;">منزلي</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/admin.js"></script>
+    <script>
+        // تفعيل فلتر الرسم البياني
+        document.querySelectorAll('.chart-filter').forEach(filter => {
+            filter.addEventListener('click', function() {
+                // إزالة الفئة النشطة من جميع الفلاتر
+                this.parentElement.querySelectorAll('.chart-filter').forEach(f => f.classList.remove('active'));
+                // إضافة الفئة النشطة للفلتر المحدد
+                this.classList.add('active');
+                // هنا يمكن إضافة كود لتحديث الرسم البياني
+            });
+        });
+    </script>
+</body>
+
+</html> 

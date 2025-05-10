@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة منطقة جديدة - نطاق</title>
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <style>
+        .add-region-container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 1.8em;
+            color: #333;
+            margin: 0;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #6f8051;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #6f8051;
+            box-shadow: 0 0 0 3px rgba(111, 128, 81, 0.1);
+            outline: none;
+        }
+
+        .form-group .hint {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .districts-section {
+            margin-top: 20px;
+        }
+
+        .districts-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .district-tag {
+            background: #f8f9fa;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            color: #333;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .district-tag .remove-district {
+            color: #dc3545;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .district-input {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .district-input input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95em;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #6f8051;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .btn i {
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <img src="../images/icon.png" alt="نطاق" class="logo">
+                <h1>لوحة التحكم</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="index.html">
+                            <i class="fas fa-home"></i>
+                            الرئيسية
+                        </a>
+                    </li>
+                    <li>
+                        <a href="users.html">
+                            <i class="fas fa-users"></i>
+                            المستخدمين
+                        </a>
+                    </li>
+                    <li>
+                        <a href="providers.html">
+                            <i class="fas fa-user-tie"></i>
+                            مقدمي الخدمات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="requests.html">
+                            <i class="fas fa-tasks"></i>
+                            الطلبات
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="regions.html">
+                            <i class="fas fa-map-marked-alt"></i>
+                            المناطق
+                        </a>
+                    </li>
+                    <li>
+                        <a href="reports.html">
+                            <i class="fas fa-flag"></i>
+                            البلاغات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="analytics.html">
+                            <i class="fas fa-chart-line"></i>
+                            التحليلات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            الإعدادات
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Top Bar -->
+            <header class="admin-header">
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="بحث...">
+                </div>
+                <div class="header-actions">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <div class="admin-profile">
+                        <img src="../images/admin-avatar.jpg" alt="Admin">
+                        <span>مدير النظام</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Add Region Content -->
+            <div class="add-region-container">
+                <div class="page-header">
+                    <h1>إضافة منطقة جديدة</h1>
+                </div>
+
+                <div class="form-card">
+                    <form id="addRegionForm">
+                        <!-- معلومات المنطقة -->
+                        <div class="form-section">
+                            <div class="section-title">
+                                <i class="fas fa-map-marked-alt"></i>
+                                معلومات المنطقة
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="regionName">اسم المنطقة</label>
+                                    <input type="text" id="regionName" name="regionName" required
+                                        placeholder="مثال: الرياض">
+                                    <div class="hint">أدخل اسم المنطقة باللغة العربية</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="regionType">نوع المنطقة</label>
+                                    <select id="regionType" name="regionType" required>
+                                        <option value="">اختر نوع المنطقة</option>
+                                        <option value="province">محافظة</option>
+                                        <option value="center">مركز</option>
+                                        <option value="district">حي</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- الموقع -->
+                        <div class="form-section">
+                            <div class="section-title">
+                                <i class="fas fa-location-dot"></i>
+                                الموقع
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="parentRegion">المنطقة الأم</label>
+                                    <select id="parentRegion" name="parentRegion">
+                                        <option value="">اختر المنطقة الأم</option>
+                                        <option value="riyadh">الرياض</option>
+                                        <option value="makkah">مكة المكرمة</option>
+                                        <option value="madinah">المدينة المنورة</option>
+                                    </select>
+                                    <div class="hint">اختر المنطقة التي تتبع لها هذه المنطقة</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="coordinates">الإحداثيات</label>
+                                    <input type="text" id="coordinates" name="coordinates"
+                                        placeholder="مثال: 24.7136° N, 46.6753° E">
+                                    <div class="hint">أدخل إحداثيات المنطقة (اختياري)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- المناطق الفرعية -->
+                        <div class="form-section">
+                            <div class="section-title">
+                                <i class="fas fa-sitemap"></i>
+                                المناطق الفرعية
+                            </div>
+                            <div class="districts-section">
+                                <div class="districts-list" id="districtsList">
+                                    <!-- سيتم إضافة المناطق هنا -->
+                                </div>
+                                <div class="district-input">
+                                    <input type="text" id="districtInput" placeholder="أدخل اسم المنطقة الفرعية">
+                                    <button type="button" class="btn btn-secondary" onclick="addDistrict()">
+                                        <i class="fas fa-plus"></i>
+                                        إضافة
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- أزرار التحكم -->
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="window.location.href='regions.html'">
+                                <i class="fas fa-times"></i>
+                                إلغاء
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i>
+                                حفظ المنطقة
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/admin.js"></script>
+    <script>
+        // إضافة منطقة فرعية
+        function addDistrict() {
+            const input = document.getElementById('districtInput');
+            const districtsList = document.getElementById('districtsList');
+            
+            if (input.value.trim() !== '') {
+                const districtTag = document.createElement('div');
+                districtTag.className = 'district-tag';
+                districtTag.innerHTML = `
+                    ${input.value}
+                    <i class="fas fa-times remove-district" onclick="this.parentElement.remove()"></i>
+                `;
+                districtsList.appendChild(districtTag);
+                input.value = '';
+            }
+        }
+
+        // تفعيل إضافة منطقة عند الضغط على Enter
+        document.getElementById('districtInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addDistrict();
+            }
+        });
+
+        // معالجة تقديم النموذج
+        document.getElementById('addRegionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // هنا يمكن إضافة كود لحفظ البيانات
+            window.location.href = 'regions.html';
+        });
+
+        // تحديث قائمة المناطق الأم بناءً على نوع المنطقة
+        document.getElementById('regionType').addEventListener('change', function(e) {
+            const parentRegion = document.getElementById('parentRegion');
+            const districtsSection = document.querySelector('.districts-section');
+            
+            if (e.target.value === 'province') {
+                parentRegion.style.display = 'none';
+                districtsSection.style.display = 'block';
+            } else if (e.target.value === 'center') {
+                parentRegion.style.display = 'block';
+                districtsSection.style.display = 'block';
+            } else {
+                parentRegion.style.display = 'block';
+                districtsSection.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html> 

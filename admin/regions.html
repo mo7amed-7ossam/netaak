@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة المناطق - نطاق</title>
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <style>
+        .regions-container {
+            padding: 20px;
+        }
+
+        .regions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .regions-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .stat-card i {
+            font-size: 2em;
+            color: #6f8051;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .stat-card .label {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .regions-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 25px;
+        }
+
+        .regions-list {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .regions-list-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .regions-list-header h3 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .regions-search {
+            position: relative;
+            margin: 15px;
+        }
+
+        .regions-search input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+
+        .regions-search i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .region-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .region-item:hover {
+            background: #f8f9fa;
+        }
+
+        .region-item.active {
+            background: #f0f4e8;
+            border-right: 3px solid #6f8051;
+        }
+
+        .region-item .region-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .region-item .region-count {
+            background: #e9ecef;
+            color: #666;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+
+        .region-details {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+        }
+
+        .region-details-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .region-details-header h3 {
+            margin: 0;
+            font-size: 1.3em;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .region-details-header h3 i {
+            color: #6f8051;
+        }
+
+        .centers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .center-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .center-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .center-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .center-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1em;
+        }
+
+        .center-count {
+            background: #e9ecef;
+            color: #666;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+
+        .districts-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .district-tag {
+            background: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            color: #666;
+            border: 1px solid #ddd;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #6f8051;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn i {
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <img src="../images/icon.png" alt="نطاق" class="logo">
+                <h1>لوحة التحكم</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="index.html">
+                            <i class="fas fa-home"></i>
+                            الرئيسية
+                        </a>
+                    </li>
+                    <li>
+                        <a href="users.html">
+                            <i class="fas fa-users"></i>
+                            المستخدمين
+                        </a>
+                    </li>
+                    <li>
+                        <a href="providers.html">
+                            <i class="fas fa-user-tie"></i>
+                            مقدمي الخدمات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="requests.html">
+                            <i class="fas fa-tasks"></i>
+                            الطلبات
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="regions.html">
+                            <i class="fas fa-map-marked-alt"></i>
+                            المناطق
+                        </a>
+                    </li>
+                    <li>
+                        <a href="reports.html">
+                            <i class="fas fa-flag"></i>
+                            البلاغات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="analytics.html">
+                            <i class="fas fa-chart-line"></i>
+                            التحليلات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            الإعدادات
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Top Bar -->
+            <header class="admin-header">
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="بحث...">
+                </div>
+                <div class="header-actions">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <div class="admin-profile">
+                        <img src="../images/admin-avatar.jpg" alt="Admin">
+                        <span>مدير النظام</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Regions Content -->
+            <div class="regions-container">
+                <div class="regions-header">
+                    <h1>إدارة المناطق</h1>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        إضافة منطقة جديدة
+                    </button>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="regions-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <div class="value">13</div>
+                        <div class="label">المحافظات</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-city"></i>
+                        <div class="value">45</div>
+                        <div class="label">المراكز</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="value">120</div>
+                        <div class="label">المناطق</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-user-tie"></i>
+                        <div class="value">150</div>
+                        <div class="label">مقدمي الخدمات</div>
+                    </div>
+                </div>
+
+                <!-- Regions Content -->
+                <div class="regions-content">
+                    <!-- Regions List -->
+                    <div class="regions-list">
+                        <div class="regions-list-header">
+                            <h3>المحافظات</h3>
+                        </div>
+                        <div class="regions-search">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="بحث عن محافظة...">
+                        </div>
+                        <div class="regions-items">
+                            <div class="region-item active">
+                                <span class="region-name">الرياض</span>
+                                <span class="region-count">12</span>
+                            </div>
+                            <div class="region-item">
+                                <span class="region-name">مكة المكرمة</span>
+                                <span class="region-count">8</span>
+                            </div>
+                            <div class="region-item">
+                                <span class="region-name">المدينة المنورة</span>
+                                <span class="region-count">6</span>
+                            </div>
+                            <div class="region-item">
+                                <span class="region-name">المنطقة الشرقية</span>
+                                <span class="region-count">10</span>
+                            </div>
+                            <div class="region-item">
+                                <span class="region-name">عسير</span>
+                                <span class="region-count">4</span>
+                            </div>
+                            <div class="region-item">
+                                <span class="region-name">تبوك</span>
+                                <span class="region-count">3</span>
+                            </div>
+                            <div class="region-item">
+                                <span class="region-name">حائل</span>
+                                <span class="region-count">2</span>
+                            </div>
+                            <div class="region-item">
+                                <span class="region-name">المنطقة الشمالية</span>
+                                <span class="region-count">3</span>
+                            </div>
+                            <div class="region-item">
+                                <span class="region-name">جازان</span>
+                                <span class="region-count">2</span>
+                            </div>
+                            <div class="region-item">
+                                <span class="region-name">نجران</span>
+                                <span class="region-count">2</span>
+                            </div>
+                            <div class="region-item">
+                                <span class="region-name">الباحة</span>
+                                <span class="region-count">2</span>
+                            </div>
+                            <div class="region-item">
+                                <span class="region-name">الجوف</span>
+                                <span class="region-count">2</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Region Details -->
+                    <div class="region-details">
+                        <div class="region-details-header">
+                            <h3>
+                                <i class="fas fa-map-marked-alt"></i>
+                                محافظة الرياض
+                            </h3>
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-plus"></i>
+                                إضافة مركز جديد
+                            </button>
+                        </div>
+
+                        <!-- الإحصائيات الرئيسية -->
+                        <div style="margin-bottom: 30px; background: white; border-radius: 15px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                            <h4 style="color: #333; margin: 0 0 20px 0; font-size: 1.2em; display: flex; align-items: center; gap: 10px;">
+                                <i class="fas fa-chart-bar" style="color: #6f8051;"></i>
+                                الإحصائيات الرئيسية
+                            </h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+                                <div style="background: linear-gradient(145deg, #f8f9fa, #ffffff); padding: 20px; border-radius: 12px; border: 1px solid #eee;">
+                                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+                                        <div style="background: #f0f4e8; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-city" style="color: #6f8051; font-size: 1.2em;"></i>
+                                        </div>
+                                        <span style="font-weight: 600; color: #444;">المراكز</span>
+                                    </div>
+                                    <div style="font-size: 1.8em; font-weight: bold; color: #333; margin: 10px 0;">3</div>
+                                    <div style="color: #666; font-size: 0.9em;">مراكز رئيسية</div>
+                                </div>
+                                <div style="background: linear-gradient(145deg, #f8f9fa, #ffffff); padding: 20px; border-radius: 12px; border: 1px solid #eee;">
+                                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+                                        <div style="background: #f0f4e8; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-map-marker-alt" style="color: #6f8051; font-size: 1.2em;"></i>
+                                        </div>
+                                        <span style="font-weight: 600; color: #444;">المناطق</span>
+                                    </div>
+                                    <div style="font-size: 1.8em; font-weight: bold; color: #333; margin: 10px 0;">14</div>
+                                    <div style="color: #666; font-size: 0.9em;">مناطق سكنية</div>
+                                </div>
+                                <div style="background: linear-gradient(145deg, #f8f9fa, #ffffff); padding: 20px; border-radius: 12px; border: 1px solid #eee;">
+                                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+                                        <div style="background: #f0f4e8; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-user-tie" style="color: #6f8051; font-size: 1.2em;"></i>
+                                        </div>
+                                        <span style="font-weight: 600; color: #444;">مقدمي الخدمات</span>
+                                    </div>
+                                    <div style="font-size: 1.8em; font-weight: bold; color: #333; margin: 10px 0;">25</div>
+                                    <div style="color: #666; font-size: 0.9em;">خدمات نشطة</div>
+                                </div>
+                                <div style="background: linear-gradient(145deg, #f8f9fa, #ffffff); padding: 20px; border-radius: 12px; border: 1px solid #eee;">
+                                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+                                        <div style="background: #f0f4e8; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-users" style="color: #6f8051; font-size: 1.2em;"></i>
+                                        </div>
+                                        <span style="font-weight: 600; color: #444;">المستخدمين</span>
+                                    </div>
+                                    <div style="font-size: 1.8em; font-weight: bold; color: #333; margin: 10px 0;">1,250</div>
+                                    <div style="color: #666; font-size: 0.9em;">مستخدمين نشطين</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- إحصائيات الخدمات -->
+                        <div style="margin-bottom: 30px; background: white; border-radius: 15px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                            <h4 style="color: #333; margin: 0 0 20px 0; font-size: 1.2em; display: flex; align-items: center; gap: 10px;">
+                                <i class="fas fa-tasks" style="color: #6f8051;"></i>
+                                إحصائيات الخدمات
+                            </h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+                                <div style="background: linear-gradient(145deg, #f8f9fa, #ffffff); padding: 20px; border-radius: 12px; border: 1px solid #eee;">
+                                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+                                        <div style="background: #f0f4e8; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-clipboard-list" style="color: #6f8051; font-size: 1.2em;"></i>
+                                        </div>
+                                        <span style="font-weight: 600; color: #444;">طلبات الخدمة</span>
+                                    </div>
+                                    <div style="font-size: 1.8em; font-weight: bold; color: #333; margin: 10px 0;">150</div>
+                                    <div style="color: #6f8051; font-size: 0.9em; display: flex; align-items: center; gap: 5px;">
+                                        <i class="fas fa-arrow-up"></i>
+                                        +12% هذا الشهر
+                                    </div>
+                                </div>
+                                <div style="background: linear-gradient(145deg, #f8f9fa, #ffffff); padding: 20px; border-radius: 12px; border: 1px solid #eee;">
+                                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+                                        <div style="background: #f0f4e8; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-star" style="color: #6f8051; font-size: 1.2em;"></i>
+                                        </div>
+                                        <span style="font-weight: 600; color: #444;">متوسط التقييم</span>
+                                    </div>
+                                    <div style="font-size: 1.8em; font-weight: bold; color: #333; margin: 10px 0;">4.5</div>
+                                    <div style="color: #666; font-size: 0.9em;">من 5 نجوم</div>
+                                </div>
+                                <div style="background: linear-gradient(145deg, #f8f9fa, #ffffff); padding: 20px; border-radius: 12px; border: 1px solid #eee;">
+                                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+                                        <div style="background: #f0f4e8; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-flag" style="color: #6f8051; font-size: 1.2em;"></i>
+                                        </div>
+                                        <span style="font-weight: 600; color: #444;">البلاغات</span>
+                                    </div>
+                                    <div style="font-size: 1.8em; font-weight: bold; color: #333; margin: 10px 0;">8</div>
+                                    <div style="color: #dc3545; font-size: 0.9em; display: flex; align-items: center; gap: 5px;">
+                                        <i class="fas fa-arrow-down"></i>
+                                        -3% هذا الشهر
+                                    </div>
+                                </div>
+                                <div style="background: linear-gradient(145deg, #f8f9fa, #ffffff); padding: 20px; border-radius: 12px; border: 1px solid #eee;">
+                                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+                                        <div style="background: #f0f4e8; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-chart-line" style="color: #6f8051; font-size: 1.2em;"></i>
+                                        </div>
+                                        <span style="font-weight: 600; color: #444;">نسبة النمو</span>
+                                    </div>
+                                    <div style="font-size: 1.8em; font-weight: bold; color: #333; margin: 10px 0;">15%</div>
+                                    <div style="color: #666; font-size: 0.9em;">هذا العام</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- إحصائيات تفصيلية -->
+                        <div style="margin-bottom: 30px; background: white; border-radius: 15px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                            <h4 style="color: #333; margin: 0 0 20px 0; font-size: 1.2em; display: flex; align-items: center; gap: 10px;">
+                                <i class="fas fa-chart-pie" style="color: #6f8051;"></i>
+                                إحصائيات تفصيلية
+                            </h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+                                <div style="background: linear-gradient(145deg, #f8f9fa, #ffffff); padding: 20px; border-radius: 12px; border: 1px solid #eee;">
+                                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+                                        <div style="background: #f0f4e8; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-clock" style="color: #6f8051; font-size: 1.2em;"></i>
+                                        </div>
+                                        <span style="font-weight: 600; color: #444;">متوسط وقت الاستجابة</span>
+                                    </div>
+                                    <div style="font-size: 1.8em; font-weight: bold; color: #333; margin: 10px 0;">45</div>
+                                    <div style="color: #666; font-size: 0.9em;">دقيقة للطلبات الجديدة</div>
+                                </div>
+                                <div style="background: linear-gradient(145deg, #f8f9fa, #ffffff); padding: 20px; border-radius: 12px; border: 1px solid #eee;">
+                                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+                                        <div style="background: #f0f4e8; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-check-circle" style="color: #6f8051; font-size: 1.2em;"></i>
+                                        </div>
+                                        <span style="font-weight: 600; color: #444;">نسبة إنجاز الخدمات</span>
+                                    </div>
+                                    <div style="font-size: 1.8em; font-weight: bold; color: #333; margin: 10px 0;">92%</div>
+                                    <div style="color: #666; font-size: 0.9em;">من إجمالي الطلبات</div>
+                                </div>
+                                <div style="background: linear-gradient(145deg, #f8f9fa, #ffffff); padding: 20px; border-radius: 12px; border: 1px solid #eee;">
+                                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+                                        <div style="background: #f0f4e8; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-sync" style="color: #6f8051; font-size: 1.2em;"></i>
+                                        </div>
+                                        <span style="font-weight: 600; color: #444;">الخدمات المتكررة</span>
+                                    </div>
+                                    <div style="font-size: 1.8em; font-weight: bold; color: #333; margin: 10px 0;">68%</div>
+                                    <div style="color: #666; font-size: 0.9em;">من المستخدمين</div>
+                                </div>
+                                <div style="background: linear-gradient(145deg, #f8f9fa, #ffffff); padding: 20px; border-radius: 12px; border: 1px solid #eee;">
+                                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+                                        <div style="background: #f0f4e8; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-comments" style="color: #6f8051; font-size: 1.2em;"></i>
+                                        </div>
+                                        <span style="font-weight: 600; color: #444;">التقييمات الإيجابية</span>
+                                    </div>
+                                    <div style="font-size: 1.8em; font-weight: bold; color: #333; margin: 10px 0;">85%</div>
+                                    <div style="color: #666; font-size: 0.9em;">من التقييمات</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="centers-grid">
+                            <div class="center-card">
+                                <div class="center-header">
+                                    <span class="center-name">مركز الرياض</span>
+                                    <span class="center-count">6 مناطق</span>
+                                </div>
+                                <div class="districts-list">
+                                    <span class="district-tag">المرقب</span>
+                                    <span class="district-tag">الروضة</span>
+                                    <span class="district-tag">النسيم</span>
+                                    <span class="district-tag">الشفا</span>
+                                    <span class="district-tag">الدرعية</span>
+                                    <span class="district-tag">الرمال</span>
+                                </div>
+                            </div>
+
+                            <div class="center-card">
+                                <div class="center-header">
+                                    <span class="center-name">الدرعية</span>
+                                    <span class="center-count">4 مناطق</span>
+                                </div>
+                                <div class="districts-list">
+                                    <span class="district-tag">حي البجيري</span>
+                                    <span class="district-tag">حي السريحة</span>
+                                    <span class="district-tag">حي العمارية</span>
+                                    <span class="district-tag">حي البليدة</span>
+                                </div>
+                            </div>
+
+                            <div class="center-card">
+                                <div class="center-header">
+                                    <span class="center-name">بنيان</span>
+                                    <span class="center-count">4 مناطق</span>
+                                </div>
+                                <div class="districts-list">
+                                    <span class="district-tag">حي الياسمين</span>
+                                    <span class="district-tag">حي النرجس</span>
+                                    <span class="district-tag">حي الورود</span>
+                                    <span class="district-tag">حي الربيع</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/admin.js"></script>
+    <script>
+        // تفعيل البحث في المحافظات
+        document.querySelector('.regions-search input').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const regions = document.querySelectorAll('.region-item');
+            
+            regions.forEach(region => {
+                const regionName = region.querySelector('.region-name').textContent.toLowerCase();
+                if (regionName.includes(searchTerm)) {
+                    region.style.display = 'flex';
+                } else {
+                    region.style.display = 'none';
+                }
+            });
+        });
+
+        // تفعيل اختيار المحافظة
+        document.querySelectorAll('.region-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // إزالة الفئة النشطة من جميع العناصر
+                document.querySelectorAll('.region-item').forEach(i => i.classList.remove('active'));
+                // إضافة الفئة النشطة للعنصر المحدد
+                this.classList.add('active');
+                // هنا يمكن إضافة كود لتحديث تفاصيل المحافظة
+            });
+        });
+    </script>
+</body>
+
+</html> 
