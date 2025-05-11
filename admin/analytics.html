@@ -36,17 +36,21 @@
             margin: 0 auto;
             background: #f8f9fa;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
         }
 
         .analytics-header {
             background: white;
-            padding: var(--spacing-md);
+            padding: var(--spacing-lg);
             border-radius: var(--border-radius);
-            margin-bottom: var(--spacing-lg);
+            margin-bottom: 0;
             box-shadow: var(--card-shadow);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: var(--spacing-md);
         }
 
         .analytics-header h1 {
@@ -74,37 +78,32 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--spacing-md);
-            margin-bottom: var(--spacing-lg);
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 0;
         }
 
         .stat-card {
             background: white;
-            padding: var(--spacing-md);
-            border-radius: var(--border-radius);
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
-            border: 1px solid var(--border-color);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--hover-shadow);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
         .stat-header {
             display: flex;
             align-items: center;
-            gap: var(--spacing-sm);
-            margin-bottom: var(--spacing-sm);
+            gap: 0.5rem;
         }
 
         .stat-icon {
-            width: 48px;
-            height: 48px;
+            width: 2rem;
+            height: 2rem;
             background: var(--primary-light);
-            border-radius: 12px;
+            border-radius: 0.375rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -112,72 +111,80 @@
 
         .stat-icon i {
             color: var(--primary-color);
-            font-size: 1.5rem;
+            font-size: 1rem;
         }
 
         .stat-title {
             font-weight: 600;
             color: var(--text-dark);
-            font-size: 1.1rem;
+            font-size: 0.875rem;
         }
 
         .stat-value {
-            font-size: 2.25rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--text-dark);
-            margin: var(--spacing-xs) 0;
-            line-height: 1.2;
+            margin: 0;
         }
 
         .stat-change {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .stat-change.positive {
-            background: var(--primary-light);
+            gap: 0.25rem;
+            font-size: 0.75rem;
             color: var(--primary-color);
         }
 
-        .stat-change.negative {
-            background: #fff5f5;
-            color: #dc3545;
+        .stat-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            margin-top: 0.25rem;
+            padding-top: 0.25rem;
+            border-top: 1px solid #eee;
         }
 
-        .stat-details {
-            margin-top: var(--spacing-sm);
-            padding-top: var(--spacing-sm);
-            border-top: 1px solid var(--border-color);
+        .stat-detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+        }
+
+        .stat-detail-label {
             color: var(--text-light);
-            font-size: 0.9rem;
+        }
+
+        .stat-detail-value {
+            font-weight: 500;
+            color: var(--text-dark);
         }
 
         .analytics-grid {
             display: grid;
             grid-template-columns: 1.5fr 1fr;
-            gap: var(--spacing-md);
-            margin-bottom: var(--spacing-lg);
+            gap: var(--spacing-lg);
+            margin-bottom: 0;
         }
 
         .chart-container {
             background: white;
-            padding: var(--spacing-md);
+            padding: var(--spacing-lg);
             border-radius: var(--border-radius);
             box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
         }
 
         .chart-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: var(--spacing-md);
+            margin-bottom: 0;
             padding-bottom: var(--spacing-sm);
             border-bottom: 1px solid var(--border-color);
+            gap: var(--spacing-md);
         }
 
         .chart-title {
@@ -195,7 +202,8 @@
 
         .chart-filters {
             display: flex;
-            gap: 0.5rem;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
         }
 
         .chart-filter {
@@ -221,18 +229,22 @@
 
         .top-items {
             background: white;
-            padding: var(--spacing-md);
+            padding: var(--spacing-lg);
             border-radius: var(--border-radius);
             box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
         }
 
         .top-items-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: var(--spacing-md);
+            margin-bottom: 0;
             padding-bottom: var(--spacing-sm);
             border-bottom: 1px solid var(--border-color);
+            gap: var(--spacing-md);
         }
 
         .top-items-title {
@@ -248,11 +260,17 @@
             color: var(--primary-color);
         }
 
+        .top-items-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
         .top-item {
             display: flex;
             align-items: center;
-            gap: var(--spacing-sm);
-            padding: var(--spacing-sm);
+            gap: var(--spacing-md);
+            padding: var(--spacing-md);
             border-bottom: 1px solid var(--border-color);
             transition: all 0.2s ease;
         }
@@ -306,18 +324,21 @@
         @media (max-width: 1200px) {
             .analytics-grid {
                 grid-template-columns: 1fr;
+                gap: var(--spacing-lg);
             }
         }
 
         @media (max-width: 768px) {
             .analytics-container {
                 padding: var(--spacing-sm);
+                gap: var(--spacing-md);
             }
 
             .analytics-header {
                 flex-direction: column;
                 gap: var(--spacing-sm);
                 text-align: center;
+                padding: var(--spacing-md);
             }
 
             .date-filter {
@@ -330,6 +351,7 @@
 
             .stats-grid {
                 grid-template-columns: 1fr;
+                gap: var(--spacing-md);
             }
 
             .chart-header {
@@ -340,19 +362,40 @@
             .chart-filters {
                 width: 100%;
                 justify-content: center;
-                flex-wrap: wrap;
             }
 
-            .chart-filter {
-                flex: 1;
-                text-align: center;
-                min-width: 100px;
+            .top-items {
+                padding: var(--spacing-md);
+            }
+
+            .stat-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--spacing-md);
+            }
+
+            .stat-header {
+                width: 100%;
+            }
+
+            .stat-content {
+                width: 100%;
+            }
+
+            .stat-details {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+            }
+
+            .stat-details > div {
+                width: 100%;
+                justify-content: space-between;
             }
         }
 
         @media (max-width: 480px) {
             .stat-card {
-                padding: var(--spacing-sm);
+                padding: var(--spacing-md);
             }
 
             .stat-value {
@@ -367,6 +410,11 @@
             .item-rank {
                 width: 28px;
                 height: 28px;
+            }
+
+            .top-item {
+                padding: var(--spacing-sm);
+                gap: var(--spacing-sm);
             }
         }
     </style>
@@ -476,16 +524,22 @@
                             <div class="stat-icon">
                                 <i class="fas fa-users"></i>
                             </div>
-                            <span class="stat-title">إجمالي المستخدمين</span>
+                            <div class="stat-title">إجمالي المستخدمين</div>
                         </div>
                         <div class="stat-value">5,250</div>
-                        <div class="stat-change positive">
+                        <div class="stat-change">
                             <i class="fas fa-arrow-up"></i>
-                            +15% هذا الشهر
+                            +15%
                         </div>
-                        <div class="stat-details" style="margin-top: 10px; font-size: 0.9em; color: #666;">
-                            <div>المستخدمين النشطين: 3,800</div>
-                            <div>المستخدمين الجدد: 450</div>
+                        <div class="stat-details">
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">نشطين</span>
+                                <span class="stat-detail-value">3,800</span>
+                            </div>
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">جدد</span>
+                                <span class="stat-detail-value">450</span>
+                            </div>
                         </div>
                     </div>
                     <div class="stat-card">
@@ -493,16 +547,22 @@
                             <div class="stat-icon">
                                 <i class="fas fa-user-tie"></i>
                             </div>
-                            <span class="stat-title">مقدمي الخدمات</span>
+                            <div class="stat-title">مقدمي الخدمات</div>
                         </div>
                         <div class="stat-value">320</div>
-                        <div class="stat-change positive">
+                        <div class="stat-change">
                             <i class="fas fa-arrow-up"></i>
-                            +8% هذا الشهر
+                            +8%
                         </div>
-                        <div class="stat-details" style="margin-top: 10px; font-size: 0.9em; color: #666;">
-                            <div>النشطين: 280</div>
-                            <div>الجدد: 25</div>
+                        <div class="stat-details">
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">نشطين</span>
+                                <span class="stat-detail-value">280</span>
+                            </div>
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">جدد</span>
+                                <span class="stat-detail-value">25</span>
+                            </div>
                         </div>
                     </div>
                     <div class="stat-card">
@@ -510,16 +570,22 @@
                             <div class="stat-icon">
                                 <i class="fas fa-tasks"></i>
                             </div>
-                            <span class="stat-title">طلبات الخدمة</span>
+                            <div class="stat-title">طلبات الخدمة</div>
                         </div>
                         <div class="stat-value">1,250</div>
-                        <div class="stat-change positive">
+                        <div class="stat-change">
                             <i class="fas fa-arrow-up"></i>
-                            +12% هذا الشهر
+                            +12%
                         </div>
-                        <div class="stat-details" style="margin-top: 10px; font-size: 0.9em; color: #666;">
-                            <div>مكتملة: 1,100</div>
-                            <div>قيد التنفيذ: 150</div>
+                        <div class="stat-details">
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">مكتملة</span>
+                                <span class="stat-detail-value">1,100</span>
+                            </div>
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">قيد التنفيذ</span>
+                                <span class="stat-detail-value">150</span>
+                            </div>
                         </div>
                     </div>
                     <div class="stat-card">
@@ -527,22 +593,28 @@
                             <div class="stat-icon">
                                 <i class="fas fa-star"></i>
                             </div>
-                            <span class="stat-title">متوسط التقييم</span>
+                            <div class="stat-title">متوسط التقييم</div>
                         </div>
                         <div class="stat-value">4.5</div>
-                        <div class="stat-change positive">
+                        <div class="stat-change">
                             <i class="fas fa-arrow-up"></i>
-                            +0.2 هذا الشهر
+                            +0.2
                         </div>
-                        <div class="stat-details" style="margin-top: 10px; font-size: 0.9em; color: #666;">
-                            <div>التقييمات الإيجابية: 85%</div>
-                            <div>عدد التقييمات: 950</div>
+                        <div class="stat-details">
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">إيجابية</span>
+                                <span class="stat-detail-value">85%</span>
+                            </div>
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">عدد</span>
+                                <span class="stat-detail-value">950</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- إحصائيات العجز والطلب -->
-                <div class="analytics-grid" style="margin-bottom: 30px;">
+                <div class="analytics-grid" style="margin-bottom: 30px; grid-template-columns: 1fr;">
                     <div class="chart-container">
                         <div class="chart-header">
                             <div class="chart-title">
@@ -550,29 +622,56 @@
                                 تحليل العجز والطلب
                             </div>
                         </div>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 20px;">
-                            <div style="background: #fff3cd; padding: 15px; border-radius: 10px; border: 1px solid #ffeeba;">
-                                <div style="font-weight: 600; color: #856404; margin-bottom: 10px;">المناطق الأكثر طلباً</div>
-                                <div style="color: #666;">
-                                    <div>الرياض: 150 طلب/يوم</div>
-                                    <div>جدة: 120 طلب/يوم</div>
-                                    <div>الدمام: 100 طلب/يوم</div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-lg); padding: var(--spacing-md);">
+                            <div style="background: #fff3cd; padding: var(--spacing-lg); border-radius: var(--border-radius); border: 1px solid #ffeeba;">
+                                <div style="font-weight: 600; color: #856404; margin-bottom: var(--spacing-md); font-size: 1.1rem;">المناطق الأكثر طلباً</div>
+                                <div style="color: #666; display: flex; flex-direction: column; gap: var(--spacing-sm);">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-sm); background: rgba(255,255,255,0.5); border-radius: var(--border-radius);">
+                                        <span>الرياض</span>
+                                        <span style="font-weight: 600; color: #856404;">150 طلب/يوم</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-sm); background: rgba(255,255,255,0.5); border-radius: var(--border-radius);">
+                                        <span>جدة</span>
+                                        <span style="font-weight: 600; color: #856404;">120 طلب/يوم</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-sm); background: rgba(255,255,255,0.5); border-radius: var(--border-radius);">
+                                        <span>الدمام</span>
+                                        <span style="font-weight: 600; color: #856404;">100 طلب/يوم</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div style="background: #f8d7da; padding: 15px; border-radius: 10px; border: 1px solid #f5c6cb;">
-                                <div style="font-weight: 600; color: #721c24; margin-bottom: 10px;">المناطق الأقل تغطية</div>
-                                <div style="color: #666;">
-                                    <div>تبوك: 5 مقدمي خدمات</div>
-                                    <div>حائل: 4 مقدمي خدمات</div>
-                                    <div>الجوف: 3 مقدمي خدمات</div>
+                            <div style="background: #f8d7da; padding: var(--spacing-lg); border-radius: var(--border-radius); border: 1px solid #f5c6cb;">
+                                <div style="font-weight: 600; color: #721c24; margin-bottom: var(--spacing-md); font-size: 1.1rem;">المناطق الأقل تغطية</div>
+                                <div style="color: #666; display: flex; flex-direction: column; gap: var(--spacing-sm);">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-sm); background: rgba(255,255,255,0.5); border-radius: var(--border-radius);">
+                                        <span>تبوك</span>
+                                        <span style="font-weight: 600; color: #721c24;">5 مقدمي خدمات</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-sm); background: rgba(255,255,255,0.5); border-radius: var(--border-radius);">
+                                        <span>حائل</span>
+                                        <span style="font-weight: 600; color: #721c24;">4 مقدمي خدمات</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-sm); background: rgba(255,255,255,0.5); border-radius: var(--border-radius);">
+                                        <span>الجوف</span>
+                                        <span style="font-weight: 600; color: #721c24;">3 مقدمي خدمات</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div style="background: #d4edda; padding: 15px; border-radius: 10px; border: 1px solid #c3e6cb;">
-                                <div style="font-weight: 600; color: #155724; margin-bottom: 10px;">الخدمات الأكثر طلباً</div>
-                                <div style="color: #666;">
-                                    <div>تنظيف المنازل: 35%</div>
-                                    <div>الصيانة: 25%</div>
-                                    <div>الكهرباء: 20%</div>
+                            <div style="background: #d4edda; padding: var(--spacing-lg); border-radius: var(--border-radius); border: 1px solid #c3e6cb;">
+                                <div style="font-weight: 600; color: #155724; margin-bottom: var(--spacing-md); font-size: 1.1rem;">الخدمات الأكثر طلباً</div>
+                                <div style="color: #666; display: flex; flex-direction: column; gap: var(--spacing-sm);">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-sm); background: rgba(255,255,255,0.5); border-radius: var(--border-radius);">
+                                        <span>تنظيف المنازل</span>
+                                        <span style="font-weight: 600; color: #155724;">35%</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-sm); background: rgba(255,255,255,0.5); border-radius: var(--border-radius);">
+                                        <span>الصيانة</span>
+                                        <span style="font-weight: 600; color: #155724;">25%</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-sm); background: rgba(255,255,255,0.5); border-radius: var(--border-radius);">
+                                        <span>الكهرباء</span>
+                                        <span style="font-weight: 600; color: #155724;">20%</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

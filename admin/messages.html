@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الرسائل - نطاق</title>
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <style>
+        .messages-container {
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .messages-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .messages-header h1 {
+            font-size: 24px;
+            color: #333;
+            margin: 0;
+        }
+
+        .messages-filters {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #6f8051;
+            color: white;
+            border-color: #6f8051;
+        }
+
+        .messages-table {
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .messages-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .messages-table th {
+            background: #f8f9fa;
+            padding: 15px;
+            text-align: right;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #eee;
+        }
+
+        .messages-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            color: #666;
+        }
+
+        .messages-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .message-status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-unread {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .status-read {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .message-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .read-btn {
+            background: #6f8051;
+            color: white;
+        }
+
+        .read-btn:hover {
+            background: #5a6a41;
+        }
+
+        .reply-btn {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .reply-btn:hover {
+            background: #bbdefb;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 20px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-header h2 i {
+            color: #6f8051;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .close-modal:hover {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .message-details {
+            margin-bottom: 20px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .message-detail-item {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .message-detail-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .message-detail-label {
+            font-weight: 600;
+            color: #333;
+            min-width: 120px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .message-detail-label i {
+            color: #6f8051;
+            font-size: 14px;
+        }
+
+        .message-detail-value {
+            color: #666;
+            flex: 1;
+        }
+
+        .message-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #eee;
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            background: #f8f9fa;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .read-btn {
+            background: #6f8051;
+            color: white;
+        }
+
+        .read-btn:hover {
+            background: #5a6a41;
+            transform: translateY(-1px);
+        }
+
+        .reply-btn {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .reply-btn:hover {
+            background: #bbdefb;
+            transform: translateY(-1px);
+        }
+
+        .delete-btn {
+            background: #ffebee;
+            color: #d32f2f;
+        }
+
+        .delete-btn:hover {
+            background: #ffcdd2;
+            transform: translateY(-1px);
+        }
+
+        .mark-btn {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .mark-btn:hover {
+            background: #e1bee7;
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 768px) {
+            .messages-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .messages-filters {
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+
+            .messages-table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .message-actions {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <img src="../images/icon.png" alt="نطاق" class="logo">
+                <h1>لوحة التحكم</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="index.html">
+                            <i class="fas fa-home"></i>
+                            الرئيسية
+                        </a>
+                    </li>
+                    <li>
+                        <a href="users.html">
+                            <i class="fas fa-users"></i>
+                            المستخدمين
+                        </a>
+                    </li>
+                    <li>
+                        <a href="providers.html">
+                            <i class="fas fa-user-tie"></i>
+                            مقدمي الخدمات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="requests.html">
+                            <i class="fas fa-tasks"></i>
+                            الطلبات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="regions.html">
+                            <i class="fas fa-map-marked-alt"></i>
+                            المناطق
+                        </a>
+                    </li>
+                    <li>
+                        <a href="reports.html">
+                            <i class="fas fa-flag"></i>
+                            البلاغات
+                        </a>
+                    </li>
+                    <li>
+                        <a href="analytics.html">
+                            <i class="fas fa-chart-line"></i>
+                            التحليلات
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="messages.html">
+                            <i class="fas fa-envelope"></i>
+                            الرسائل
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            الإعدادات
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Top Bar -->
+            <header class="admin-header">
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="بحث...">
+                </div>
+                <div class="header-actions">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <div class="admin-profile">
+                        <img src="../images/admin-avatar.jpg" alt="Admin">
+                        <span>مدير النظام</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Messages Content -->
+            <div class="messages-container">
+                <div class="messages-header">
+                    <h1>الرسائل</h1>
+                    <div class="messages-filters">
+                        <button class="filter-btn active">الكل</button>
+                        <button class="filter-btn">غير مقروءة</button>
+                        <button class="filter-btn">مقروءة</button>
+                    </div>
+                </div>
+
+                <div class="messages-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>المرسل</th>
+                                <th>البريد الإلكتروني</th>
+                                <th>الموضوع</th>
+                                <th>الوقت</th>
+                                <th>الحالة</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>أحمد محمد</td>
+                                <td>ahmed@example.com</td>
+                                <td>استفسار عن حالة الطلب</td>
+                                <td>10:30 ص</td>
+                                <td><span class="message-status status-unread">غير مقروءة</span></td>
+                                <td>
+                                    <div class="message-actions">
+                                        <button class="action-btn read-btn" onclick="openMessageModal(1)">
+                                            <i class="fas fa-eye"></i>
+                                            قراءة
+                                        </button>
+                                        <button class="action-btn reply-btn" onclick="replyToEmail('ahmed@example.com')">
+                                            <i class="fas fa-reply"></i>
+                                            رد
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>سارة أحمد</td>
+                                <td>sara@example.com</td>
+                                <td>شكر على الخدمة المقدمة</td>
+                                <td>09:15 ص</td>
+                                <td><span class="message-status status-read">مقروءة</span></td>
+                                <td>
+                                    <div class="message-actions">
+                                        <button class="action-btn read-btn" onclick="openMessageModal(2)">
+                                            <i class="fas fa-eye"></i>
+                                            قراءة
+                                        </button>
+                                        <button class="action-btn reply-btn" onclick="replyToEmail('sara@example.com')">
+                                            <i class="fas fa-reply"></i>
+                                            رد
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>محمد علي</td>
+                                <td>mohammed@example.com</td>
+                                <td>تغيير موعد الخدمة</td>
+                                <td>أمس</td>
+                                <td><span class="message-status status-unread">غير مقروءة</span></td>
+                                <td>
+                                    <div class="message-actions">
+                                        <button class="action-btn read-btn" onclick="openMessageModal(3)">
+                                            <i class="fas fa-eye"></i>
+                                            قراءة
+                                        </button>
+                                        <button class="action-btn reply-btn" onclick="replyToEmail('mohammed@example.com')">
+                                            <i class="fas fa-reply"></i>
+                                            رد
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Message Modal -->
+    <div class="modal" id="messageModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>
+                    <i class="fas fa-envelope"></i>
+                    تفاصيل الرسالة
+                </h2>
+                <button class="close-modal" onclick="closeMessageModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="message-details">
+                    <div class="message-detail-item">
+                        <div class="message-detail-label">
+                            <i class="fas fa-user"></i>
+                            المرسل
+                        </div>
+                        <div class="message-detail-value" id="modalSender"></div>
+                    </div>
+                    <div class="message-detail-item">
+                        <div class="message-detail-label">
+                            <i class="fas fa-envelope"></i>
+                            البريد الإلكتروني
+                        </div>
+                        <div class="message-detail-value" id="modalEmail"></div>
+                    </div>
+                    <div class="message-detail-item">
+                        <div class="message-detail-label">
+                            <i class="fas fa-heading"></i>
+                            الموضوع
+                        </div>
+                        <div class="message-detail-value" id="modalSubject"></div>
+                    </div>
+                    <div class="message-detail-item">
+                        <div class="message-detail-label">
+                            <i class="fas fa-clock"></i>
+                            الوقت
+                        </div>
+                        <div class="message-detail-value" id="modalTime"></div>
+                    </div>
+                </div>
+                <div class="message-content" id="modalContent"></div>
+            </div>
+            <div class="modal-footer">
+                <div class="modal-actions">
+                    <button class="action-btn mark-btn" onclick="toggleMessageStatus()">
+                        <i class="fas fa-check"></i>
+                        تحديد كمقروءة
+                    </button>
+                    <button class="action-btn reply-btn" onclick="replyToEmail('')">
+                        <i class="fas fa-reply"></i>
+                        رد
+                    </button>
+                    <button class="action-btn delete-btn" onclick="deleteMessage()">
+                        <i class="fas fa-trash"></i>
+                        حذف
+                    </button>
+                    <button class="action-btn read-btn" onclick="closeMessageModal()">
+                        <i class="fas fa-times"></i>
+                        إغلاق
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+    <script>
+        // Message data (in real application, this would come from a database)
+        const messages = {
+            1: {
+                sender: 'أحمد محمد',
+                email: 'ahmed@example.com',
+                subject: 'استفسار عن حالة الطلب',
+                time: '10:30 ص',
+                content: 'مرحباً،\n\nأود الاستفسار عن حالة طلبي رقم #12345. لقد قمت بتقديم الطلب منذ 3 أيام ولم أتلق أي تحديثات.\n\nهل يمكنكم إخباري بالوضع الحالي للطلب؟\n\nشكراً لكم،\nأحمد محمد'
+            },
+            2: {
+                sender: 'سارة أحمد',
+                email: 'sara@example.com',
+                subject: 'شكر على الخدمة المقدمة',
+                time: '09:15 ص',
+                content: 'مرحباً،\n\nأود أن أعبر عن شكري وامتناني للخدمة المقدمة. كان فريق العمل محترفاً جداً وأداء الخدمة كان ممتازاً.\n\nسأقوم بالتوصية بكم لجميع أصدقائي.\n\nمع خالص الشكر،\nسارة أحمد'
+            },
+            3: {
+                sender: 'محمد علي',
+                email: 'mohammed@example.com',
+                subject: 'تغيير موعد الخدمة',
+                time: 'أمس',
+                content: 'السلام عليكم،\n\nأود طلب تغيير موعد الخدمة المقررة ليوم الخميس القادم. هل يمكن تأجيلها إلى يوم السبت؟\n\nأرجو الرد في أقرب وقت ممكن.\n\nشكراً لكم،\nمحمد علي'
+            }
+        };
+
+        // Toggle message status
+        function toggleMessageStatus() {
+            const messageId = currentMessageId;
+            const message = messages[messageId];
+            if (message) {
+                const statusElement = document.querySelector(`tr[data-message-id="${messageId}"] .message-status`);
+                if (statusElement) {
+                    if (statusElement.classList.contains('status-unread')) {
+                        statusElement.classList.remove('status-unread');
+                        statusElement.classList.add('status-read');
+                        statusElement.textContent = 'مقروءة';
+                    } else {
+                        statusElement.classList.remove('status-read');
+                        statusElement.classList.add('status-unread');
+                        statusElement.textContent = 'غير مقروءة';
+                    }
+                }
+            }
+        }
+
+        // Delete message
+        function deleteMessage() {
+            if (confirm('هل أنت متأكد من حذف هذه الرسالة؟')) {
+                const messageId = currentMessageId;
+                const row = document.querySelector(`tr[data-message-id="${messageId}"]`);
+                if (row) {
+                    row.remove();
+                    closeMessageModal();
+                }
+            }
+        }
+
+        let currentMessageId = null;
+
+        // Open message modal
+        function openMessageModal(messageId) {
+            currentMessageId = messageId;
+            const message = messages[messageId];
+            if (message) {
+                document.getElementById('modalSender').textContent = message.sender;
+                document.getElementById('modalEmail').textContent = message.email;
+                document.getElementById('modalSubject').textContent = message.subject;
+                document.getElementById('modalTime').textContent = message.time;
+                document.getElementById('modalContent').textContent = message.content;
+                document.getElementById('messageModal').classList.add('active');
+                
+                // Update reply button email
+                const replyBtn = document.querySelector('.modal-footer .reply-btn');
+                replyBtn.onclick = () => replyToEmail(message.email);
+
+                // Update mark as read button text
+                const markBtn = document.querySelector('.mark-btn');
+                const statusElement = document.querySelector(`tr[data-message-id="${messageId}"] .message-status`);
+                if (statusElement && statusElement.classList.contains('status-unread')) {
+                    markBtn.innerHTML = '<i class="fas fa-check"></i> تحديد كمقروءة';
+                } else {
+                    markBtn.innerHTML = '<i class="fas fa-envelope"></i> تحديد كغير مقروءة';
+                }
+            }
+        }
+
+        // Close message modal
+        function closeMessageModal() {
+            document.getElementById('messageModal').classList.remove('active');
+        }
+
+        // Reply to email
+        function replyToEmail(email) {
+            window.location.href = `mailto:${email}`;
+        }
+
+        // Filter messages
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const filter = this.textContent;
+                const rows = document.querySelectorAll('.messages-table tbody tr');
+                
+                rows.forEach(row => {
+                    const status = row.querySelector('.message-status').textContent;
+                    if (filter === 'الكل' || 
+                        (filter === 'غير مقروءة' && status === 'غير مقروءة') ||
+                        (filter === 'مقروءة' && status === 'مقروءة')) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('messageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeMessageModal();
+            }
+        });
+    </script>
+</body>
+
+</html> 
